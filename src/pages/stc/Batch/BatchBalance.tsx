@@ -7,6 +7,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
+import { getAddressData, getBalancesData, getAddressSTCBalance,} from "../../../utils/sdk"
+import Button from '@mui/material/Button';
+
 
 interface Column {
     id: 'name' | 'code' | 'population' | 'size' | 'density';
@@ -65,9 +68,21 @@ const rows = [
     createData('Brazil', 'BR', 210147125, 8515767),
 ];
 
-export default function BatchBalance() {
+export default  function BatchBalance() {
+
+
+
+
+
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+
+
+    const test = async ()=>{
+        await getAddressSTCBalance("");
+    }
+
 
     const handleChangePage = (event: unknown, newPage: number) => {
         setPage(newPage);
@@ -80,6 +95,11 @@ export default function BatchBalance() {
 
     return (
         <Paper sx={{width: '100%', overflow: 'hidden'}}>
+            <Button onClick={async ()=>{
+
+
+
+            }} >测试</Button>
             <TableContainer sx={{maxHeight: 440}}>
                 <Table stickyHeader aria-label="sticky table">
                     <TableHead>
