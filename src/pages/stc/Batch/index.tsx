@@ -11,6 +11,17 @@ import BatchTransfer from "./BatchTransfer"
 export default function Batch() {
 
     const [expanded, setExpanded] = React.useState<string | false>(false);
+    const [input, setInput] = React.useState("")
+
+    // filter address
+    const addressArray = input.split("\n").map(v => {
+        const items = v.split(/\s*,\s*|\s+/)
+        return {
+            address: items[0],
+            stc: items[1] ? items[1] : "0"
+        }
+    }).filter(v => v && v.address && v.address.startsWith("0x"))
+
 
     const handleChange =
         (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
@@ -21,6 +32,9 @@ export default function Batch() {
     return <><Grid container spacing={2}>
         <Grid item xs={6} md={4}>
             <Card sx={{minWidth: 275}}>
+                example:<br/>
+                0x0000000000000000001 2<br/>
+                0x0000000000000000001,2<br/>
                 <CardContent>
                     <TextField
                         id="filled-multiline-static"
@@ -28,12 +42,11 @@ export default function Batch() {
                         multiline
                         rows={40}
                         fullWidth
+                        onChange={(value) => setInput(value.target.value)}
                         variant="filled"
+
                     />
                 </CardContent>
-                <CardActions>
-                    <Button size="small">Learn More</Button>
-                </CardActions>
             </Card>
         </Grid>
 
@@ -49,7 +62,7 @@ export default function Batch() {
                         <Typography>余额查询</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                        <BatchBalance></BatchBalance>
+                        <BatchBalance addressArray={addressArray}/>
                     </AccordionDetails>
                 </Accordion>
                 <Accordion>
@@ -58,10 +71,10 @@ export default function Batch() {
                         aria-controls="panel2a-content"
                         id="panel2a-header"
                     >
-
+                        <Typography>批量转账</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                        <BatchTransfer></BatchTransfer>
+                        <BatchTransfer addressArray={addressArray}/>
                     </AccordionDetails>
                 </Accordion>
 

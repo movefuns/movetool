@@ -1,0 +1,35 @@
+{
+  "menu": {
+    "login": "Connect starmask",
+    "batch_token": "Batch Send Token",
+    "batch_balance": "Batch Query Token",
+    "rpc_ping": "RPC speed",
+    "unit": "Unit Converter",
+    "chain_record": "Chain Record"
+  },
+  "batch_token": {
+    "send":"Send"
+  },
+
+  "batch_balance": {
+    "query": "Query"
+  },
+  "rpc_speed": {
+    "url": "URL",
+    "delay": "Delay",
+    "height": "Block Height",
+    "actions": "Actions",
+    "copy": "copy url",
+    "ms": "ms"
+  },
+  "chain_record": {
+    "query_record": "query record on ",
+    "desc" :"Decentralized, Unchangeable, Permanent record No programming skills required",
+    "content" :"Content",
+    "receive_address" :"Receive Address",
+    "stc_amount" :"Send Number STC",
+    "record_on" :"Record On Chain",
+    "record_tx" :"Record Transaction Hash",
+    "record_time" :"Record Time"
+  }
+}

@@ -1,0 +1,1 @@
+export const NANO_STC = 1000000000;
