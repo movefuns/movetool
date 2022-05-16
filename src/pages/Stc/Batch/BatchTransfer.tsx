@@ -113,7 +113,7 @@ interface EnhancedTableProps {
 }
 
 function EnhancedTableHead(props: EnhancedTableProps) {
-    const {onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort} =
+    const { order, orderBy,  onRequestSort} =
         props;
     const createSortHandler =
         (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
@@ -159,7 +159,7 @@ interface EnhancedTableToolbarProps {
 
 const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
     const {numSelected, totalStc, handleTransferClick} = props;
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     return (
         <Toolbar
             sx={{
@@ -268,17 +268,6 @@ export default function BatchTransfer(props: Props) {
     };
 
 
-    const handleChangeDense = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setDense(event.target.checked);
-    };
-
-
-    const onChangeBatchStc = (val: number) => {
-        rows.forEach((item, index) => {
-            item.stc = val;
-        })
-    }
-
     async function handleTransferClick() {
 
 
@@ -376,42 +365,6 @@ export default function BatchTransfer(props: Props) {
 
 
                         </TableBody>
-
-
-                        {/*<TableFooter>*/}
-
-                        {/*    <TableRow> <TableCell colSpan={4}></TableCell></TableRow>*/}
-                        {/*    <TableRow> <TableCell colSpan={4} align={"center"}>batch setting</TableCell></TableRow>*/}
-                        {/*    <TableRow>*/}
-                        {/*        <TableCell*/}
-                        {/*            component="th"*/}
-                        {/*            scope="row"*/}
-                        {/*            padding="none"*/}
-                        {/*        >*/}
-                        {/*        </TableCell>*/}
-                        {/*        <TableCell*/}
-                        {/*            component="th"*/}
-                        {/*            scope="row"*/}
-                        {/*            padding="none"*/}
-                        {/*        >*/}
-                        {/*        </TableCell>*/}
-                        {/*        <TableCell align="left"> <TextField label="batch set stc" variant="standard"*/}
-                        {/*                                            onChange={(v: any) => {*/}
-                        {/*                                                const val = parseFloat(v.target.value)*/}
-                        {/*                                                setBatchStc(val)*/}
-
-                        {/*                                                setRows(prevState => prevState.map((v)=>{*/}
-                        {/*                                                    v.stc =val;*/}
-                        {/*                                                    return v*/}
-                        {/*                                                }))*/}
-
-                        {/*                                            }}/> </TableCell>*/}
-                        {/*        <TableCell align="right"> </TableCell>*/}
-
-                        {/*    </TableRow>*/}
-
-
-                        {/*</TableFooter>*/}
 
 
                     </Table>

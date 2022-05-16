@@ -5,12 +5,13 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {ColorModeContext} from './utils/context';
 import "./@types/global.d.ts"
-import {BrowserRouter,HashRouter} from "react-router-dom";
+import {BrowserRouter, HashRouter} from "react-router-dom";
 import {store} from './store';
 import {Provider} from 'react-redux';
 import {getLocalTheme, setLocalTheme} from "./utils/localHelper";
 import {createTheme, ThemeProvider} from "@mui/material";
 import './utils/i18n';
+
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
@@ -49,7 +50,7 @@ function Index() {
         <ColorModeContext.Provider value={colorMode}>
             <ThemeProvider theme={theme}>
                 <Provider store={store}>
-                    <HashRouter  >
+                    <HashRouter>
                         <App/>
                     </HashRouter>
                 </Provider>

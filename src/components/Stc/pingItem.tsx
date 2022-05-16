@@ -10,7 +10,7 @@ type Props = {
 }
 
 export default function PingItem(props: Props) {
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
 
     const {url} = props;
     const [ping, setPing] = useState<number>(0)
@@ -30,7 +30,7 @@ export default function PingItem(props: Props) {
             {props.url}
         </TableCell>
         <TableCell align="center">
-            {ping > 0 ? `${ping}` +t("rpc_speed.ms") : ""}
+            {ping > 0 ? `${ping}` + t("rpc_speed.ms") : ""}
         </TableCell>
         <TableCell align="center">
             {blockHeight}

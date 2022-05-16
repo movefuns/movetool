@@ -29,7 +29,7 @@ export async function getBlockByNumber(hash: string) {
     try {
         const provider = providerMap[getNetwork()];
         const result = await provider.perform("getBlock", {
-            blockHash:hash
+            blockHash: hash
         });
         return result;
     } catch (error: any) {

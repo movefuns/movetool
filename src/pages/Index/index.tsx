@@ -1,3 +1,3 @@
 export default function Index() {
-    return <>Index</>
+    return <>welcome to use Starcoin dapps</>
 }

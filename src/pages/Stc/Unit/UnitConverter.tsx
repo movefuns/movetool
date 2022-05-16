@@ -1,19 +1,18 @@
-import {FormControl, InputAdornment, InputLabel, TextField} from "@mui/material";
-import {Input} from "@mui/icons-material";
+import {FormControl,TextField} from "@mui/material";
 import {useState} from "react";
 import {NANO_STC} from "../../../utils/consts";
 
 export default function UnitConverter() {
-    const [stc,setStc]  =  useState(0)
-    const [nanoStc,setNanoStc]  =  useState(0)
-    const handleChangeStc = (t:any) => {
+    const [stc, setStc] = useState(0)
+    const [nanoStc, setNanoStc] = useState(0)
+    const handleChangeStc = (t: any) => {
         setStc(t.target.value)
         setNanoStc(t.target.value * NANO_STC)
     }
 
-    const handleChangeNanoStc = (t:any) => {
+    const handleChangeNanoStc = (t: any) => {
         setNanoStc(t.target.value)
-        setStc(t.target.value/NANO_STC)
+        setStc(t.target.value / NANO_STC)
     }
 
     return <>

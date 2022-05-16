@@ -58,10 +58,8 @@ interface Props {
 export default function BatchBalance(props: Props) {
 
     const {addressArray} = props
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [data, setData] = React.useState<Data[]>([]);
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const queryStcBalance = async () => {
         const rows: Data[] = [];
         for (const hash of addressArray) {
@@ -106,9 +104,7 @@ export default function BatchBalance(props: Props) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {data
-                            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                            .map((row) => {
+                        {data.map((row) => {
                                 return (
                                     <TableRow hover role="checkbox" tabIndex={-1} key={row.hash}>
                                         {columns.map((column) => {

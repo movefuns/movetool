@@ -3,25 +3,18 @@ import {styled} from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiAppBar, {AppBarProps as MuiAppBarProps} from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-
 import CssBaseline from '@mui/material/CssBaseline';
-import Typography from '@mui/material/Typography';
-
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ThemeChange from "../../components/ThemeChange";
 import LocalChange from "../../components/LocalChange";
-
-
 import Router from "./../../router/router"
 import Sidebar from "../../components/Sidebar";
 import {useSelector} from "react-redux";
 import {RootState} from "../../store";
 import LoginWallet from "../../components/LoginWallet";
-import Button from "@mui/material/Button";
 
 const drawerWidth = 240;
-
 const DrawerHeader = styled('div')(({theme}) => ({
     display: 'flex',
     alignItems: 'center',
@@ -68,7 +61,7 @@ export default function MiniDrawer() {
         <Box sx={{display: 'flex'}}>
             <CssBaseline/>
             <AppBar position="fixed" open={open}>
-                <Toolbar >
+                <Toolbar>
                     <IconButton
                         color="inherit"
                         aria-label="open drawer"
@@ -81,13 +74,9 @@ export default function MiniDrawer() {
                     >
                         <MenuIcon/>
                     </IconButton>
-
-
-                    <LoginWallet  />
+                    <LoginWallet/>
                     <ThemeChange/>
                     <LocalChange/>
-
-
                 </Toolbar>
             </AppBar>
             <Sidebar open={open} handleDrawerClose={handleDrawerClose}></Sidebar>

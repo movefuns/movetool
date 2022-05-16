@@ -24,7 +24,7 @@ export async function getProvder() {
 }
 
 
-export async function transfer(account: string, stcAmount: number,content:string) {
+export async function transfer(account: string, stcAmount: number, content: string) {
     window.console.log('sendButton.onclick')
 
     const toAccount = account
@@ -127,7 +127,7 @@ export interface BatchTransferInput {
     amount: number
 }
 
-export async function peerTransfer_with_metadata_v2(account: string, stcAmount: number,content:string) {
+export async function peerTransfer_with_metadata_v2(account: string, stcAmount: number, content: string) {
 
     try {
         const functionId = '0x1::TransferScripts::peer_to_peer_with_metadata_v2'
@@ -147,7 +147,7 @@ export async function peerTransfer_with_metadata_v2(account: string, stcAmount: 
         })()
         const txParams = {
             data: payloadInHex,
-            expiredSecs:10
+            expiredSecs: 10
         }
 
         const starcoinProvider = await getProvder();

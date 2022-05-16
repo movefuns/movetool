@@ -1,8 +1,9 @@
 import {Card, CardContent, Grid, TextField} from "@mui/material";
 import * as React from 'react';
-import BatchBalance from "./BatchBalance";
+import BatchTransfer from "./BatchTransfer"
 
-export default function Balance() {
+
+export default function Transfer() {
 
     const [expanded, setExpanded] = React.useState<string | false>(false);
     const [input, setInput] = React.useState("")
@@ -22,13 +23,12 @@ export default function Balance() {
             setExpanded(isExpanded ? panel : false);
         };
 
-
     return <><Grid container spacing={2}>
         <Grid item xs={6} md={4}>
             <Card sx={{minWidth: 275}}>
                 example:<br/>
-                0x0000000000000000001<br/>
-                0x0000000000000000002<br/>
+                0x0000000000000000001 2<br/>
+                0x0000000000000000001,2<br/>
                 <CardContent>
                     <TextField
                         id="filled-multiline-static"
@@ -43,10 +43,8 @@ export default function Balance() {
                 </CardContent>
             </Card>
         </Grid>
-
-
         <Grid item xs={6} md={8}>
-            <BatchBalance addressArray={addressArray}/>
+            <BatchTransfer addressArray={addressArray}/>
         </Grid>
     </Grid></>
 }
