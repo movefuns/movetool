@@ -1,15 +1,13 @@
 import ReactECharts from 'echarts-for-react';
-import {useMemo, useState} from "react";
 import * as echarts from 'echarts';
 import Paper from "@mui/material/Paper";
 import * as React from "react";
-import {getGasPrice} from "../../../utils/sdk";
 
 export default function Gas() {
-    const [data, setData] = useState()
-    useMemo(async () => {
-        const gasPrice = await getGasPrice()
-    }, [])
+    // const [data] = useState()
+    // useMemo(async () => {
+    //   //  const gasPrice = await getGasPrice()
+    // }, [data])
     type EChartsOption = echarts.EChartsOption;
     const gaugeData = [
         {

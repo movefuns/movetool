@@ -113,7 +113,7 @@ interface EnhancedTableProps {
 }
 
 function EnhancedTableHead(props: EnhancedTableProps) {
-    const { order, orderBy,  onRequestSort} =
+    const {order, orderBy, onRequestSort} =
         props;
     const createSortHandler =
         (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
@@ -205,9 +205,9 @@ export default function BatchTransfer(props: Props) {
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof Data>('nanoSTC');
     const [selected, setSelected] = React.useState<readonly string[]>([]);
-    const [page, setPage] = React.useState(0);
-    const [dense, setDense] = React.useState(true);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    const [page] = React.useState(0);
+    const [dense] = React.useState(true);
+    const [rowsPerPage] = React.useState(5);
 
 
     const rows: Data[] = [];

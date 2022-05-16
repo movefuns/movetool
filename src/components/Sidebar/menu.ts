@@ -1,4 +1,4 @@
-export default [
+const menu = [
     {
         name: "1",
         name_i18_key: "menu.batch_token",
@@ -32,3 +32,5 @@ export default [
         path: "/chain/record"
     },
 ]
+
+export {menu}

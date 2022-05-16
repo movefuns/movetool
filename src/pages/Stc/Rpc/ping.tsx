@@ -10,7 +10,7 @@ import PingItem from "../../../components/Stc/pingItem";
 import {useTranslation} from "react-i18next";
 
 export default function Ping() {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const rpcList = [
         "https://main-seed.starcoin.org/",
         "https://proxima-seed.starcoin.org",]
