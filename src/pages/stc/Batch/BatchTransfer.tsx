@@ -6,60 +6,36 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
-import Checkbox from '@mui/material/Checkbox';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
-import DeleteIcon from '@mui/icons-material/Delete';
-import FilterListIcon from '@mui/icons-material/FilterList';
 import {visuallyHidden} from '@mui/utils';
+import Button from "@mui/material/Button";
+
+import {NANO_STC} from "../../../utils/consts";
+import {batchTransfer_v2} from "../../../utils/stcWalletSdk";
+import {useTranslation} from "react-i18next";
 
 interface Data {
-    calories: number;
-    carbs: number;
-    fat: number;
-    name: string;
-    protein: number;
+    stc: number;
+    address: string;
+    nanoSTC: number;
 }
 
 function createData(
-    name: string,
-    calories: number,
-    fat: number,
-    carbs: number,
-    protein: number,
+    address: string,
+    stc: number,
+    nanoSTC: number,
 ): Data {
     return {
-        name,
-        calories,
-        fat,
-        carbs,
-        protein,
+        address,
+        stc,
+        nanoSTC
     };
 }
 
-const rows = [
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Donut', 452, 25.0, 51, 4.9),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-    createData('Honeycomb', 408, 3.2, 87, 6.5),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Jelly Bean', 375, 0.0, 94, 0.0),
-    createData('KitKat', 518, 26.0, 65, 7.0),
-    createData('Lollipop', 392, 0.2, 98, 0.0),
-    createData('Marshmallow', 318, 0, 81, 2.0),
-    createData('Nougat', 360, 19.0, 9, 37.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
-];
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
     if (b[orderBy] < a[orderBy]) {
@@ -108,34 +84,22 @@ interface HeadCell {
 
 const headCells: readonly HeadCell[] = [
     {
-        id: 'name',
+        id: 'address',
         numeric: false,
         disablePadding: true,
-        label: 'Dessert (100g serving)',
+        label: 'address',
     },
     {
-        id: 'calories',
+        id: 'stc',
         numeric: true,
         disablePadding: false,
-        label: 'Calories',
+        label: 'STC',
     },
     {
-        id: 'fat',
+        id: 'nanoSTC',
         numeric: true,
         disablePadding: false,
-        label: 'Fat (g)',
-    },
-    {
-        id: 'carbs',
-        numeric: true,
-        disablePadding: false,
-        label: 'Carbs (g)',
-    },
-    {
-        id: 'protein',
-        numeric: true,
-        disablePadding: false,
-        label: 'Protein (g)',
+        label: 'nanoSTC',
     },
 ];
 
@@ -159,17 +123,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
     return (
         <TableHead>
             <TableRow>
-                <TableCell padding="checkbox">
-                    <Checkbox
-                        color="primary"
-                        indeterminate={numSelected > 0 && numSelected < rowCount}
-                        checked={rowCount > 0 && numSelected === rowCount}
-                        onChange={onSelectAllClick}
-                        inputProps={{
-                            'aria-label': 'select all desserts',
-                        }}
-                    />
-                </TableCell>
+
                 {headCells.map((headCell) => (
                     <TableCell
                         key={headCell.id}
@@ -198,11 +152,14 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 
 interface EnhancedTableToolbarProps {
     numSelected: number;
+    totalStc: number
+
+    handleTransferClick(): any;
 }
 
 const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
-    const {numSelected} = props;
-
+    const {numSelected, totalStc, handleTransferClick} = props;
+    const { t } = useTranslation();
     return (
         <Toolbar
             sx={{
@@ -214,49 +171,63 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
                 }),
             }}
         >
-            {numSelected > 0 ? (
-                <Typography
-                    sx={{flex: '1 1 100%'}}
-                    color="inherit"
-                    variant="subtitle1"
-                    component="div"
-                >
-                    {numSelected} selected
-                </Typography>
-            ) : (
-                <Typography
-                    sx={{flex: '1 1 100%'}}
-                    variant="h6"
-                    id="tableTitle"
-                    component="div"
-                >
-                    Nutrition
-                </Typography>
-            )}
-            {numSelected > 0 ? (
-                <Tooltip title="Delete">
-                    <IconButton>
-                        <DeleteIcon/>
-                    </IconButton>
-                </Tooltip>
-            ) : (
-                <Tooltip title="Filter list">
-                    <IconButton>
-                        <FilterListIcon/>
-                    </IconButton>
-                </Tooltip>
-            )}
+
+            <Typography
+                sx={{flex: '1 1 100%'}}
+                color="inherit"
+                variant="subtitle1"
+                component="div"
+            >
+                total address: {numSelected} total STC:{totalStc}
+            </Typography>
+
+            <Button variant="contained" onClick={handleTransferClick}>{t("batch_token.send")}</Button>
+
+
         </Toolbar>
     );
 };
 
-export default function BatchTransfer() {
+
+interface Props {
+    addressArray: {
+        address: string,
+        stc: string
+    }[]
+}
+
+
+export default function BatchTransfer(props: Props) {
+
+
+    const {addressArray} = props;
+
     const [order, setOrder] = React.useState<Order>('asc');
-    const [orderBy, setOrderBy] = React.useState<keyof Data>('calories');
+    const [orderBy, setOrderBy] = React.useState<keyof Data>('nanoSTC');
     const [selected, setSelected] = React.useState<readonly string[]>([]);
     const [page, setPage] = React.useState(0);
-    const [dense, setDense] = React.useState(false);
+    const [dense, setDense] = React.useState(true);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+
+    const rows: Data[] = [];
+    addressArray.forEach((item) => {
+        window.console.info(item)
+        rows.push(createData(item.address, parseFloat(item.stc), parseFloat(item.stc) * NANO_STC));
+    })
+
+
+    let totalStc = 0;
+    const computeTotalStc = () => {
+        window.console.info(rows)
+        let totalStc = 0;
+        rows.forEach(v => {
+            totalStc += v.stc
+        })
+        return totalStc;
+    }
+    totalStc = computeTotalStc();
+
 
     const handleRequestSort = (
         event: React.MouseEvent<unknown>,
@@ -269,7 +240,7 @@ export default function BatchTransfer() {
 
     const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.checked) {
-            const newSelecteds = rows.map((n) => n.name);
+            const newSelecteds = rows.map((n) => n.address);
             setSelected(newSelecteds);
             return;
         }
@@ -296,18 +267,45 @@ export default function BatchTransfer() {
         setSelected(newSelected);
     };
 
-    const handleChangePage = (event: unknown, newPage: number) => {
-        setPage(newPage);
-    };
-
-    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setRowsPerPage(parseInt(event.target.value, 10));
-        setPage(0);
-    };
 
     const handleChangeDense = (event: React.ChangeEvent<HTMLInputElement>) => {
         setDense(event.target.checked);
     };
+
+
+    const onChangeBatchStc = (val: number) => {
+        rows.forEach((item, index) => {
+            item.stc = val;
+        })
+    }
+
+    async function handleTransferClick() {
+
+
+        if (!rows || rows.length < 1) {
+            alert("please input address and amount")
+        }
+
+        try {
+            await batchTransfer_v2(rows.map(v => {
+                return {
+                    account: v.address,
+                    amount: v.stc
+                }
+            }))
+        } catch (e: any) {
+
+            if (e.toString().includes("UNSUPPORTED_OPERATION")) {
+                alert("please login")
+            } else {
+                alert(e)
+            }
+
+
+        }
+
+    }
+
 
     const isSelected = (name: string) => selected.indexOf(name) !== -1;
 
@@ -318,7 +316,8 @@ export default function BatchTransfer() {
     return (
         <Box sx={{width: '100%'}}>
             <Paper sx={{width: '100%', mb: 2}}>
-                <EnhancedTableToolbar numSelected={selected.length}/>
+                <EnhancedTableToolbar numSelected={rows.length} totalStc={totalStc}
+                                      handleTransferClick={handleTransferClick}/>
                 <TableContainer>
                     <Table
                         sx={{minWidth: 750}}
@@ -337,42 +336,31 @@ export default function BatchTransfer() {
                             {/* if you don't need to support IE11, you can replace the `stableSort` call with:
               rows.slice().sort(getComparator(order, orderBy)) */}
                             {stableSort(rows, getComparator(order, orderBy))
-                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row, index) => {
-                                    const isItemSelected = isSelected(row.name);
+                                    const isItemSelected = isSelected(row.address);
                                     const labelId = `enhanced-table-checkbox-${index}`;
 
                                     return (
                                         <TableRow
                                             hover
-                                            onClick={(event) => handleClick(event, row.name)}
+                                            onClick={(event) => handleClick(event, row.address)}
                                             role="checkbox"
                                             aria-checked={isItemSelected}
                                             tabIndex={-1}
-                                            key={row.name}
+                                            key={row.address + row.stc}
                                             selected={isItemSelected}
                                         >
-                                            <TableCell padding="checkbox">
-                                                <Checkbox
-                                                    color="primary"
-                                                    checked={isItemSelected}
-                                                    inputProps={{
-                                                        'aria-labelledby': labelId,
-                                                    }}
-                                                />
-                                            </TableCell>
                                             <TableCell
                                                 component="th"
                                                 id={labelId}
                                                 scope="row"
                                                 padding="none"
                                             >
-                                                {row.name}
+                                                {row.address}
                                             </TableCell>
-                                            <TableCell align="right">{row.calories}</TableCell>
-                                            <TableCell align="right">{row.fat}</TableCell>
-                                            <TableCell align="right">{row.carbs}</TableCell>
-                                            <TableCell align="right">{row.protein}</TableCell>
+
+                                            <TableCell align="left"> {row.stc}</TableCell>
+                                            <TableCell align="left"> {row.nanoSTC}</TableCell>
                                         </TableRow>
                                     );
                                 })}
@@ -385,23 +373,52 @@ export default function BatchTransfer() {
                                     <TableCell colSpan={6}/>
                                 </TableRow>
                             )}
+
+
                         </TableBody>
+
+
+                        {/*<TableFooter>*/}
+
+                        {/*    <TableRow> <TableCell colSpan={4}></TableCell></TableRow>*/}
+                        {/*    <TableRow> <TableCell colSpan={4} align={"center"}>batch setting</TableCell></TableRow>*/}
+                        {/*    <TableRow>*/}
+                        {/*        <TableCell*/}
+                        {/*            component="th"*/}
+                        {/*            scope="row"*/}
+                        {/*            padding="none"*/}
+                        {/*        >*/}
+                        {/*        </TableCell>*/}
+                        {/*        <TableCell*/}
+                        {/*            component="th"*/}
+                        {/*            scope="row"*/}
+                        {/*            padding="none"*/}
+                        {/*        >*/}
+                        {/*        </TableCell>*/}
+                        {/*        <TableCell align="left"> <TextField label="batch set stc" variant="standard"*/}
+                        {/*                                            onChange={(v: any) => {*/}
+                        {/*                                                const val = parseFloat(v.target.value)*/}
+                        {/*                                                setBatchStc(val)*/}
+
+                        {/*                                                setRows(prevState => prevState.map((v)=>{*/}
+                        {/*                                                    v.stc =val;*/}
+                        {/*                                                    return v*/}
+                        {/*                                                }))*/}
+
+                        {/*                                            }}/> </TableCell>*/}
+                        {/*        <TableCell align="right"> </TableCell>*/}
+
+                        {/*    </TableRow>*/}
+
+
+                        {/*</TableFooter>*/}
+
+
                     </Table>
                 </TableContainer>
-                <TablePagination
-                    rowsPerPageOptions={[5, 10, 25]}
-                    component="div"
-                    count={rows.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onPageChange={handleChangePage}
-                    onRowsPerPageChange={handleChangeRowsPerPage}
-                />
             </Paper>
-            <FormControlLabel
-                control={<Switch checked={dense} onChange={handleChangeDense}/>}
-                label="Dense padding"
-            />
+
+
         </Box>
     );
 }

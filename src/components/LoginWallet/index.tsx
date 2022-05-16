@@ -1,10 +1,11 @@
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
+import LoadingButton from '@mui/lab/LoadingButton';
 import * as React from "react";
 import StarMaskOnboarding from '@starcoin/starmask-onboarding'
-import {set} from './../../store/wallet'
+import {set} from '../../store/wallet'
 import {useDispatch} from "react-redux";
-
+import {requestAccounts} from "../../utils/stcWalletSdk";
+import { useTranslation } from 'react-i18next';
+import {useState} from "react";
 declare global {
     interface Window {
         store: any;
@@ -13,33 +14,38 @@ declare global {
     }
 }
 
-type Props = {
-    open: boolean
-}
-
 // login wallet
-export default function LoginWallet(props: Props) {
+export default function LoginWallet() {
+    const { t } = useTranslation();
     const {isStarMaskInstalled} = StarMaskOnboarding
+    const [loading,setLoading] =  useState(false)
+    const [buttonText,setButtonText] =  useState(t("menu.login") as string)
     const dispatch = useDispatch()
 
-    const clickItem = async () => {
+    const handleClick = async () => {
+
+        setLoading(true);
         if (!isStarMaskInstalled()) {
             // go to install
-            alert("请先安装starmask")
+            alert(" please install starmask at https://chrome.google.com/webstore ")
             return
         }
 
-
-        const newAccounts = await window.starcoin.request({
-            method: 'stc_requestAccounts',
-        })
+        const newAccounts = await requestAccounts()
+        setButtonText(newAccounts)
         dispatch(set(newAccounts))
-
-        console.info(newAccounts)
+        setLoading(false);
     }
 
-    const {open} = props
-    return <ListItemButton onClick={clickItem}>
-        <ListItemText primary="登陆" sx={{opacity: open ? 1 : 0}}/>
-    </ListItemButton>
+    return <LoadingButton
+
+        onClick={handleClick}
+        loading={loading}
+        loadingIndicator="Loading..."
+        variant="contained"
+    >
+        {buttonText}
+    </LoadingButton>
+
+
 }

@@ -13,6 +13,8 @@ import {CSSObject, styled, Theme, useTheme} from "@mui/material/styles";
 import MuiDrawer from "@mui/material/Drawer";
 import LoginWallet from "../LoginWallet";
 import {useNavigate} from "react-router-dom";
+import {useTranslation} from "react-i18next";
+import munu from "./menu"
 
 type Props = {
     open: boolean
@@ -71,6 +73,7 @@ const Drawer = styled(MuiDrawer, {shouldForwardProp: (prop) => prop !== 'open'})
 
 export default function Sidebar(props: Props) {
     const theme = useTheme();
+    const { t, i18n } = useTranslation();
     const {handleDrawerClose, open} = props
     let navigate = useNavigate();
 
@@ -82,40 +85,16 @@ export default function Sidebar(props: Props) {
         </DrawerHeader>
         <Divider/>
         <List>
+            {munu.map((item)=>{
 
-
-            <LoginWallet open={open}/>
-
-
-            <ListItemButton
-                sx={{
-                    minHeight: 48,
-                    justifyContent: open ? 'initial' : 'center',
-                    px: 2.5,
-                }}
-                onClick={() => {
-                    navigate("/stc/batch", {})
-                }}
-            >
-                <ListItemIcon
-                    sx={{
-                        minWidth: 0,
-                        mr: open ? 3 : 'auto',
-                        justifyContent: 'center',
-                    }}
-                >
-                    <InboxIcon/>
-                </ListItemIcon>
-                <ListItemText primary="stc批量操作" sx={{opacity: open ? 1 : 0}}/>
-            </ListItemButton>
-
-            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                <ListItemButton
-                    key={text}
+                return <ListItemButton key={item.name}
                     sx={{
                         minHeight: 48,
                         justifyContent: open ? 'initial' : 'center',
                         px: 2.5,
+                    }}
+                    onClick={() => {
+                        navigate(item.path, {})
                     }}
                 >
                     <ListItemIcon
@@ -125,36 +104,15 @@ export default function Sidebar(props: Props) {
                             justifyContent: 'center',
                         }}
                     >
-                        {index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}
+                        <InboxIcon/>
                     </ListItemIcon>
-                    <ListItemText primary={text} sx={{opacity: open ? 1 : 0}}/>
+                    <ListItemText primary={t(item.name_i18_key)} sx={{opacity: open ? 1 : 0}}/>
                 </ListItemButton>
-            ))}
+
+            })}
         </List>
         <Divider/>
-        <List>
-            {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                <ListItemButton
-                    key={text}
-                    sx={{
-                        minHeight: 48,
-                        justifyContent: open ? 'initial' : 'center',
-                        px: 2.5,
-                    }}
-                >
-                    <ListItemIcon
-                        sx={{
-                            minWidth: 0,
-                            mr: open ? 3 : 'auto',
-                            justifyContent: 'center',
-                        }}
-                    >
-                        {index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}
-                    </ListItemIcon>
-                    <ListItemText primary={text} sx={{opacity: open ? 1 : 0}}/>
-                </ListItemButton>
-            ))}
-        </List>
+
     </Drawer>
 
 }

@@ -1,0 +1,35 @@
+{
+  "menu": {
+    "login": "连接 starmask",
+    "batch_token": "批量发送Token",
+    "batch_balance": "批量查询Token",
+    "rpc_ping": "RPC 节点测速",
+    "unit": "单位转换",
+    "chain_record": "链上记录"
+  },
+  "batch_token": {
+      "send":"发送"
+  },
+
+  "batch_balance": {
+      "query": "查询"
+  },
+  "rpc_speed": {
+    "url": "地址",
+    "delay": "延迟",
+    "height": "区块高度",
+    "actions": "操作",
+    "copy": "复制地址",
+    "ms": "毫秒"
+  },
+  "chain_record": {
+      "query_record": "查询已有记录",
+      "desc" :"去中心化，不可改变，永久记录不需要编程技能",
+      "content" :"记录内容",
+      "receive_address" :"接收地址",
+      "stc_amount" :"发送STC个数",
+      "record_on" :"记录到链上",
+      "record_tx" :"链上交易地址",
+      "record_time" :"记录时间"
+  }
+}

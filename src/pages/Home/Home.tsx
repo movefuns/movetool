@@ -10,12 +10,15 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ThemeChange from "../../components/ThemeChange";
+import LocalChange from "../../components/LocalChange";
 
 
 import Router from "./../../router/router"
 import Sidebar from "../../components/Sidebar";
 import {useSelector} from "react-redux";
 import {RootState} from "../../store";
+import LoginWallet from "../../components/LoginWallet";
+import Button from "@mui/material/Button";
 
 const drawerWidth = 240;
 
@@ -65,7 +68,7 @@ export default function MiniDrawer() {
         <Box sx={{display: 'flex'}}>
             <CssBaseline/>
             <AppBar position="fixed" open={open}>
-                <Toolbar>
+                <Toolbar >
                     <IconButton
                         color="inherit"
                         aria-label="open drawer"
@@ -78,10 +81,12 @@ export default function MiniDrawer() {
                     >
                         <MenuIcon/>
                     </IconButton>
-                    <Typography variant="h6" noWrap component="div">
-                        {accountAddress}
-                    </Typography>
+
+
+                    <LoginWallet  />
                     <ThemeChange/>
+                    <LocalChange/>
+
 
                 </Toolbar>
             </AppBar>
