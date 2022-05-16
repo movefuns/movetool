@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {ColorModeContext} from './utils/context';
 import "./@types/global.d.ts"
-import {BrowserRouter, HashRouter} from "react-router-dom";
+import {HashRouter} from "react-router-dom";
 import {store} from './store';
 import {Provider} from 'react-redux';
 import {getLocalTheme, setLocalTheme} from "./utils/localHelper";

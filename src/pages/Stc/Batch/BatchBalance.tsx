@@ -6,7 +6,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import {getAddressData, getBalancesData, getAddressSTCBalance,} from "../../../utils/sdk"
+import {getAddressSTCBalance} from "../../../utils/sdk"
 import Button from '@mui/material/Button';
 import {useTranslation} from "react-i18next";
 
@@ -45,8 +45,6 @@ function createData(
 ): Data {
     return {hash, stc, nanoSTC};
 }
-
-let rows: Data[] = [];
 
 interface Props {
     addressArray: {
@@ -105,22 +103,22 @@ export default function BatchBalance(props: Props) {
                     </TableHead>
                     <TableBody>
                         {data.map((row) => {
-                                return (
-                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.hash}>
-                                        {columns.map((column) => {
-                                            const id = column.id
-                                            const value = row[id]
-                                            return (
-                                                <TableCell key={column.id} align={column.align}>
-                                                    {column.format && typeof value === 'number'
-                                                        ? column.format(value)
-                                                        : value}
-                                                </TableCell>
-                                            );
-                                        })}
-                                    </TableRow>
-                                );
-                            })}
+                            return (
+                                <TableRow hover role="checkbox" tabIndex={-1} key={row.hash}>
+                                    {columns.map((column) => {
+                                        const id = column.id
+                                        const value = row[id]
+                                        return (
+                                            <TableCell key={column.id} align={column.align}>
+                                                {column.format && typeof value === 'number'
+                                                    ? column.format(value)
+                                                    : value}
+                                            </TableCell>
+                                        );
+                                    })}
+                                </TableRow>
+                            );
+                        })}
                     </TableBody>
                 </Table>
             </TableContainer>

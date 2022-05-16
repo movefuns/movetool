@@ -29,7 +29,7 @@
       "receive_address" :"接收地址",
       "stc_amount" :"发送STC个数",
       "record_on" :"记录到链上",
-      "record_tx" :"链上交易地址",
+      "record_tx" :"链上交易哈希",
       "record_time" :"记录时间"
   }
 }

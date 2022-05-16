@@ -12,7 +12,7 @@ import {CSSObject, styled, Theme, useTheme} from "@mui/material/styles";
 import MuiDrawer from "@mui/material/Drawer";
 import {useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
-import munu from "./menu"
+import {menu} from "./menu"
 
 type Props = {
     open: boolean
@@ -71,7 +71,7 @@ const Drawer = styled(MuiDrawer, {shouldForwardProp: (prop) => prop !== 'open'})
 
 export default function Sidebar(props: Props) {
     const theme = useTheme();
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const {handleDrawerClose, open} = props
     let navigate = useNavigate();
 
@@ -83,7 +83,7 @@ export default function Sidebar(props: Props) {
         </DrawerHeader>
         <Divider/>
         <List>
-            {munu.map((item) => {
+            {menu.map((item) => {
 
                 return <ListItemButton key={item.name}
                                        sx={{

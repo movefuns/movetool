@@ -60,7 +60,7 @@ export default function ChainRecord() {
                                value={amount}/>
 
 
-                    {txHash == "" ? "" : <Chip label={"record success: " + txHash} onClick={() => {
+                    {txHash === "" ? "" : <Chip label={"record success: " + txHash} onClick={() => {
                         navigate("/chain/record/detail" + txHash, {})
                     }
                     } color="success" variant="outlined"/>}

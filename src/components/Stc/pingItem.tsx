@@ -10,7 +10,7 @@ type Props = {
 }
 
 export default function PingItem(props: Props) {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
 
     const {url} = props;
     const [ping, setPing] = useState<number>(0)
@@ -23,7 +23,7 @@ export default function PingItem(props: Props) {
         setPing(dateEnd.getTime() - dateStart.getTime())
         setBlockHeight(nodeInfo.peer_info.chain_info.head.number)
 
-    }, [])
+    }, [url])
 
     return <TableRow>
         <TableCell align="center">

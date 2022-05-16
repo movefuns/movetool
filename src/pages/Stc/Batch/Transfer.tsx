@@ -4,8 +4,6 @@ import BatchTransfer from "./BatchTransfer"
 
 
 export default function Transfer() {
-
-    const [expanded, setExpanded] = React.useState<string | false>(false);
     const [input, setInput] = React.useState("")
 
     // filter address
@@ -17,11 +15,6 @@ export default function Transfer() {
         }
     }).filter(v => v && v.address && v.address.startsWith("0x"))
 
-
-    const handleChange =
-        (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
-            setExpanded(isExpanded ? panel : false);
-        };
 
     return <><Grid container spacing={2}>
         <Grid item xs={6} md={4}>

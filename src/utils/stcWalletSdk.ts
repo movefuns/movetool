@@ -1,5 +1,5 @@
 import {providers, utils, bcs} from "@starcoin/starcoin"
-import {arrayify, hexlify} from '@ethersproject/bytes'
+import {hexlify} from '@ethersproject/bytes'
 import {BigNumber} from "bignumber.js"
 
 const nodeUrlMap = {

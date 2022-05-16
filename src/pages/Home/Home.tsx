@@ -10,8 +10,6 @@ import ThemeChange from "../../components/ThemeChange";
 import LocalChange from "../../components/LocalChange";
 import Router from "./../../router/router"
 import Sidebar from "../../components/Sidebar";
-import {useSelector} from "react-redux";
-import {RootState} from "../../store";
 import LoginWallet from "../../components/LoginWallet";
 
 const drawerWidth = 240;
@@ -48,9 +46,6 @@ const AppBar = styled(MuiAppBar, {
 
 export default function MiniDrawer() {
     const [open, setOpen] = React.useState(true);
-    const accountAddress = useSelector((state: RootState) => state.wallet.accountAddress)
-
-
     const handleDrawerOpen = () => {
         setOpen(true);
     };
