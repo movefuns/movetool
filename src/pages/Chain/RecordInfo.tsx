@@ -6,22 +6,20 @@ import {useMemo, useState} from "react";
 import {getBlockByNumber, getTxnData} from "../../utils/sdk";
 import {bcs, encoding} from "@starcoin/starcoin";
 import {arrayify} from "@ethersproject/bytes";
-import {useNavigate, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {useTranslation} from "react-i18next";
-import Typography from "@mui/material/Typography";
 
 export default function ChainRecordInfo() {
-    let { hash } = useParams();
-    const { t } = useTranslation();
-    let [tx,setTx] =  useState(hash || "")
+    let {hash} = useParams();
+    const {t} = useTranslation();
+    let [tx, setTx] = useState(hash || "")
 
-   // const hash = "0x40ca660cc50bd38c2d68b17f5fd8db6d062397f138e912e21f0fb97770dbbaf5"
     const [content, setContent] = useState("")
     const [timestamp, setTimestamp] = useState("")
     useMemo(async () => {
         setContent("");
         setTimestamp("");
-        const data = await getTxnData(tx as  string)
+        const data = await getTxnData(tx as string)
         const txnPayload = encoding.decodeTransactionPayload(data.user_transaction.raw_txn.payload);
 
         window.console.info(data)
@@ -44,13 +42,12 @@ export default function ChainRecordInfo() {
                 <Stack spacing={2}>
 
 
-
                     <TextField
                         fullWidth
                         id="outlined-multiline-static"
                         label={t("chain_record.record_tx")}
                         value={tx}
-                        onChange={(v)=>{
+                        onChange={(v) => {
                             setTx(v.target.value)
                         }}
 

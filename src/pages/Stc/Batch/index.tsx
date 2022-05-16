@@ -10,7 +10,7 @@ import BatchTransfer from "./BatchTransfer"
 
 export default function Batch() {
 
-    const [expanded, setExpanded] = React.useState<string | false>(false);
+
     const [input, setInput] = React.useState("")
 
     // filter address
@@ -21,13 +21,6 @@ export default function Batch() {
             stc: items[1] ? items[1] : "0"
         }
     }).filter(v => v && v.address && v.address.startsWith("0x"))
-
-
-    const handleChange =
-        (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
-            setExpanded(isExpanded ? panel : false);
-        };
-
 
     return <><Grid container spacing={2}>
         <Grid item xs={6} md={4}>
@@ -77,7 +70,6 @@ export default function Batch() {
                         <BatchTransfer addressArray={addressArray}/>
                     </AccordionDetails>
                 </Accordion>
-
             </div>
         </Grid>
     </Grid></>

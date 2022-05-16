@@ -1,11 +1,9 @@
-import { Card,  CardContent, Grid, TextField} from "@mui/material";
+import {Card, CardContent, Grid, TextField} from "@mui/material";
 import * as React from 'react';
-import BatchTransfer from "./BatchTransfer"
+import BatchBalance from "./BatchBalance";
 
+export default function Balance() {
 
-export default function Transfer() {
-
-    const [expanded, setExpanded] = React.useState<string | false>(false);
     const [input, setInput] = React.useState("")
 
     // filter address
@@ -17,18 +15,12 @@ export default function Transfer() {
         }
     }).filter(v => v && v.address && v.address.startsWith("0x"))
 
-
-    const handleChange =
-        (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
-            setExpanded(isExpanded ? panel : false);
-        };
-
     return <><Grid container spacing={2}>
         <Grid item xs={6} md={4}>
             <Card sx={{minWidth: 275}}>
                 example:<br/>
-                0x0000000000000000001 2<br/>
-                0x0000000000000000001,2<br/>
+                0x0000000000000000001<br/>
+                0x0000000000000000002<br/>
                 <CardContent>
                     <TextField
                         id="filled-multiline-static"
@@ -43,8 +35,10 @@ export default function Transfer() {
                 </CardContent>
             </Card>
         </Grid>
+
+
         <Grid item xs={6} md={8}>
-              <BatchTransfer addressArray={addressArray}/>
+            <BatchBalance addressArray={addressArray}/>
         </Grid>
     </Grid></>
 }

@@ -6,12 +6,10 @@ import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import ListItemText from "@mui/material/ListItemText";
 import * as React from "react";
 import {CSSObject, styled, Theme, useTheme} from "@mui/material/styles";
 import MuiDrawer from "@mui/material/Drawer";
-import LoginWallet from "../LoginWallet";
 import {useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import munu from "./menu"
@@ -73,7 +71,7 @@ const Drawer = styled(MuiDrawer, {shouldForwardProp: (prop) => prop !== 'open'})
 
 export default function Sidebar(props: Props) {
     const theme = useTheme();
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
     const {handleDrawerClose, open} = props
     let navigate = useNavigate();
 
@@ -85,17 +83,17 @@ export default function Sidebar(props: Props) {
         </DrawerHeader>
         <Divider/>
         <List>
-            {munu.map((item)=>{
+            {munu.map((item) => {
 
                 return <ListItemButton key={item.name}
-                    sx={{
-                        minHeight: 48,
-                        justifyContent: open ? 'initial' : 'center',
-                        px: 2.5,
-                    }}
-                    onClick={() => {
-                        navigate(item.path, {})
-                    }}
+                                       sx={{
+                                           minHeight: 48,
+                                           justifyContent: open ? 'initial' : 'center',
+                                           px: 2.5,
+                                       }}
+                                       onClick={() => {
+                                           navigate(item.path, {})
+                                       }}
                 >
                     <ListItemIcon
                         sx={{

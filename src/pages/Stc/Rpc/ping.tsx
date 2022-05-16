@@ -6,14 +6,11 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import PingItem from "../../../components/stc/pingItem";
+import PingItem from "../../../components/Stc/pingItem";
 import {useTranslation} from "react-i18next";
 
 export default function Ping() {
-
-    const { t, i18n } = useTranslation();
-
-
+    const { t } = useTranslation();
     const rpcList = [
         "https://main-seed.starcoin.org/",
         "https://proxima-seed.starcoin.org",]
