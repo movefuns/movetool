@@ -1,5 +1,11 @@
 const menu = [
     {
+        name: "0",
+        name_i18_key: "menu.issue_token",
+        icon: "xxx",
+        path: "/stc/issue/token"
+    },
+    {
         name: "1",
         name_i18_key: "menu.batch_token",
         icon: "xxx",

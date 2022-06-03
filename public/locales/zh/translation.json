@@ -5,8 +5,13 @@
     "batch_balance": "批量查询Token",
     "rpc_ping": "RPC 节点测速",
     "unit": "单位转换",
-    "chain_record": "链上记录"
+    "chain_record": "链上记录",
+    "issue_token": "创建Token"
   },
+  "issue_token": {
+    "title": "发行 Starcoin Token"
+  },
+
   "batch_token": {
       "send":"发送"
   },

@@ -11,6 +11,7 @@ import ChainRecord from "../pages/Chain/Record";
 import ChainRecordInfo from "../pages/Chain/RecordInfo";
 import Balance from "../pages/Stc/Batch/Balance";
 import Transfer from "../pages/Stc/Batch/Transfer";
+import Issue from "../pages/Stc/Issue/index";
 
 export default function Router() {
     return (<Routes>
@@ -20,6 +21,7 @@ export default function Router() {
         <Route path="/stc/batch/transfer" element={<Transfer/>}/>
         <Route path="/stc/batch/balance" element={<Balance/>}/>
         <Route path="/stc/unit/convert" element={<UnitConverter/>}/>
+        <Route path="/stc/issue/token" element={<Issue/>}/>
         <Route path="/node/ping" element={<Ping/>}/>
         <Route path="/node/gas" element={<Gas/>}/>
         <Route path="/chain/record" element={<ChainRecord/>}/>

@@ -5,8 +5,14 @@
     "batch_balance": "Batch Query Token",
     "rpc_ping": "RPC speed",
     "unit": "Unit Converter",
-    "chain_record": "Chain Record"
+    "chain_record": "Chain Record",
+    "issue_token": "Issue Token"
   },
+  
+  "issue_token": {
+    "title": "Issue Starcoin Token"
+  },
+
   "batch_token": {
     "send":"Send"
   },
