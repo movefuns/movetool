@@ -70,6 +70,7 @@
     ]
   },
   "devDependencies": {
+    "@yubing744/move-js": "^0.4.0",
     "add": "^2.0.6",
     "gh-pages": "^4.0.0",
     "yarn": "^1.22.18"

@@ -9,7 +9,10 @@
     "issue_token": "创建Token"
   },
   "issue_token": {
-    "title": "发行 Starcoin Token"
+    "title": "发行 Starcoin Token",
+    "token_name": "Token名字",
+    "token_precision": "Token精度",
+    "submit_btn": "发行Token"
   },
 
   "batch_token": {
