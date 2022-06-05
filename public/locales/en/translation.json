@@ -11,6 +11,7 @@
   
   "issue_token": {
     "title": "Issue Starcoin Token",
+    "token_address": "Token Address",
     "token_name": "Token Name",
     "token_precision": "Token Precision",
     "submit_btn": "Issue Token"

@@ -6,32 +6,38 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import {Chip, Stack, TextField} from "@mui/material";
 import {useState} from "react";
-import {peerTransfer_with_metadata_v2} from "../../../utils/stcWalletSdk";
+import {deployContract} from "../../../utils/stcWalletSdk";
 import {useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
+import { useDispatch, useSelector } from 'react-redux'
 import { WasmFs } from '@wasmer/wasmfs'
 import { Git, MovePackage } from '@yubing744/move-js'
+import { TokenPackage } from './TokenPackage'
 
 export default function Issue() {
     const [tokenName, setTokenName] = useState("MyToken")
     const [tokenPrecision, setTokenPrecision] = useState(3)
+    const accountAddress = useSelector((state:any) => state.wallet.accountAddress)
+
     const {t} = useTranslation();
 
     const handleIssueToken = async () => {
-        let wasmfs = new WasmFs()
-        let git = new Git(wasmfs)
+        const wasmfs = new WasmFs()
+        const git = new Git(wasmfs)
+        const tokenPackage = new TokenPackage(wasmfs, accountAddress, tokenName, tokenPrecision)
     
         await git.download("/data/starcoin-framework.zip", "/workspace/starcoin-framework")
-        await git.download("/data/my-counter.zip", "/workspace/my-counter")
+        tokenPackage.export("/workspace/my-token")
     
-        let mp = new MovePackage(wasmfs, "/workspace/my-counter", false, new Map([
+        const mp = new MovePackage(wasmfs, "/workspace/my-token", false, new Map([
           ["StarcoinFramework", "/workspace/starcoin-framework"]
         ]))
         
         await mp.build()
     
-        let blobBuf = wasmfs.fs.readFileSync("/workspace/my-counter/target/starcoin/release/package.blob")
-        let base64Data = blobBuf.toString("base64")
+        const blobBuf = wasmfs.fs.readFileSync("/workspace/my-token/target/starcoin/release/package.blob") as Buffer;
+        const transactionHash = await deployContract(blobBuf)
+        alert("Deploy token success, transactionHash: " + transactionHash)
     };
 
     return (
@@ -41,6 +47,8 @@ export default function Issue() {
                     <Typography variant="h5" component="div">
                         {t("issue_token.title")}
                     </Typography>
+
+                    <TextField fullWidth id="token_address" value={accountAddress} label={t("issue_token.token_address")} variant="outlined" disabled/>
 
                     <TextField fullWidth id="token_name" value={tokenName} onChange={(v) => {
                         setTokenName(v.target.value)

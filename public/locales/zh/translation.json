@@ -6,10 +6,11 @@
     "rpc_ping": "RPC 节点测速",
     "unit": "单位转换",
     "chain_record": "链上记录",
-    "issue_token": "创建Token"
+    "issue_token": "发行Token"
   },
   "issue_token": {
     "title": "发行 Starcoin Token",
+    "token_address": "Token地址",
     "token_name": "Token名字",
     "token_precision": "Token精度",
     "submit_btn": "发行Token"
