@@ -37,7 +37,7 @@ export default function Issue() {
     
         const blobBuf = wasmfs.fs.readFileSync("/workspace/my-token/target/starcoin/release/package.blob") as Buffer;
         const transactionHash = await deployContract(blobBuf)
-        alert("Deploy token success, transactionHash: " + transactionHash)
+        alert(`Deploy ${tokenName} token success, transactionHash: ${transactionHash}`)
     };
 
     return (
@@ -48,7 +48,7 @@ export default function Issue() {
                         {t("issue_token.title")}
                     </Typography>
 
-                    <TextField fullWidth id="token_address" value={accountAddress} label={t("issue_token.token_address")} variant="outlined" disabled/>
+                    <TextField fullWidth id="token_address" value={accountAddress} autoFocus={true} label={t("issue_token.token_address")} variant="outlined" disabled/>
 
                     <TextField fullWidth id="token_name" value={tokenName} onChange={(v) => {
                         setTokenName(v.target.value)
