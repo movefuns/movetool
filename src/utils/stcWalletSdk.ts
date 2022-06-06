@@ -1,4 +1,4 @@
-import {providers, utils, bcs} from "@starcoin/starcoin"
+import {providers, utils, bcs, encoding} from "@starcoin/starcoin"
 import {hexlify} from '@ethersproject/bytes'
 import {BigNumber} from "bignumber.js"
 
@@ -172,4 +172,20 @@ function amount(sendAmount: number) {
     const sendAmountSTC = new BigNumber(sendAmount, 10)
     const sendAmountNanoSTC = sendAmountSTC.times(BIG_NUMBER_NANO_STC_MULTIPLIER)
     return sendAmountNanoSTC;
+}
+
+
+export async function deployContract(code:Buffer):Promise<string> {
+    let transactionHash
+ 
+    const packageHex = hexlify(code)
+    if (!packageHex.length) {
+        alert('Contract blob hex is empty')
+    }
+
+    const transactionPayloadHex = encoding.packageHexToTransactionPayloadHex(packageHex)
+    const starcoinProvider = await getProvder();
+    transactionHash = await starcoinProvider.getSigner().sendUncheckedTransaction({data: transactionPayloadHex})
+
+    return transactionHash
 }

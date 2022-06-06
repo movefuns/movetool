@@ -14,7 +14,7 @@
     "@mui/styled-engine-sc": "^5.6.1",
     "@mui/x-data-grid": "^5.9.0",
     "@reduxjs/toolkit": "^1.8.1",
-    "@starcoin/starcoin": "^2.1.5",
+    "@starcoin/starcoin": "2.1.5",
     "@starcoin/starmask-onboarding": "^1.0.0",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.1.1",
@@ -70,6 +70,7 @@
     ]
   },
   "devDependencies": {
+    "@yubing744/move-js": "^0.5.0",
     "add": "^2.0.6",
     "gh-pages": "^4.0.0",
     "yarn": "^1.22.18"

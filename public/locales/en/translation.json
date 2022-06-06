@@ -5,8 +5,26 @@
     "batch_balance": "Batch Query Token",
     "rpc_ping": "RPC speed",
     "unit": "Unit Converter",
-    "chain_record": "Chain Record"
+    "chain_record": "Chain Record",
+    "issue_token": "Issue Token"
   },
+  
+  "issue_token": {
+    "title": "Issue Starcoin Token",
+    "token_address": "Token Address",
+    "token_name": "Token Name",
+    "token_precision": "Token Precision",
+    "init_mint": "Init Mint",
+    "submit_btn": "Issue Token",
+    "error_tips": {
+      "token_name_required": "Token name is required",
+      "token_address_required": "Please connect to starmask first",
+      "token_precision_required": "Token precision is required",
+      "token_precision_invalid": "Token precision is invalid",
+      "token_precision_range": "Token precision must be between 0 and 38"
+    }
+  },
+
   "batch_token": {
     "send":"Send"
   },
