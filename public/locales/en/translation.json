@@ -14,7 +14,15 @@
     "token_address": "Token Address",
     "token_name": "Token Name",
     "token_precision": "Token Precision",
-    "submit_btn": "Issue Token"
+    "init_mint": "Init Mint",
+    "submit_btn": "Issue Token",
+    "error_tips": {
+      "token_name_required": "Token name is required",
+      "token_address_required": "Please connect to starmask first",
+      "token_precision_required": "Token precision is required",
+      "token_precision_invalid": "Token precision is invalid",
+      "token_precision_range": "Token precision must be between 0 and 38"
+    }
   },
 
   "batch_token": {

@@ -13,7 +13,15 @@
     "token_address": "Token地址",
     "token_name": "Token名字",
     "token_precision": "Token精度",
-    "submit_btn": "发行Token"
+    "submit_btn": "发行Token",
+    "init_mint": "初始挖矿",
+    "error_tips": {
+      "token_name_required": "Token名字不能为空",
+      "token_address_required": "请先连接Starmask",
+      "token_precision_required": "Token精度不能为空",
+      "token_precision_invalid": "Token精度必须是整数",
+      "token_precision_range": "Token精度必须在0-38之间"
+    }
   },
 
   "batch_token": {

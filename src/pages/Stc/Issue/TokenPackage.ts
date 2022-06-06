@@ -8,12 +8,14 @@ class TokenPackage {
     private tokenAddress: string
     private tokenName: string
     private tokenPrecision: number
+    private initMint: number
 
-    public constructor(wasmfs: WasmFs, address: string, name:string,  precision: number) {
+    public constructor(wasmfs: WasmFs, address: string, name:string,  precision: number, initMint: number) {
         this.wasmfs = wasmfs;
         this.tokenAddress = address;
         this.tokenName = name;
         this.tokenPrecision = precision
+        this.initMint = initMint
     }
 
     public export(destPath: string) {
@@ -31,7 +33,7 @@ class TokenPackage {
         const sourcesDir = destPath + "/sources";
         this.wasmfs.fs.mkdirpSync(sourcesDir)
         const myTokenPath = sourcesDir + "/MyToken.move"
-        const myTokenContent = MyTokenSourceTpl(this.tokenName, this.tokenPrecision)
+        const myTokenContent = MyTokenSourceTpl(this.tokenName, this.tokenPrecision, this.initMint)
         this.wasmfs.fs.writeFileSync(myTokenPath, myTokenContent)
         window.console.info(myTokenPath)
         window.console.info(myTokenContent)
