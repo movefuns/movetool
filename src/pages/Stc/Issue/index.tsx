@@ -6,10 +6,10 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
-import {Stack, TextField} from "@mui/material";
-import {useState} from "react";
-import {deployContract} from "../../../utils/stcWalletSdk";
-import {useTranslation} from "react-i18next";
+import { Stack, TextField } from "@mui/material";
+import { useState } from "react";
+import { deployContract } from "../../../utils/stcWalletSdk";
+import { useTranslation } from "react-i18next";
 import { WasmFs } from '@wasmer/wasmfs'
 import { Git, MovePackage } from '@yubing744/move-js'
 import { TokenPackage } from './TokenPackage'

@@ -8,6 +8,7 @@
     "chain_record": "链上记录",
     "issue_token": "发行Token"
   },
+  
   "issue_token": {
     "title": "发行 Starcoin Token",
     "token_address": "Token地址",
