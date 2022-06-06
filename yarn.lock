@@ -1976,9 +1976,9 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@starcoin/starcoin@^2.1.5":
+"@starcoin/starcoin@2.1.5":
   version "2.1.5"
-  resolved "https://registry.npmmirror.com/@starcoin/starcoin/-/starcoin-2.1.5.tgz"
+  resolved "https://registry.yarnpkg.com/@starcoin/starcoin/-/starcoin-2.1.5.tgz#93f6425c877edb3df791055d7c002a230075c47b"
   integrity sha512-fm9A7Sx6URk90jbZPevD5SAMxftvb3r8stL9HPJVxAlNL3uD46Ir04auUL9xhYOR39truWtsBeq7C9+DXpo45g==
   dependencies:
     "@ethersproject/basex" "^5.0.4"
@@ -2789,10 +2789,10 @@
   resolved "https://registry.npmmirror.com/@xtuc/long/-/long-4.2.2.tgz"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
-"@yubing744/move-js@^0.4.0":
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/@yubing744/move-js/-/move-js-0.4.0.tgz#d7c77abe5bd4776c320bfedbc7226208df13c7be"
-  integrity sha512-ZVH/ZSB8+r2bNZRdC2QfN1wAufkemQkKzyVfcqPMTEI7WaP+OiUXbMYZGeFNj87A34+9Lk6uzT9DxQtPnOvo2Q==
+"@yubing744/move-js@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@yubing744/move-js/-/move-js-0.5.0.tgz#2a4031e6b776a5beb7efa784698f6687f7bf7fd8"
+  integrity sha512-eokpqr6+T57fCAduQLon4jnoJ6QyjLZ50WhqRh7Q7T6MCyfzEGTbK3K3QgECXabChqgIMmeASJlj7SVqLJMoDw==
   dependencies:
     "@iarna/toml" "^2.2.5"
     "@swc/helpers" "^0.3.13"

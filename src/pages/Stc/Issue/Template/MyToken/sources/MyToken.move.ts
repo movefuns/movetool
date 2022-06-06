@@ -8,6 +8,7 @@ const MyTokenSourceTpl = (tokenName:string, tokenPrecision:number) => {
     public(script) fun init(account: signer) {
         Token::register_token<${tokenName}>(&account, ${tokenPrecision});
         Account::do_accept_token<${tokenName}>(&account);
+        Self::mint(account, 666);
     }
 
     public(script) fun mint(account: signer, amount: u128) {

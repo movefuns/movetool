@@ -1,8 +1,7 @@
 
 import { WasmFs } from '@wasmer/wasmfs'
-import {MoveTomlTpl} from './tokenTpl/Move.toml'
-import {MyTokenSourceTpl} from './tokenTpl/sources/MyToken.move'
-import * as console from 'console'
+import {MoveTomlTpl} from './Template/MyToken/Move.toml'
+import {MyTokenSourceTpl} from './Template/MyToken/sources/MyToken.move'
 
 class TokenPackage {
     private wasmfs: WasmFs

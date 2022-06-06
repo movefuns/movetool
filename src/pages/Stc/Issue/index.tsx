@@ -29,9 +29,14 @@ export default function Issue() {
         await git.download("/data/starcoin-framework.zip", "/workspace/starcoin-framework")
         tokenPackage.export("/workspace/my-token")
     
-        const mp = new MovePackage(wasmfs, "/workspace/my-token", false, new Map([
-          ["StarcoinFramework", "/workspace/starcoin-framework"]
-        ]))
+        const mp = new MovePackage(wasmfs, {
+            packagePath: "/workspace/my-token",
+            test: false,
+            alias: new Map([
+                ["StarcoinFramework", "/workspace/starcoin-framework"]
+            ]),
+            initFunction: `${accountAddress}::${tokenName}::init`
+        })
         
         await mp.build()
     
