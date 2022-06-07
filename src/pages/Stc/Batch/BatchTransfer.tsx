@@ -15,24 +15,27 @@ import {visuallyHidden} from '@mui/utils';
 import Button from "@mui/material/Button";
 
 import {NANO_STC} from "../../../utils/consts";
-import {batchTransfer_v2} from "../../../utils/stcWalletSdk";
+import {batchTransfer_v2, getTokenList} from "../../../utils/stcWalletSdk";
 import {useTranslation} from "react-i18next";
+import {useMemo, useState} from "react";
+import {FormControl, InputLabel, MenuItem, Select, SelectChangeEvent} from "@mui/material";
+import {useAppSelector} from "../../../store/hooks";
 
 interface Data {
-    stc: number;
+    tokenAmount: number;
     address: string;
-    nanoSTC: number;
+    nanoToken: number;
 }
 
 function createData(
     address: string,
-    stc: number,
-    nanoSTC: number,
+    tokenAmount: number,
+    nanoToken: number,
 ): Data {
     return {
         address,
-        stc,
-        nanoSTC
+        tokenAmount,
+        nanoToken
     };
 }
 
@@ -90,16 +93,16 @@ const headCells: readonly HeadCell[] = [
         label: 'address',
     },
     {
-        id: 'stc',
+        id: 'tokenAmount',
         numeric: true,
         disablePadding: false,
-        label: 'STC',
+        label: 'Token amount',
     },
     {
-        id: 'nanoSTC',
+        id: 'nanoToken',
         numeric: true,
         disablePadding: false,
-        label: 'nanoSTC',
+        label: 'nano Token',
     },
 ];
 
@@ -127,7 +130,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
                 {headCells.map((headCell) => (
                     <TableCell
                         key={headCell.id}
-                        align={headCell.numeric ? 'right' : 'left'}
+                        align="center"
                         padding={headCell.disablePadding ? 'none' : 'normal'}
                         sortDirection={orderBy === headCell.id ? order : false}
                     >
@@ -178,7 +181,7 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
                 variant="subtitle1"
                 component="div"
             >
-                total address: {numSelected} total STC:{totalStc}
+                total address: {numSelected} total Token Amount: {totalStc}
             </Typography>
 
             <Button variant="contained" onClick={handleTransferClick}>{t("batch_token.send")}</Button>
@@ -198,16 +201,38 @@ interface Props {
 
 
 export default function BatchTransfer(props: Props) {
-
-
     const {addressArray} = props;
-
     const [order, setOrder] = React.useState<Order>('asc');
-    const [orderBy, setOrderBy] = React.useState<keyof Data>('nanoSTC');
+    const [orderBy, setOrderBy] = React.useState<keyof Data>('nanoToken');
     const [selected, setSelected] = React.useState<readonly string[]>([]);
     const [page] = React.useState(0);
     const [dense] = React.useState(true);
     const [rowsPerPage] = React.useState(5);
+    const [token, setToken] = useState("0x00000000000000000000000000000001::STC::STC")
+    const [tokenList, setTokenList] = useState<string[]>(["0x00000000000000000000000000000001::STC::STC"])
+    const accountAddresses = useAppSelector((state:any) => state.wallet.accountAddress)
+    useMemo(async ()=>{
+        const fetch = async ()=>{
+
+            const tokenObj =  await  getTokenList(accountAddresses[0])
+            let tokens :string[];
+            if (tokenObj){
+                tokens = Object.keys(tokenObj).map((item)=>{
+                   return  item
+                })
+            }else {
+                tokens = ["0x00000000000000000000000000000001::STC::STC"]
+            }
+            setTokenList(tokens)
+        }
+        if (accountAddresses[0]){
+            await fetch()
+        }
+
+    },[accountAddresses])
+
+
+
 
 
     const rows: Data[] = [];
@@ -217,16 +242,16 @@ export default function BatchTransfer(props: Props) {
     })
 
 
-    let totalStc = 0;
-    const computeTotalStc = () => {
+    let totalToken;
+    const computeTotalToken = () => {
         window.console.info(rows)
-        let totalStc = 0;
+        let totalToken = 0;
         rows.forEach(v => {
-            totalStc += v.stc
+            totalToken += v.tokenAmount
         })
-        return totalStc;
+        return totalToken;
     }
-    totalStc = computeTotalStc();
+    totalToken = computeTotalToken();
 
 
     const handleRequestSort = (
@@ -279,9 +304,9 @@ export default function BatchTransfer(props: Props) {
             await batchTransfer_v2(rows.map(v => {
                 return {
                     account: v.address,
-                    amount: v.stc
+                    amount: v.tokenAmount
                 }
-            }))
+            }),token)
         } catch (e: any) {
 
             if (e.toString().includes("UNSUPPORTED_OPERATION")) {
@@ -296,6 +321,11 @@ export default function BatchTransfer(props: Props) {
     }
 
 
+    const handleChangeToken = (event: SelectChangeEvent) => {
+        setToken(event.target.value as string);
+    };
+
+
     const isSelected = (name: string) => selected.indexOf(name) !== -1;
 
     // Avoid a layout jump when reaching the last page with empty rows.
@@ -305,7 +335,26 @@ export default function BatchTransfer(props: Props) {
     return (
         <Box sx={{width: '100%'}}>
             <Paper sx={{width: '100%', mb: 2}}>
-                <EnhancedTableToolbar numSelected={rows.length} totalStc={totalStc}
+
+                <Box sx={{ minWidth: 120 }}>
+                    <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">Token</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={token}
+                            label="Token"
+                            onChange={handleChangeToken}
+                        >
+                            {tokenList.map((item,index)=>{
+                              return  <MenuItem key={item} selected={index === 0} value={item}>{item}</MenuItem>
+                            })}
+
+                        </Select>
+                    </FormControl>
+                </Box>
+
+                <EnhancedTableToolbar numSelected={rows.length} totalStc={totalToken}
                                       handleTransferClick={handleTransferClick}/>
                 <TableContainer>
                     <Table
@@ -336,20 +385,21 @@ export default function BatchTransfer(props: Props) {
                                             role="checkbox"
                                             aria-checked={isItemSelected}
                                             tabIndex={-1}
-                                            key={row.address + row.stc}
+                                            key={row.address + row.tokenAmount}
                                             selected={isItemSelected}
                                         >
                                             <TableCell
                                                 component="th"
                                                 id={labelId}
                                                 scope="row"
+                                                align="center"
                                                 padding="none"
                                             >
                                                 {row.address}
                                             </TableCell>
 
-                                            <TableCell align="left"> {row.stc}</TableCell>
-                                            <TableCell align="left"> {row.nanoSTC}</TableCell>
+                                            <TableCell align="center"> {row.tokenAmount}</TableCell>
+                                            <TableCell align="center"> {row.nanoToken}</TableCell>
                                         </TableRow>
                                     );
                                 })}
