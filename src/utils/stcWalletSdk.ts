@@ -68,7 +68,7 @@ export async function transfer(account: string, stcAmount: number, content: stri
 }
 
 
-export async function batchTransfer_v2(input: BatchTransferInput[]) {
+export async function batchTransfer_v2(input: BatchTransferInput[],token:string) {
 
 
     const toAddress: string[] = []
@@ -80,7 +80,7 @@ export async function batchTransfer_v2(input: BatchTransferInput[]) {
 
     try {
         const functionId = '0x1::TransferScripts::batch_peer_to_peer_v2'
-        const tyArgs = ['0x1::STC::STC']
+        const tyArgs = [token]
         const args = [
             toAddress,
             toAmount
@@ -119,6 +119,12 @@ export async function batchTransfer_v2(input: BatchTransferInput[]) {
     }
 
 
+}
+
+
+export async function getTokenList(address:string){
+    const starcoinProvider = await getProvder();
+    return  await starcoinProvider.getBalances(address)
 }
 
 
