@@ -215,10 +215,10 @@ export default function BatchTransfer(props: Props) {
         const fetch = async ()=>{
 
             const tokenObj =  await  getTokenList(accountAddresses[0])
-            let tokens :string[]= [];
+            let tokens :string[];
             if (tokenObj){
-                Object.keys(tokenObj).map((item)=>{
-                    tokens.push(item)
+                tokens = Object.keys(tokenObj).map((item)=>{
+                   return  item
                 })
             }else {
                 tokens = ["0x00000000000000000000000000000001::STC::STC"]
