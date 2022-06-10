@@ -1,40 +1,47 @@
+import TokenIcon from '@mui/icons-material/Token';
+import TransferWithinAStationIcon from '@mui/icons-material/TransferWithinAStation';
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import NetworkPingIcon from '@mui/icons-material/NetworkPing';
+import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
+import GraphicEqIcon from '@mui/icons-material/GraphicEq';
+
 const menu = [
     {
         name: "0",
         name_i18_key: "menu.issue_token",
-        icon: "xxx",
+        icon: TokenIcon,
         path: "/stc/issue/token"
     },
     {
         name: "1",
         name_i18_key: "menu.batch_token",
-        icon: "xxx",
+        icon: TransferWithinAStationIcon,
         path: "/stc/batch/transfer"
     },
     {
         name: "2",
         name_i18_key: "menu.batch_balance",
-        icon: "xxx",
+        icon: AccountBalanceIcon,
         path: "/stc/batch/balance"
     },
 
     {
         name: "3",
         name_i18_key: "menu.rpc_ping",
-        icon: "xxx",
+        icon: NetworkPingIcon,
         path: "/node/ping"
     },
     {
         name: "4",
         name_i18_key: "menu.unit",
-        icon: "xxx",
+        icon: ConfirmationNumberIcon,
         path: "/stc/unit/convert"
     },
 
     {
         name: "4",
         name_i18_key: "menu.chain_record",
-        icon: "xxx",
+        icon: GraphicEqIcon,
         path: "/chain/record"
     },
 ]
