@@ -6,7 +6,9 @@
     "rpc_ping": "RPC speed",
     "unit": "Unit Converter",
     "chain_record": "Chain Record",
-    "issue_token": "Issue Token"
+    "issue_token": "Issue Token",
+    "games": "Games",
+    "showdown": "Showdown"
   },
   
   "issue_token": {
@@ -49,5 +51,12 @@
     "record_on" :"Record On Chain",
     "record_tx" :"Record Transaction Hash",
     "record_time" :"Record Time"
+  },
+
+  "showdown": {
+    "amount": "amount",
+    "check": "check",
+    "true": "T",
+    "false": "F"
   }
 }

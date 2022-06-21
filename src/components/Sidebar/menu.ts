@@ -4,6 +4,8 @@ import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import NetworkPingIcon from '@mui/icons-material/NetworkPing';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import GraphicEqIcon from '@mui/icons-material/GraphicEq';
+import game_menu from  "./game_menu"
+
 
 const menu = [
     {
@@ -46,4 +48,7 @@ const menu = [
     },
 ]
 
-export {menu}
+export default [
+    {name:"",menu},
+    {name:"menu.games",menu:game_menu},
+    ]

@@ -70,8 +70,9 @@ export default function MiniDrawer() {
                         <MenuIcon/>
                     </IconButton>
                     <LoginWallet/>
-                    <ThemeChange/>
                     <LocalChange/>
+                    <ThemeChange/>
+
                 </Toolbar>
             </AppBar>
             <Sidebar open={open} handleDrawerClose={handleDrawerClose}></Sidebar>
