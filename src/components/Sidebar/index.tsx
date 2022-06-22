@@ -83,9 +83,8 @@ export default function Sidebar(props: Props) {
 
             {menus.map(menu => {
 
-               return <>
+               return <div key={menu.name}>
                    <Divider  textAlign="left">{t(menu.name)}</Divider>
-
                    <List>{menu.menu.map((item) => {
                     const IconName = item.icon;
                     return <ListItemButton key={item.name}
@@ -112,7 +111,7 @@ export default function Sidebar(props: Props) {
                 })}
                </List>
 
-               </>
+               </div>
 
             })}
         <Divider/>

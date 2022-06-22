@@ -1,14 +1,8 @@
 import {providers, utils, bcs, encoding} from "@starcoin/starcoin"
 import {hexlify} from '@ethersproject/bytes'
 import {BigNumber} from "bignumber.js"
-
-const nodeUrlMap = {
-    '1': 'https://main-seed.starcoin.org',
-    '2': 'https://proxima-seed.starcoin.org',
-    '251': 'https://barnard-seed.starcoin.org',
-    '253': 'https://halley-seed.starcoin.org',
-    '254': 'http://localhost:9850',
-}
+import {getLocalNetwork} from "./localHelper";
+import {nodeUrlMap} from "./consts";
 
 
 export async function requestAccounts() {
@@ -19,7 +13,9 @@ export async function requestAccounts() {
 }
 
 export async function getProvder() {
-    const provider = new providers.Web3Provider(window.starcoin, 'any')
+
+    const network =  getLocalNetwork() || "main"
+    const provider = new providers.Web3Provider(window.starcoin, network)
     return provider;
 }
 

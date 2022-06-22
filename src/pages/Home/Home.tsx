@@ -8,6 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ThemeChange from "../../components/ThemeChange";
 import LocalChange from "../../components/LocalChange";
+import NetworkChange from "../../components/NetworkChange";
 import Router from "./../../router/router"
 import Sidebar from "../../components/Sidebar";
 import LoginWallet from "../../components/LoginWallet";
@@ -71,6 +72,7 @@ export default function MiniDrawer() {
                     </IconButton>
                     <LoginWallet/>
                     <LocalChange/>
+                    <NetworkChange/>
                     <ThemeChange/>
 
                 </Toolbar>

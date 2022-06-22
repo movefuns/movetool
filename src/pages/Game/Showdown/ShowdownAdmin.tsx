@@ -4,8 +4,7 @@ import {
     FormControl, InputLabel, MenuItem, Select, SelectChangeEvent,
     Stack,
     TextField,
-    ToggleButton,
-    ToggleButtonGroup, useTheme
+    useTheme
 } from "@mui/material";
 import * as React from "react";
 import {useTranslation} from "react-i18next";
@@ -13,14 +12,13 @@ import {useState} from "react";
 import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import {gameShowdownCheck} from "../../../games/showdown";
+import {gameShowdownDeposit, gameShowdownInitBank, gameShowdownWithdraw} from "../../../games/showdown";
 import {NANO_STC} from "../../../utils/consts";
 
 
-export default function Showdown() {
+export default function ShowdownAdmin() {
     const {t} = useTranslation();
     let [amount, setAmount] = useState("1")
-    const [input, setInput] = useState("1")
     const theme = useTheme()
     const [token, setToken] = useState("0x00000000000000000000000000000001::STC::STC")
     const [tokenList, setTokenList] = useState<string[]>(["0x00000000000000000000000000000001::STC::STC"])
@@ -28,8 +26,14 @@ export default function Showdown() {
         setToken(event.target.value as string);
     };
 
-    const handleCheck = async () => {
-       await gameShowdownCheck(token,input === "1",Number(amount)*NANO_STC)
+    const handleInit = async () => {
+        await gameShowdownInitBank(token,Number(amount)*NANO_STC)
+    };
+    const handleWithdraw = async () => {
+        await gameShowdownWithdraw(token,Number(amount)*NANO_STC)
+    };
+    const handleDeposit = async () => {
+        await gameShowdownDeposit(token,Number(amount)*NANO_STC)
     };
 
     return <>
@@ -59,7 +63,6 @@ export default function Showdown() {
 
                     <TextField
                         fullWidth
-
                         aria-readonly
                         id="outlined-multiline-static"
                         label={t("showdown.amount")}
@@ -69,35 +72,14 @@ export default function Showdown() {
                         }}
                         multiline
                         rows={1}/>
-
-
-
-                    <ToggleButtonGroup
-                        style={{margin:"20px auto"}}
-                        value={input}
-                        exclusive
-                        onChange={(_, value) => {
-                            setInput(value)
-                        }}
-                        aria-label="text alignment"
-
-                    >
-                        <ToggleButton value="1" aria-label="left aligned"
-                                      style={{fontSize: theme.spacing(12), padding: theme.spacing(4)}}>
-                            {t("showdown.true")}
-                        </ToggleButton>
-                        <ToggleButton value="0" aria-label="centered"
-                                      style={{fontSize: theme.spacing(12), padding: theme.spacing(4)}}>
-                            {t("showdown.false")}
-                        </ToggleButton>
-
-                    </ToggleButtonGroup>
                 </Stack>
 
             </CardContent>
 
             <CardActions>
-                <Button variant="contained" fullWidth onClick={handleCheck}>{t("showdown.check")}</Button>
+                <Button variant="contained" fullWidth onClick={handleInit}>init</Button>
+                <Button variant="contained" fullWidth onClick={handleWithdraw}>withdraw</Button>
+                <Button variant="contained" fullWidth onClick={handleDeposit}>deposit</Button>
             </CardActions>
         </Card>
     </>

@@ -41,7 +41,7 @@ const menu = [
     },
 
     {
-        name: "4",
+        name: "5",
         name_i18_key: "menu.chain_record",
         icon: GraphicEqIcon,
         path: "/chain/record"

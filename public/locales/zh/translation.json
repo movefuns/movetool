@@ -8,7 +8,7 @@
     "chain_record": "链上记录",
     "issue_token": "发行Token",
     "games": "游戏",
-    "showdown": "比大小"
+    "showdown": "猜大小"
   },
   
   "issue_token": {
@@ -54,8 +54,8 @@
   },
 
   "showdown": {
-    "amount": "投注金额",
-    "check": "比一比",
+    "amount": "金额",
+    "check": "猜一猜",
     "true": "大",
     "false": "小"
   }
