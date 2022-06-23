@@ -1,0 +1,14 @@
+[package]
+name = "Showdown"
+version = "0.0.0"
+
+[addresses]
+StarcoinFramework = "0x1"
+SFC = "0x6ee3f577c8da207830c31e1f0abb4244"
+admin = "0x12Fd2AFaA16Ca7480e877098c199Ab84"
+
+
+
+[dependencies]
+StarcoinFramework = { git = "https://github.com/starcoinorg/starcoin-framework.git", rev = "cf1deda180af40a8b3e26c0c7b548c4c290cd7e7" }
+starcoin-framework-commons = { git = "https://github.com/starcoinorg/starcoin-framework-commons.git", rev = "ff2fa0dba47c926407c7a008f5870f9f1c07ded1" }
