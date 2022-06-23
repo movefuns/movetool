@@ -80,8 +80,8 @@ module GameShowdown {
     }
 
     /// check game result
-    public(script) fun check<TokenType: store>(_account: signer, amount: u128, input: bool) acquires Bank, BankEvent {
-        let signer_addr = Signer::address_of(&_account);
+    public(script) fun check<TokenType: store>(account: signer, amount: u128, input: bool) acquires Bank, BankEvent {
+        let signer_addr = Signer::address_of(&account);
 
         //  check account amount
         assert!(Account::balance<TokenType>(signer_addr) > amount, 1);
@@ -92,9 +92,9 @@ module GameShowdown {
         let result = getRandBool();
 
         if (result == input) {
-            win_token<TokenType>(_account, amount)
+            win_token<TokenType>(account, amount)
         }else {
-            loss_token<TokenType>(_account, amount)
+            loss_token<TokenType>(account, amount)
         };
 
         // event
