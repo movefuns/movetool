@@ -1,13 +1,12 @@
 import {bcs, utils} from "@starcoin/starcoin";
 import {hexlify} from "@ethersproject/bytes";
 import {getProvder} from "../../utils/stcWalletSdk";
-import {nodeUrlMap} from "../../utils/consts";
+import {NANO_STC, nodeUrlMap} from "../../utils/consts";
 
 export const adminAddress = "0x12Fd2AFaA16Ca7480e877098c199Ab84";
 
 
 export async function gameShowdownCheck(token:string,input:boolean,amount:number){
-
     try {
         const functionId = `${adminAddress}::GameShowdown::check`
         const tyArgs = [token]
@@ -32,9 +31,10 @@ export async function gameShowdownCheck(token:string,input:boolean,amount:number
         }
         const starcoinProvider = await getProvder();
         const transactionHash = await starcoinProvider.getSigner().sendUncheckedTransaction(txParams)
-        window.console.log({transactionHash})
+        return transactionHash
     }catch (e){
         window.console.error(e)
+        return  false;
     }
 }
 
@@ -141,5 +141,23 @@ export  async  function gameShowdownWithdraw(token:any,amount:number){
         window.console.log({transactionHash})
     }catch (e){
         window.console.error(e)
+    }
+}
+
+export async function getBankAmount(token: any){
+    try {
+        const provider = await getProvder();
+        const result = await provider.getResource(
+            adminAddress,
+            `${adminAddress}::GameShowdown::Bank<${token}>`,
+        );
+        if (result && result.bank  && result.bank){
+            // @ts-ignore
+            return  result.bank.value / NANO_STC;
+        }
+        return 0;
+    } catch (e) {
+        window.console.error(e)
+        return  0
     }
 }

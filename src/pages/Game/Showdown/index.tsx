@@ -1,6 +1,7 @@
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import {
+    Alert,
     FormControl, InputLabel, MenuItem, Select, SelectChangeEvent,
     Stack,
     TextField,
@@ -9,27 +10,52 @@ import {
 } from "@mui/material";
 import * as React from "react";
 import {useTranslation} from "react-i18next";
-import {useState} from "react";
+import {useMemo, useState} from "react";
 import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import {gameShowdownCheck} from "../../../games/showdown";
+import {gameShowdownCheck, getBankAmount} from "../../../games/showdown";
 import {NANO_STC} from "../../../utils/consts";
+
+type TxLog = {
+    txHash:string | boolean,
+    input:boolean,
+    token:string,
+    amount:string
+}
 
 
 export default function Showdown() {
     const {t} = useTranslation();
     let [amount, setAmount] = useState("1")
+    let [bankAmount, setBankAmount] = useState(0)
     const [input, setInput] = useState("1")
+    const [log, setLog] = useState<TxLog[]>([])
     const theme = useTheme()
     const [token, setToken] = useState("0x00000000000000000000000000000001::STC::STC")
-    const [tokenList, setTokenList] = useState<string[]>(["0x00000000000000000000000000000001::STC::STC"])
+    const [tokenList] = useState<string[]>(["0x00000000000000000000000000000001::STC::STC"])
     const handleChangeToken = (event: SelectChangeEvent) => {
         setToken(event.target.value as string);
     };
 
+    useMemo(async ()=>{
+      const rs = await  getBankAmount(token)
+        if (rs){
+           setBankAmount(rs)
+        }
+    },[token])
+
     const handleCheck = async () => {
-       await gameShowdownCheck(token,input === "1",Number(amount)*NANO_STC)
+       const rs =  await gameShowdownCheck(token,input === "1",Number(amount)*NANO_STC)
+        if (rs){
+            const rsLog:TxLog= {
+                txHash:rs,
+                input:input === "1",
+                token:token,
+                amount:amount
+            }
+            setLog([...log,rsLog])
+        }
     };
 
     return <>
@@ -56,6 +82,9 @@ export default function Showdown() {
                             </Select>
                         </FormControl>
                     </Box>
+
+                    <Alert severity="info">This Banker Amount:   {bankAmount} , max input amount {bankAmount/10}  </Alert>
+
 
                     <TextField
                         fullWidth
