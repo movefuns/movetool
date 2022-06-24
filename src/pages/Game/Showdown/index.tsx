@@ -40,7 +40,7 @@ export default function Showdown() {
         window.open(`https://stcscan.io/${network}/transactions/detail/${txHash}`, "_blank")
     }
 
-    let [amount, setAmount] = useState("1")
+    let [amount, setAmount] = useState("0.1")
     let [bankAmount, setBankAmount] = useState(0)
 
     const [input, setInput] = useState("1")
