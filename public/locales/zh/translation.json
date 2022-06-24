@@ -6,7 +6,9 @@
     "rpc_ping": "RPC 节点测速",
     "unit": "单位转换",
     "chain_record": "链上记录",
-    "issue_token": "发行Token"
+    "issue_token": "发行Token",
+    "games": "游戏",
+    "showdown": "猜大小"
   },
   
   "issue_token": {
@@ -49,5 +51,12 @@
       "record_on" :"记录到链上",
       "record_tx" :"链上交易哈希",
       "record_time" :"记录时间"
+  },
+
+  "showdown": {
+    "amount": "金额",
+    "check": "猜一猜",
+    "true": "大",
+    "false": "小"
   }
 }

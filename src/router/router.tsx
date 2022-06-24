@@ -13,6 +13,9 @@ import Balance from "../pages/Stc/Batch/Balance";
 import Transfer from "../pages/Stc/Batch/Transfer";
 import Issue from "../pages/Stc/Issue/index";
 
+import GameShowdown from "../pages/Game/Showdown";
+import GameShowdownAdmin from "../pages/Game/Showdown/ShowdownAdmin";
+
 export default function Router() {
     return (<Routes>
         <Route path="/" element={<Index/>}/>
@@ -27,5 +30,8 @@ export default function Router() {
         <Route path="/chain/record" element={<ChainRecord/>}/>
         <Route path="/chain/record/detail" element={<ChainRecordInfo/>}/>
         <Route path="/chain/record/detail/:hash" element={<ChainRecordInfo/>}/>
+
+        <Route path="/game/showdown" element={<GameShowdown/>}/>
+        <Route path="/game/showdown/admin" element={<GameShowdownAdmin/>}/>
     </Routes>);
 }

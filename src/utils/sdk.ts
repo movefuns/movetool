@@ -1,13 +1,14 @@
 // https://www.npmjs.com/package/@starcoin/starcoin
 import {providers} from '@starcoin/starcoin';
+import {NETWORK} from "./consts";
+import {getLocalNetwork} from "./localHelper";
 
 
 function getNetwork() {
-    return "main"
+  return  getLocalNetwork() || "main"
 }
 
-const networks: string[] =
-    process.env.REACT_APP_STARCOIN_NETWORKS?.split(',') || ["main"];
+const networks: string[] =  NETWORK;
 const providerMap: Record<string, any> = {};
 networks.forEach((n) => {
     providerMap[n] = new providers.JsonRpcProvider(
@@ -21,6 +22,35 @@ export async function getTxnData(txnHash: string) {
         const result = await provider.getTransaction(txnHash);
         return result;
     } catch (error: any) {
+        return false;
+    }
+}
+
+
+export async function getEventsByTxnHash(txnHash: string){
+    try {
+        const provider = providerMap[getNetwork()];
+        const result = await provider.send("chain.get_events_by_txn_hash", [txnHash]);
+        return result;
+    } catch (error: any) {
+        return false;
+    }
+
+}
+
+
+
+export  async function callV2(function_id:string,type_args:any[],args:any[]){
+    try {
+        const provider = providerMap[getNetwork()];
+        const result = await provider.callV2({
+            function_id,
+            type_args,
+            args,
+        });
+        return result;
+    } catch (error: any) {
+        window.console.error(error)
         return false;
     }
 }

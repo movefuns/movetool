@@ -6,18 +6,17 @@ import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import * as React from "react";
-import { CSSObject, styled, Theme, useTheme } from "@mui/material/styles";
+import {CSSObject, styled, Theme, useTheme} from "@mui/material/styles";
 import MuiDrawer from "@mui/material/Drawer";
-import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import { menu } from "./menu"
+import {useNavigate} from "react-router-dom";
+import {useTranslation} from "react-i18next";
+import menus from "./menu"
+
 
 type Props = {
     open: boolean
     handleDrawerClose: any
 }
-
 
 const drawerWidth = 240;
 
@@ -42,7 +41,7 @@ const closedMixin = (theme: Theme): CSSObject => ({
     },
 });
 
-const DrawerHeader = styled('div')(({ theme }) => ({
+const DrawerHeader = styled('div')(({theme}) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
@@ -51,8 +50,8 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     ...theme.mixins.toolbar,
 }));
 
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-    ({ theme, open }) => ({
+const Drawer = styled(MuiDrawer, {shouldForwardProp: (prop) => prop !== 'open'})(
+    ({theme, open}) => ({
         width: drawerWidth,
         flexShrink: 0,
         whiteSpace: 'nowrap',
@@ -68,48 +67,54 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
 );
 
+
 export default function Sidebar(props: Props) {
     const theme = useTheme();
-    const { t } = useTranslation();
-    const { handleDrawerClose, open } = props
+    const {t} = useTranslation();
+    const {handleDrawerClose, open} = props
     let navigate = useNavigate();
 
     return <Drawer variant="permanent" open={props.open}>
         <DrawerHeader>
             <IconButton onClick={handleDrawerClose}>
-                {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                {theme.direction === 'rtl' ? <ChevronRightIcon/> : <ChevronLeftIcon/>}
             </IconButton>
         </DrawerHeader>
-        <Divider />
-        <List>
-            {menu.map((item) => {
-                const IconName = item.icon;
-                return <ListItemButton key={item.name}
-                    sx={{
-                        minHeight: 48,
-                        justifyContent: open ? 'initial' : 'center',
-                        px: 2.5,
-                    }}
-                    onClick={() => {
-                        navigate(item.path, {})
-                    }}
-                >
-                    <ListItemIcon
-                        sx={{
-                            minWidth: 0,
-                            mr: open ? 3 : 'auto',
-                            justifyContent: 'center',
-                        }}
+
+            {menus.map(menu => {
+
+               return <div key={menu.name}>
+                   <Divider  textAlign="left">{t(menu.name)}</Divider>
+                   <List>{menu.menu.map((item) => {
+                    const IconName = item.icon;
+                    return <ListItemButton key={item.name}
+                                           sx={{
+                                               minHeight: 48,
+                                               justifyContent: open ? 'initial' : 'center',
+                                               px: 2.5,
+                                           }}
+                                           onClick={() => {
+                                               navigate(item.path, {})
+                                           }}
                     >
-                        <IconName />
-                    </ListItemIcon>
-                    <ListItemText primary={t(item.name_i18_key)} sx={{ opacity: open ? 1 : 0 }} />
-                </ListItemButton>
+                        <ListItemIcon
+                            sx={{
+                                minWidth: 0,
+                                mr: open ? 3 : 'auto',
+                                justifyContent: 'center',
+                            }}
+                        >
+                            <IconName/>
+                        </ListItemIcon>
+                        <ListItemText primary={t(item.name_i18_key)} sx={{opacity: open ? 1 : 0}}/>
+                    </ListItemButton>
+                })}
+               </List>
+
+               </div>
 
             })}
-        </List>
-        <Divider />
-
+        <Divider/>
     </Drawer>
 
 }

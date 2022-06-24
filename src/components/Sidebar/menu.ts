@@ -4,8 +4,10 @@ import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import NetworkPingIcon from '@mui/icons-material/NetworkPing';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import GraphicEqIcon from '@mui/icons-material/GraphicEq';
+import game_menu from  "./game_menu"
 
-const menu = [
+
+const common_menu = [
     {
         name: "0",
         name_i18_key: "menu.issue_token",
@@ -39,11 +41,16 @@ const menu = [
     },
 
     {
-        name: "4",
+        name: "5",
         name_i18_key: "menu.chain_record",
         icon: GraphicEqIcon,
         path: "/chain/record"
     },
 ]
 
-export {menu}
+const menu = [
+    {name:"",menu:common_menu},
+    {name:"menu.games",menu:game_menu},
+]
+
+export default menu
