@@ -1,5 +1,5 @@
 import {bcs, utils} from "@starcoin/starcoin";
-import {hexlify} from "@ethersproject/bytes";
+import {arrayify, hexlify} from "@ethersproject/bytes";
 import {getProvder} from "../../utils/stcWalletSdk";
 import {NANO_STC, nodeUrlMap} from "../../utils/consts";
 
@@ -159,5 +159,19 @@ export async function getBankAmount(token: any){
     } catch (e) {
         window.console.error(e)
         return  0
+    }
+}
+
+
+export function decodeCheckEvent(data:string){
+
+    const de = new bcs.BcsDeserializer( arrayify(data)) ;
+    const amount = de.deserializeU128()
+    const result = de.deserializeBool()
+    const input = de.deserializeBool()
+    return {
+        amount,
+        result,
+        input
     }
 }

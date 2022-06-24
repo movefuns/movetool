@@ -27,6 +27,19 @@ export async function getTxnData(txnHash: string) {
 }
 
 
+export async function getEventsByTxnHash(txnHash: string){
+    try {
+        const provider = providerMap[getNetwork()];
+        const result = await provider.send("chain.get_events_by_txn_hash", [txnHash]);
+        return result;
+    } catch (error: any) {
+        return false;
+    }
+
+}
+
+
+
 export  async function callV2(function_id:string,type_args:any[],args:any[]){
     try {
         const provider = providerMap[getNetwork()];
