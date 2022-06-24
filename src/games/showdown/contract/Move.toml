@@ -11,4 +11,4 @@ admin = "0x12Fd2AFaA16Ca7480e877098c199Ab84"
 
 [dependencies]
 StarcoinFramework = { git = "https://github.com/starcoinorg/starcoin-framework.git", rev = "cf1deda180af40a8b3e26c0c7b548c4c290cd7e7" }
-starcoin-framework-commons = { git = "https://github.com/starcoinorg/starcoin-framework-commons.git", rev = "ff2fa0dba47c926407c7a008f5870f9f1c07ded1" }
+starcoin-framework-commons = { git = "https://github.com/starcoinorg/starcoin-framework-commons.git", rev = "e7f538175a5f50a97207692569b6631a87ee08cc" }
