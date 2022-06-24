@@ -4,7 +4,6 @@ import {
     FormControl, InputLabel, MenuItem, Select, SelectChangeEvent,
     Stack,
     TextField,
-    useTheme
 } from "@mui/material";
 import * as React from "react";
 import {useTranslation} from "react-i18next";
@@ -19,9 +18,9 @@ import {NANO_STC} from "../../../utils/consts";
 export default function ShowdownAdmin() {
     const {t} = useTranslation();
     let [amount, setAmount] = useState("1")
-    const theme = useTheme()
+
     const [token, setToken] = useState("0x00000000000000000000000000000001::STC::STC")
-    const [tokenList, setTokenList] = useState<string[]>(["0x00000000000000000000000000000001::STC::STC"])
+    const [tokenList] = useState<string[]>(["0x00000000000000000000000000000001::STC::STC"])
     const handleChangeToken = (event: SelectChangeEvent) => {
         setToken(event.target.value as string);
     };

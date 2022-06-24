@@ -1,6 +1,6 @@
 import Games from "@mui/icons-material/Games";
 
-export  default  [
+const gameMenu = [
     {
         name: "showdown",
         name_i18_key: "menu.showdown",
@@ -8,3 +8,5 @@ export  default  [
         path: "/game/showdown"
     },
 ]
+
+export  default  gameMenu

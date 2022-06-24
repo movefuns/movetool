@@ -7,7 +7,7 @@ import GraphicEqIcon from '@mui/icons-material/GraphicEq';
 import game_menu from  "./game_menu"
 
 
-const menu = [
+const common_menu = [
     {
         name: "0",
         name_i18_key: "menu.issue_token",
@@ -48,7 +48,9 @@ const menu = [
     },
 ]
 
-export default [
-    {name:"",menu},
+const menu = [
+    {name:"",common_menu},
     {name:"menu.games",menu:game_menu},
-    ]
+]
+
+export default menu
