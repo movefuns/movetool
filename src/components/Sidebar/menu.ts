@@ -49,7 +49,7 @@ const common_menu = [
 ]
 
 const menu = [
-    {name:"",common_menu},
+    {name:"",menu:common_menu},
     {name:"menu.games",menu:game_menu},
 ]
 
