@@ -67,7 +67,7 @@ export default function Showdown() {
                 setTxHash(rs)
                 let txData = await getTxnData(rs)
                 let times = 0;
-                while (!txData && times++ < 20) {
+                while (!txData && times++ < 60) {
                     await sleep(1000)
                     txData = await getEventsByTxnHash(rs)
                     window.console.info("tx", times, txData)
