@@ -29,7 +29,7 @@ export default function LoginWallet() {
             setButtonText(res[0])
             dispatch(set(res))
         }
-    }, [])
+    }, [dispatch])
 
     const handleClick = async () => {
 
