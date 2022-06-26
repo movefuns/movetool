@@ -12,6 +12,13 @@ export async function requestAccounts() {
     return newAccounts
 }
 
+export async function getAccounts() {
+    const result = await window.starcoin.request({
+        method: 'stc_accounts',
+    })
+    return result
+}
+
 export async function getProvder() {
 
     const network =  getLocalNetwork() || "main"
