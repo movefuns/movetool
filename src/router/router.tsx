@@ -16,6 +16,8 @@ import Issue from "../pages/Stc/Issue/index";
 import GameShowdown from "../pages/Game/Showdown";
 import GameShowdownAdmin from "../pages/Game/Showdown/ShowdownAdmin";
 
+import GameRPS from "../pages/Game/RPS";
+
 export default function Router() {
     return (<Routes>
         <Route path="/" element={<Index/>}/>
@@ -33,5 +35,7 @@ export default function Router() {
 
         <Route path="/game/showdown" element={<GameShowdown/>}/>
         <Route path="/game/showdown/admin" element={<GameShowdownAdmin/>}/>
+
+        <Route path="/game/rps" element={<GameRPS/>}/>
     </Routes>);
 }

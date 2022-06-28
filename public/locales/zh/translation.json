@@ -8,7 +8,8 @@
     "chain_record": "链上记录",
     "issue_token": "发行Token",
     "games": "游戏",
-    "showdown": "猜大小"
+    "showdown": "猜大小",
+    "rps": "剪刀石头布"
   },
   
   "issue_token": {
