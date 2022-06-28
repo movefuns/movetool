@@ -1,0 +1,1 @@
+export function decodeCheckEvent(data:string){}
