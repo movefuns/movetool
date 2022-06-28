@@ -10,10 +10,10 @@ const gameMenu = [
         path: "/game/showdown"
     },
     {
-        name: "rps",
-        name_i18_key: "menu.rps",
+        name: "finger_guessing",
+        name_i18_key: "menu.finger_guessing",
         icon: VideogameAssetIcon,
-        path: "/game/rps"
+        path: "/game/finger_guessing"
     },
 ]
 
