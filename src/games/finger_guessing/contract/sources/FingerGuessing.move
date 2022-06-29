@@ -90,7 +90,7 @@ module GameFingerGuessing {
         assert!(Token::value<TokenType>(&borrow_global<Bank<TokenType>>(@admin).bank) >= amount * 10, 2);
 
         // Player parameter limit cannot be greater than or equal to 3
-        assert!(input > 2, 3);
+        assert!(input < 3, 3);
 
         let result = get_robot_result();
 
