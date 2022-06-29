@@ -59,5 +59,13 @@
     "check": "猜一猜",
     "true": "大",
     "false": "小"
+  },
+
+  "finger_guessing": {
+    "amount": "金额",
+    "check": "剪刀石头布",
+    "scissors": "剪刀",
+    "rock": "石头",
+    "paper": "布"
   }
 }
