@@ -11,11 +11,11 @@ import {useState} from "react";
 import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import {gameShowdownDeposit, gameShowdownInitBank, gameShowdownWithdraw} from "../../../games/showdown";
+import {fingerGuessingDeposit, fingerGuessingInitBank, fingerGuessingWithdraw} from "../../../games/finger_guessing";
 import {NANO_STC} from "../../../utils/consts";
 
 
-export default function ShowdownAdmin() {
+export default function FingerGuessingAdmin() {
     const {t} = useTranslation();
     let [amount, setAmount] = useState("1")
 
@@ -26,19 +26,17 @@ export default function ShowdownAdmin() {
     };
 
     const handleInit = async () => {
-        await gameShowdownInitBank(token, Number(amount) * NANO_STC)
+        await fingerGuessingInitBank(token, Number(amount) * NANO_STC)
     };
     const handleWithdraw = async () => {
-        await gameShowdownWithdraw(token, Number(amount) * NANO_STC)
+        await fingerGuessingWithdraw(token, Number(amount) * NANO_STC)
     };
     const handleDeposit = async () => {
-        await gameShowdownDeposit(token, Number(amount) * NANO_STC)
+        await fingerGuessingDeposit(token, Number(amount) * NANO_STC)
     };
 
     return <>
         <Card>
-
-
             <CardContent>
                 <Stack spacing={2}>
 
@@ -64,7 +62,7 @@ export default function ShowdownAdmin() {
                         fullWidth
                         aria-readonly
                         id="outlined-multiline-static"
-                        label={t("showdown.amount")}
+                        label={t("FingerGuessing.amount")}
                         value={amount}
                         onChange={(v) => {
                             setAmount(v.target.value)

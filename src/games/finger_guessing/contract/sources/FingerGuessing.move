@@ -84,13 +84,13 @@ module GameFingerGuessing {
         let signer_addr = Signer::address_of(&account);
 
         //  check account amount
-        assert!(Account::balance<TokenType>(signer_addr) > amount, 1);
+        assert!(Account::balance<TokenType>(signer_addr) > amount, 10003);
 
         // can't all in @admin balance  max only   1/10  every times
-        assert!(Token::value<TokenType>(&borrow_global<Bank<TokenType>>(@admin).bank) >= amount * 10, 2);
+        assert!(Token::value<TokenType>(&borrow_global<Bank<TokenType>>(@admin).bank) >= amount * 10, 10004);
 
         // Player parameter limit cannot be greater than or equal to 3
-        assert!(input < 3, 3);
+        assert!(input < 3, 10004);
 
         let result = get_robot_result();
 

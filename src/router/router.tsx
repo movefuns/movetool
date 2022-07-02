@@ -15,6 +15,7 @@ import Issue from "../pages/Stc/Issue/index";
 
 import GameShowdown from "../pages/Game/Showdown";
 import GameShowdownAdmin from "../pages/Game/Showdown/ShowdownAdmin";
+import FingerGuessingAdmin from "../pages/Game/FingerGuessing/FingerGuessingAdmin";
 
 import GameFingerGuessing from "../pages/Game/FingerGuessing";
 
@@ -35,7 +36,7 @@ export default function Router() {
 
         <Route path="/game/showdown" element={<GameShowdown/>}/>
         <Route path="/game/showdown/admin" element={<GameShowdownAdmin/>}/>
-
         <Route path="/game/finger_guessing" element={<GameFingerGuessing/>}/>
+        <Route path="/game/finger_guessing/admin" element={<FingerGuessingAdmin/>}/>
     </Routes>);
 }

@@ -63,7 +63,7 @@
 
   "finger_guessing": {
     "amount": "金额",
-    "check": "剪刀石头布",
+    "check": "来一局",
     "scissors": "剪刀",
     "rock": "石头",
     "paper": "布"
