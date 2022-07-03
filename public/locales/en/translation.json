@@ -8,7 +8,8 @@
     "chain_record": "Chain Record",
     "issue_token": "Issue Token",
     "games": "Games",
-    "showdown": "Showdown"
+    "showdown": "Showdown",
+    "finger_guessing": "FingerGuessing"
   },
   
   "issue_token": {
@@ -58,5 +59,13 @@
     "check": "check",
     "true": "T",
     "false": "F"
+  },
+
+  "finger_guessing": {
+    "amount": "amount",
+    "check": "check",
+    "scissors": "Scissors",
+    "rock": "Rock",
+    "paper": "Paper"
   }
 }

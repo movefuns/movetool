@@ -2,13 +2,12 @@ import {bcs, utils} from "@starcoin/starcoin";
 import {arrayify, hexlify} from "@ethersproject/bytes";
 import {getProvder} from "../../utils/stcWalletSdk";
 import {NANO_STC, nodeUrlMap} from "../../utils/consts";
-
-export const adminAddress = "0x12Fd2AFaA16Ca7480e877098c199Ab84";
+import {ADMIN_ADDRESS} from "../index";
 
 
 export async function gameShowdownCheck(token:string,input:boolean,amount:number){
     try {
-        const functionId = `${adminAddress}::GameShowdown::check`
+        const functionId = `${ADMIN_ADDRESS}::GameShowdown::check`
         const tyArgs = [token]
         const args = [
             amount,
@@ -40,7 +39,7 @@ export async function gameShowdownCheck(token:string,input:boolean,amount:number
 
 export  async  function gameShowdownInitBank(token:any,amount:number){
     try {
-        const functionId = `${adminAddress}::GameShowdown::init_bank`
+        const functionId = `${ADMIN_ADDRESS}::GameShowdown::init_bank`
         const tyArgs = [token]
         const args = [
             amount
@@ -76,7 +75,7 @@ export  async  function gameShowdownInitBank(token:any,amount:number){
 
 export  async  function gameShowdownDeposit(token:any,amount:number){
     try {
-        const functionId = `${adminAddress}::GameShowdown::deposit`
+        const functionId = `${ADMIN_ADDRESS}::GameShowdown::deposit`
         const tyArgs = [token]
         const args = [
             amount
@@ -111,7 +110,7 @@ export  async  function gameShowdownDeposit(token:any,amount:number){
 
 export  async  function gameShowdownWithdraw(token:any,amount:number){
     try {
-        const functionId = `${adminAddress}::GameShowdown::withdraw`
+        const functionId = `${ADMIN_ADDRESS}::GameShowdown::withdraw`
         const tyArgs = [token]
         const args = [
             amount
@@ -148,8 +147,8 @@ export async function getBankAmount(token: any){
     try {
         const provider = await getProvder();
         const result = await provider.getResource(
-            adminAddress,
-            `${adminAddress}::GameShowdown::Bank<${token}>`,
+            ADMIN_ADDRESS,
+            `${ADMIN_ADDRESS}::GameShowdown::Bank<${token}>`,
         );
         if (result && result.bank  && result.bank){
             // @ts-ignore

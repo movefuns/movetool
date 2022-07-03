@@ -8,7 +8,8 @@
     "chain_record": "链上记录",
     "issue_token": "发行Token",
     "games": "游戏",
-    "showdown": "猜大小"
+    "showdown": "猜大小",
+    "finger_guessing": "剪刀石头布"
   },
   
   "issue_token": {
@@ -58,5 +59,13 @@
     "check": "猜一猜",
     "true": "大",
     "false": "小"
+  },
+
+  "finger_guessing": {
+    "amount": "金额",
+    "check": "来一局",
+    "scissors": "剪刀",
+    "rock": "石头",
+    "paper": "布"
   }
 }

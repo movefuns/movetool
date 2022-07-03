@@ -15,7 +15,8 @@ import {useMemo, useState} from "react";
 import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import {adminAddress, decodeCheckEvent, gameShowdownCheck, getBankAmount} from "../../../games/showdown";
+import { decodeCheckEvent, gameShowdownCheck, getBankAmount} from "../../../games/showdown";
+import {ADMIN_ADDRESS} from "../../../games";
 import {NANO_STC} from "../../../utils/consts";
 import {getEventsByTxnHash, getTxnData} from "../../../utils/sdk";
 import {sleep} from "../../../utils/common";
@@ -75,8 +76,8 @@ export default function Showdown() {
 
                 if (txData) {
                     for (const event of txData) {
-                        window.console.info("event", event.type_tag, `${adminAddress}::GameShowdown::CheckEvent`)
-                        if (event.type_tag.toLowerCase() === `${adminAddress}::GameShowdown::CheckEvent`.toLowerCase()) {
+                        window.console.info("event", event.type_tag, `${ADMIN_ADDRESS}::GameShowdown::CheckEvent`)
+                        if (event.type_tag.toLowerCase() === `${ADMIN_ADDRESS}::GameShowdown::CheckEvent`.toLowerCase()) {
                             const checkEvent = decodeCheckEvent(event.data)
                             if (checkEvent.input === checkEvent.result) {
                                 setResult(true)
