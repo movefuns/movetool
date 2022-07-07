@@ -24,6 +24,7 @@ import Divider from "@mui/material/Divider";
 import useSWR from "swr"
 
 interface Data {
+    inputAmount: number;
     tokenAmount: number;
     address: string;
     nanoToken: number;
@@ -31,11 +32,13 @@ interface Data {
 
 function createData(
     address: string,
+    inputAmount: number,
     tokenAmount: number,
     nanoToken: number,
 ): Data {
     return {
         address,
+        inputAmount,
         tokenAmount,
         nanoToken
     };
@@ -93,6 +96,12 @@ const headCells: readonly HeadCell[] = [
         numeric: false,
         disablePadding: true,
         label: 'address',
+    },
+    {
+        id: 'inputAmount',
+        numeric: true,
+        disablePadding: false,
+        label: 'Input',
     },
     {
         id: 'tokenAmount',
@@ -231,7 +240,7 @@ export default function ConvertBatchTransfer(props: Props) {
 
     const rows: Data[] = [];
     addressArray.forEach((item) => {
-        rows.push(createData(item.address, parseFloat(item.stc)*lastInputPrice,  parseInt(String(parseFloat(item.stc) * lastInputPrice * NANO_STC))));
+        rows.push(createData(item.address,parseFloat(item.stc) ,parseFloat(item.stc)*lastInputPrice,  parseInt(String(parseFloat(item.stc) * lastInputPrice * NANO_STC))));
     })
 
 
@@ -418,6 +427,7 @@ export default function ConvertBatchTransfer(props: Props) {
                                                 {row.address}
                                             </TableCell>
 
+                                            <TableCell align="center"> {row.inputAmount} {input}</TableCell>
                                             <TableCell align="center"> {row.tokenAmount}</TableCell>
                                             <TableCell align="center"> {row.nanoToken}</TableCell>
                                         </TableRow>
