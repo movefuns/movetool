@@ -11,6 +11,7 @@ import ChainRecord from "../pages/Chain/Record";
 import ChainRecordInfo from "../pages/Chain/RecordInfo";
 import Balance from "../pages/Stc/Batch/Balance";
 import Transfer from "../pages/Stc/Batch/Transfer";
+import TransferConvert from "../pages/Stc/Batch/TransferConvert";
 import Issue from "../pages/Stc/Issue/index";
 
 import GameShowdown from "../pages/Game/Showdown";
@@ -25,6 +26,7 @@ export default function Router() {
         <Route path="/address/info" element={<AddressInfo/>}/>
         <Route path="/stc/batch" element={<Batch/>}/>
         <Route path="/stc/batch/transfer" element={<Transfer/>}/>
+        <Route path="/stc/batch/transfer-convert" element={<TransferConvert/>}/>
         <Route path="/stc/batch/balance" element={<Balance/>}/>
         <Route path="/stc/unit/convert" element={<UnitConverter/>}/>
         <Route path="/stc/issue/token" element={<Issue/>}/>

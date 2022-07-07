@@ -20,6 +20,13 @@ const common_menu = [
         icon: TransferWithinAStationIcon,
         path: "/stc/batch/transfer"
     },
+
+    {
+        name: "transfer-convert",
+        name_i18_key: "menu.batch_convert",
+        icon: TransferWithinAStationIcon,
+        path: "/stc/batch/transfer-convert"
+    },
     {
         name: "2",
         name_i18_key: "menu.batch_balance",

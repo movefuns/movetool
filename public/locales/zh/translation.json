@@ -2,6 +2,7 @@
   "menu": {
     "login": "连接 starmask",
     "batch_token": "批量发送Token",
+    "batch_convert": "批量转换发送Token",
     "batch_balance": "批量查询Token",
     "rpc_ping": "RPC 节点测速",
     "unit": "单位转换",

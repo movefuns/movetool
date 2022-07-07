@@ -2,6 +2,7 @@
   "menu": {
     "login": "Connect starmask",
     "batch_token": "Batch Send Token",
+    "batch_convert": "Batch Convert Send Token",
     "batch_balance": "Batch Query Token",
     "rpc_ping": "RPC speed",
     "unit": "Unit Converter",
