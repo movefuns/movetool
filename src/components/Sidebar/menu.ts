@@ -2,6 +2,7 @@ import TokenIcon from '@mui/icons-material/Token';
 import TransferWithinAStationIcon from '@mui/icons-material/TransferWithinAStation';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import NetworkPingIcon from '@mui/icons-material/NetworkPing';
+import ReduceCapacityIcon from '@mui/icons-material/ReduceCapacity';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import GraphicEqIcon from '@mui/icons-material/GraphicEq';
 import game_menu from  "./game_menu"
@@ -45,6 +46,13 @@ const common_menu = [
         name_i18_key: "menu.chain_record",
         icon: GraphicEqIcon,
         path: "/chain/record"
+    },
+
+    {
+        name: "donate",
+        name_i18_key: "menu.donate",
+        icon: ReduceCapacityIcon,
+        path: "/donate"
     },
 ]
 
