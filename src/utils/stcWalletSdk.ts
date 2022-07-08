@@ -27,7 +27,7 @@ export async function getProvder() {
 }
 
 
-export async function transfer(account: string, stcAmount: number, content: string) {
+export async function transfer(account: string, stcAmount: number) {
     window.console.log('sendButton.onclick')
 
     const toAccount = account
@@ -52,9 +52,6 @@ export async function transfer(account: string, stcAmount: number, content: stri
     const txParams = {
         to: toAccount,
         value: sendAmountHex,
-        data: content,
-        gasLimit: 127845,
-        gasPrice: 1,
         expiredSecs: 10
     }
 
