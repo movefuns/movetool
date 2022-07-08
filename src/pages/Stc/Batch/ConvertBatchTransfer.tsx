@@ -222,12 +222,21 @@ export default function ConvertBatchTransfer(props: Props) {
     const [dense] = React.useState(true);
     const [rowsPerPage] = React.useState(5);
     const [token, setToken] = useState("0x00000000000000000000000000000001::STC::STC")
-    const [tokenList] = useState<string[]>(["0x00000000000000000000000000000001::STC::STC"])
+    const [tokenList] = useState<string[]>(["0x00000000000000000000000000000001::STC::STC","0x8c109349c6bd91411d6bc962e080c4a3::STAR::STAR"])
     const [input, setInput] = useState("USDT")
     const [inputList] = useState<string[]>(["USDT"])
+    let price_pair = ""
+    let tokenShort= ""
+    if (token === "0x00000000000000000000000000000001::STC::STC" ){
+         price_pair = "STCUSD"
+         tokenShort= "STC"
+    }
+    if (token === "0x8c109349c6bd91411d6bc962e080c4a3::STAR::STAR" ){
+        price_pair = "STAR_USD"
+        tokenShort= "STAR"
+    }
 
-
-    const {data}  =   useSWR("https://price-api.starcoin.org/main/v1/priceFeeds/STCUSD",   async url=>{
+    const {data}  =   useSWR("https://price-api.starcoin.org/main/v1/priceFeeds/"+price_pair,   async url=>{
        return await fetch(url).then(r => r.json())
     })
     let lastPrice = 0
@@ -362,7 +371,7 @@ export default function ConvertBatchTransfer(props: Props) {
                 </Box>
 
                 <br/>
-                <Divider>1 USDT = {lastPrice > 0? (1/lastPrice).toFixed(6) : 0} STC , 1 STC = {lastPrice} USDT</Divider>
+                <Divider>1 USDT = {lastPrice > 0? (1/lastPrice).toFixed(6) : 0} {tokenShort} , 1 {tokenShort}= {lastPrice} USDT</Divider>
                 <br/>
                 <Box sx={{minWidth: 120}}>
                     <FormControl fullWidth>
