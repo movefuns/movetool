@@ -29,9 +29,7 @@ export default function LoginWallet() {
             setButtonText(accounts)
             dispatch(set(accounts))
         });
-    },[])
-
-
+    },[dispatch])
 
     useMemo(async () => {
         const res = await getAccounts()

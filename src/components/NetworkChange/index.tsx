@@ -1,4 +1,4 @@
-import {useEffect, useMemo, useState} from "react";
+import {useEffect, useState} from "react";
 import {FormControl, InputLabel, MenuItem, Select} from "@mui/material";
 
 import {NETWORK, NETWORK_CHAIN_IDS} from "../../utils/consts";
