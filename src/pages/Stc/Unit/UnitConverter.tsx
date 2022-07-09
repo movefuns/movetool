@@ -3,6 +3,10 @@ import {useState} from "react";
 import {NANO_STC} from "../../../utils/consts";
 import useSWR from "swr";
 
+function formatValue(value:string){
+   return  Number(value.trim().replaceAll(",",""))
+}
+
 async function fetchPair(url: string) {
     return fetch(url).then(async r => {
         let lastPrice = 0
@@ -38,7 +42,7 @@ export default function UnitConverter() {
     }).data
 
     const handleChangeUsdt = (t: any) => {
-        const value = t.target.value;
+        const value = formatValue(t.target.value);
         setUSDT(value)
 
         if (STC_USD && CNY_USD && BTC_USD && ETH_USD && STAR_USD) {
@@ -55,7 +59,7 @@ export default function UnitConverter() {
 
 
     const handleChangeStc = (t: any) => {
-        const value = t.target.value;
+        const value = formatValue(t.target.value);
         setStc(value)
         setNanoStc(value * NANO_STC)
         if (STC_USD && CNY_USD && BTC_USD && ETH_USD && STAR_USD) {
@@ -71,8 +75,8 @@ export default function UnitConverter() {
 
     const handleChangeNanoStc = (t: any) => {
         setNanoStc(t.target.value)
-        setStc(t.target.value / NANO_STC)
-        const value = t.target.value / NANO_STC;
+        setStc(formatValue(t.target.value) / NANO_STC)
+        const value = formatValue(t.target.value) / NANO_STC;
         if (STC_USD && CNY_USD && BTC_USD && ETH_USD && STAR_USD) {
             const worthUSD =  value/STC_USD
             setUSDT(worthUSD)
@@ -85,7 +89,7 @@ export default function UnitConverter() {
 
 
     const handleChangeBtc = (t: any) => {
-        const value = t.target.value;
+        const value = formatValue(t.target.value);
         setBtc(value)
         if (STC_USD && CNY_USD && BTC_USD && ETH_USD && STAR_USD) {
             const worthUSD = value / BTC_USD
@@ -100,7 +104,7 @@ export default function UnitConverter() {
 
 
     const handleChangeEth = (t: any) => {
-        const value = t.target.value;
+        const value = formatValue(t.target.value);
         setEth(value)
         if (STC_USD && CNY_USD && BTC_USD && ETH_USD && STAR_USD) {
             const worthUSD = value / ETH_USD
@@ -117,7 +121,7 @@ export default function UnitConverter() {
 
 
     const handleChangeCny = (t: any) => {
-        const value = t.target.value;
+        const value = formatValue(t.target.value);
         setCny(value)
 
         if (STC_USD && CNY_USD && BTC_USD && ETH_USD && STAR_USD) {
@@ -132,7 +136,7 @@ export default function UnitConverter() {
     }
 
     const handleChangeStar = (t: any) => {
-        const value = t.target.value;
+        const value = formatValue(t.target.value);
         setStar(value)
 
         if (STC_USD && CNY_USD && BTC_USD && ETH_USD && STAR_USD) {
