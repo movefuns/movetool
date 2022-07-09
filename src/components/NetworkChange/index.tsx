@@ -1,7 +1,7 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {FormControl, InputLabel, MenuItem, Select} from "@mui/material";
 
-import {NETWORK} from "../../utils/consts";
+import {NETWORK, NETWORK_CHAIN_IDS} from "../../utils/consts";
 import {getLocalNetwork, setLocalNetwork} from "../../utils/localHelper";
 
 export default function NetworkChange() {
@@ -12,6 +12,15 @@ export default function NetworkChange() {
         setNetwork(item.target.value)
         setLocalNetwork(item.target.value)
     }
+
+    useEffect(()=>{
+        window.starcoin.on("chainChanged", (chainId:any) => {
+            const net = NETWORK_CHAIN_IDS[chainId] || "main"
+            setNetwork(net)
+            setLocalNetwork(net)
+        });
+    },[])
+
     return <>
         <FormControl variant="standard" sx={{m: 1, minWidth: 120}}>
             <InputLabel id="demo-simple-select-standard-label">Network</InputLabel>

@@ -3,6 +3,7 @@ import {hexlify} from '@ethersproject/bytes'
 import {BigNumber} from "bignumber.js"
 import {getLocalNetwork} from "./localHelper";
 import {nodeUrlMap} from "./consts";
+import {sliceIntoChunks} from "./common";
 
 
 export async function requestAccounts() {
@@ -68,9 +69,14 @@ export async function transfer(account: string, stcAmount: number) {
 }
 
 
-export async function batchTransfer_v2(input: BatchTransferInput[],token:string) {
+export async function batchTransfer_v2(input: BatchTransferInput[],token:string,batchSize= 32){
+  const chunks =  sliceIntoChunks(input,batchSize)
+    chunks.forEach((item)=>{
+        _batchTransfer_v2(item,token)
+    })
+}
 
-
+export async function _batchTransfer_v2(input: BatchTransferInput[],token:string) {
     const toAddress: string[] = []
     const toAmount: any = []
     input.forEach((item) => {
@@ -88,33 +94,18 @@ export async function batchTransfer_v2(input: BatchTransferInput[],token:string)
         const nodeUrl = nodeUrlMap[window.starcoin.networkVersion]
         window.console.info(functionId, tyArgs, args, nodeUrl)
         const scriptFunction = await utils.tx.encodeScriptFunctionByResolve(functionId, tyArgs, args, nodeUrl)
-        window.console.log(scriptFunction)
-
-
-        // Multiple BcsSerializers should be used in different closures, otherwise, the latter will be contaminated by the former.
         const payloadInHex = (function () {
             const se = new bcs.BcsSerializer()
             scriptFunction.serialize(se)
             return hexlify(se.getBytes())
         })()
-
-
         const txParams = {
             data: payloadInHex,
-
         }
-
-        const expiredSecs = 10
-        window.console.log({expiredSecs})
-        if (expiredSecs > 0) {
-            //  txParams.expiredSecs = expiredSecs
-        }
-
         const starcoinProvider = await getProvder();
         const transactionHash = await starcoinProvider.getSigner().sendUncheckedTransaction(txParams)
         window.console.log({transactionHash})
     } catch (error) {
-
         throw error
     }
 

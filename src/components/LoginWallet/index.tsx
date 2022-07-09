@@ -5,7 +5,7 @@ import {set} from '../../store/wallet'
 import {useDispatch} from "react-redux";
 import {getAccounts, requestAccounts} from "../../utils/stcWalletSdk";
 import {useTranslation} from 'react-i18next';
-import {useMemo, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 
 declare global {
     interface Window {
@@ -22,6 +22,14 @@ export default function LoginWallet() {
     const [loading, setLoading] = useState(false)
     const [buttonText, setButtonText] = useState(t("menu.login") as string)
     const dispatch = useDispatch()
+
+
+    useEffect(()=>{
+        window.starcoin.on("accountsChanged", (accounts:any) => {
+            setButtonText(accounts)
+            dispatch(set(accounts))
+        });
+    },[dispatch])
 
     useMemo(async () => {
         const res = await getAccounts()
