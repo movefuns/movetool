@@ -4,6 +4,7 @@ import {getProvder} from "../../utils/stcWalletSdk";
 import {NANO_STC, nodeUrlMap} from "../../utils/consts";
 import {ADMIN_ADDRESS} from "../index";
 
+
 export async function initBank() {
     try {
         const functionId = `${ADMIN_ADDRESS}::FreeBank::init`;

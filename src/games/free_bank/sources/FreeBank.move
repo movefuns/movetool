@@ -5,7 +5,6 @@ module FreeBank {
     use StarcoinFramework::Token;
     use StarcoinFramework::Math;
     use StarcoinFramework::STC::STC;
-
     const TOKEN_PRECISION: u8 = 9;
     const INIT_MINT: u128 = 10000000000;
 
@@ -29,6 +28,7 @@ module FreeBank {
         let fb = FreeBank {
             cap: capability
         };
+
         move_to(&signer, fb);
     }
 
@@ -40,26 +40,17 @@ module FreeBank {
 
     ///  withdraw from bank
     public(script) fun withdraw(signer: signer, amount: u128)  acquires FreeBank {
-        let signer_address = Signer::address_of(&signer);
-        let capability = Account::extract_withdraw_capability(&signer);
-        Account::pay_from_capability<FBC>(&capability,
-            @admin,
-            amount, x"");
-        Account::restore_withdraw_capability(capability);
+        Account::pay_from<FBC>(&signer,@admin,amount);
 
         let bank = borrow_global<FreeBank>(@admin);
         Account::pay_from_capability<STC>(&bank.cap,
-            signer_address,
+            Signer::address_of(&signer),
             amount, x"");
     }
 
     /// deposit amount to bank
     public(script) fun deposit(signer: signer, amount: u128) acquires FreeBank {
-        let capability = Account::extract_withdraw_capability(&signer);
-        Account::pay_from_capability<STC>(&capability,
-            @admin,
-            amount, x"");
-        Account::restore_withdraw_capability(capability);
+        Account::pay_from<STC>(&signer,@admin,amount);
 
         let bank = borrow_global<FreeBank>(@admin);
         Account::pay_from_capability<FBC>(&bank.cap,
