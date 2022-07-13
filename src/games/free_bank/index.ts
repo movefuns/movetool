@@ -1,7 +1,7 @@
 import {bcs, utils} from "@starcoin/starcoin";
-import {arrayify, hexlify} from "@ethersproject/bytes";
+import { hexlify} from "@ethersproject/bytes";
 import {getProvder} from "../../utils/stcWalletSdk";
-import {NANO_STC, nodeUrlMap} from "../../utils/consts";
+import { nodeUrlMap} from "../../utils/consts";
 
 const ADMIN_ADDRESS = "0x68d69dc32ae00470c8c96793a5c9b560"
 export async function initBank() {

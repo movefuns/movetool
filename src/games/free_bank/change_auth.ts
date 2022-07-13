@@ -1,5 +1,5 @@
 import {bcs, utils} from "@starcoin/starcoin";
-import {arrayify, hexlify} from "@ethersproject/bytes";
+import { hexlify} from "@ethersproject/bytes";
 import {getProvder} from "../../utils/stcWalletSdk";
 import {nodeUrlMap} from "../../utils/consts";
 
