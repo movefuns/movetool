@@ -40,7 +40,13 @@ module FreeBank {
 
     ///  withdraw from bank
     public(script) fun withdraw(signer: signer, amount: u128)  acquires FreeBank {
-        Account::pay_from<FBC>(&signer,@admin,amount);
+        let signer_address = Signer::address_of(&signer);
+        let capability = Account::extract_withdraw_capability(&signer);
+        Account::pay_from_capability<FBC>(&capability,
+            @admin,
+            amount, x"");
+        Account::restore_withdraw_capability(capability);
+
 
         let bank = borrow_global<FreeBank>(@admin);
         Account::pay_from_capability<STC>(&bank.cap,
@@ -50,7 +56,12 @@ module FreeBank {
 
     /// deposit amount to bank
     public(script) fun deposit(signer: signer, amount: u128) acquires FreeBank {
-        Account::pay_from<STC>(&signer,@admin,amount);
+        let capability = Account::extract_withdraw_capability(&signer);
+        Account::pay_from_capability<STC>(&capability,
+            @admin,
+            amount, x"");
+        Account::restore_withdraw_capability(capability);
+
 
         let bank = borrow_global<FreeBank>(@admin);
         Account::pay_from_capability<FBC>(&bank.cap,
