@@ -21,6 +21,7 @@ import FingerGuessingAdmin from "../pages/Game/FingerGuessing/FingerGuessingAdmi
 import GameFingerGuessing from "../pages/Game/FingerGuessing";
 import Donate from "../pages/Donate";
 import FreeBank from "../pages/Game/FreeBank";
+import ChangeAuth  from "../pages/Game/FreeBank/ChangeAuth";
 export default function Router() {
     return (<Routes>
         <Route path="/" element={<Index/>}/>
@@ -41,6 +42,7 @@ export default function Router() {
         <Route path="/game/showdown/admin" element={<GameShowdownAdmin/>}/>
         <Route path="/game/finger-guessing" element={<GameFingerGuessing/>}/>
         <Route path="/game/free-bank" element={<FreeBank/>}/>
+        <Route path="/game/reset-auth" element={<ChangeAuth/>}/>
         <Route path="/game/finger-guessing/admin" element={<FingerGuessingAdmin/>}/>
 
         <Route path="/donate" element={<Donate/>}/>

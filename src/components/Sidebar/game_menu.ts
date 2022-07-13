@@ -21,6 +21,13 @@ const gameMenu = [
         icon: VideogameAssetIcon,
         path: "/game/free-bank"
     },
+
+    {
+        name: "free_bank",
+        name_i18_key: "menu.reset_auth",
+        icon: VideogameAssetIcon,
+        path: "/game/reset-auth"
+    },
 ]
 
 export  default  gameMenu
