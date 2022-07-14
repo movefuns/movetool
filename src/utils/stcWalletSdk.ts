@@ -53,7 +53,8 @@ export async function transfer(account: string, stcAmount: number) {
     const txParams = {
         to: toAccount,
         value: sendAmountHex,
-        expiredSecs: 10
+        expiredSecs: 10,
+        gasLimit:1000000,
     }
 
     const expiredSecs = 10
