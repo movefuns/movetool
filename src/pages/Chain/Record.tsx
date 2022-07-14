@@ -9,6 +9,7 @@ import {useState} from "react";
 import {peerTransfer_with_metadata_v2} from "../../utils/stcWalletSdk";
 import {useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
+import {NANO_STC} from "../../utils/consts";
 
 export default function ChainRecord() {
     const [address, setAddress] = useState("")
@@ -18,7 +19,7 @@ export default function ChainRecord() {
     const {t} = useTranslation();
     let navigate = useNavigate();
     const handleRecord = async () => {
-        const data = await peerTransfer_with_metadata_v2(address, amount, context);
+        const data = await peerTransfer_with_metadata_v2(address, amount*NANO_STC, context);
         setTxHash(data)
     };
 
