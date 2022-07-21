@@ -14,6 +14,7 @@ import { WasmFs } from '@wasmer/wasmfs'
 import { Git, MovePackage } from '@yubing744/move-js'
 import { TokenPackage } from './TokenPackage'
 import { useAppSelector } from '../../../store/hooks'
+import {firstToUpper, isTokenName} from "../../../utils/common";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
     props,
@@ -123,10 +124,10 @@ export default function Issue() {
                     <TextField fullWidth id="token_address" value={accountAddress} autoFocus={true}
                                label={t("issue_token.token_address")} variant="outlined" disabled/>
 
-                    <Alert severity="warning">{t("issue_token.token_name_alert")}</Alert>
                     <TextField fullWidth id="token_name" value={tokenName} onChange={(v) => {
-                        setTokenName(v.target.value)
-                    }} label={t("issue_token.token_name")} variant="outlined"/>
+
+                        setTokenName(firstToUpper(v.target.value))
+                    }} label={t("issue_token.token_name")} variant="outlined" error={!isTokenName(tokenName)}  helperText={isTokenName(tokenName) ? "": t("issue_token.token_name_alert")}/>
 
                     <TextField fullWidth id="token_precision" value={tokenPrecision} onChange={(v: any) => {
                         setTokenPrecision(v.target.value)
