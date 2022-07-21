@@ -38,19 +38,19 @@ export default function Issue() {
     const {t} = useTranslation();
 
     const handleIssueToken = async () => {
-        if (accountAddress==="") {
+        if (accountAddress === "") {
             setErrorTips(t("issue_token.error_tips.token_address_required"))
             setOpenErrorTips(true)
             return
         }
 
-        if (tokenName==="") {
+        if (tokenName === "") {
             setErrorTips(t("issue_token.error_tips.token_name_required"))
             setOpenErrorTips(true)
             return
         }
 
-        if (tokenPrecision==="") {
+        if (tokenPrecision === "") {
             setErrorTips(t("issue_token.error_tips.token_precision_required"))
             setOpenErrorTips(true)
             return
@@ -62,47 +62,52 @@ export default function Issue() {
             return
         }
 
-        if (parseInt(tokenPrecision)<0 || parseInt(tokenPrecision)>38) {
+        if (parseInt(tokenPrecision) < 0 || parseInt(tokenPrecision) > 38) {
             setErrorTips(t("issue_token.error_tips.token_precision_range"))
             setOpenErrorTips(true)
             return
         }
 
-        if (initMint==="" || isNaN(parseInt(initMint))) {
+        if (initMint === "" || isNaN(parseInt(initMint))) {
             initMint = "0"
         }
 
-        const wasmfs = new WasmFs()
-        const git = new Git(wasmfs)
-        const tokenPackage = new TokenPackage(wasmfs, accountAddress, tokenName, parseInt(tokenPrecision), parseInt(initMint))
-    
-        const starcoinFrameworkURL = process.env.NODE_ENV === "production" ? "/dapps/data/starcoin-framework.zip" : "/data/starcoin-framework.zip"
-        await git.download(starcoinFrameworkURL, "/workspace/starcoin-framework")
-        tokenPackage.export("/workspace/my-token")
-    
-        const mp = new MovePackage(wasmfs, {
-            packagePath: "/workspace/my-token",
-            test: false,
-            alias: new Map([
-                ["StarcoinFramework", "/workspace/starcoin-framework"]
-            ]),
-            initFunction: `${accountAddress}::${tokenName}::init`
-        })
-        
-        await mp.build()
-    
-        const blobBuf = wasmfs.fs.readFileSync("/workspace/my-token/target/starcoin/release/package.blob") as Buffer;
-        const transactionHash = await deployContract(blobBuf)
+        try {
+            const wasmfs = new WasmFs()
+            const git = new Git(wasmfs)
+            const tokenPackage = new TokenPackage(wasmfs, accountAddress, tokenName, parseInt(tokenPrecision), parseInt(initMint))
 
-        setSuccessTips(`Deploy token ${tokenName} success, please wait for the transaction to be confirmed, the transaction hash: ${transactionHash}`)
-        setSuccessErrorTips(true);
+            const starcoinFrameworkURL = process.env.NODE_ENV === "production" ? "/dapps/data/starcoin-framework.zip" : "/data/starcoin-framework.zip"
+            await git.download(starcoinFrameworkURL, "/workspace/starcoin-framework")
+            tokenPackage.export("/workspace/my-token")
+
+            const mp = new MovePackage(wasmfs, {
+                packagePath: "/workspace/my-token",
+                test: false,
+                alias: new Map([
+                    ["StarcoinFramework", "/workspace/starcoin-framework"]
+                ]),
+                initFunction: `${accountAddress}::${tokenName}::init`
+            })
+
+            await mp.build()
+            const blobBuf = wasmfs.fs.readFileSync("/workspace/my-token/target/starcoin/release/package.blob") as Buffer;
+            const transactionHash = await deployContract(blobBuf)
+
+            setSuccessTips(`Deploy token ${tokenName} success, please wait for the transaction to be confirmed, the transaction hash: ${transactionHash}`)
+            setSuccessErrorTips(true);
+        } catch (err: any) {
+            setErrorTips(t(err.message))
+            setOpenErrorTips(true)
+        }
+
     };
 
     const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
         if (reason === 'clickaway') {
-          return;
+            return;
         }
-    
+
         setOpenErrorTips(false);
         setSuccessErrorTips(false);
     };
@@ -115,17 +120,19 @@ export default function Issue() {
                         {t("issue_token.title")}
                     </Typography>
 
-                    <TextField fullWidth id="token_address" value={accountAddress} autoFocus={true} label={t("issue_token.token_address")} variant="outlined" disabled/>
+                    <TextField fullWidth id="token_address" value={accountAddress} autoFocus={true}
+                               label={t("issue_token.token_address")} variant="outlined" disabled/>
 
+                    <Alert severity="warning">{t("issue_token.token_name_alert")}</Alert>
                     <TextField fullWidth id="token_name" value={tokenName} onChange={(v) => {
                         setTokenName(v.target.value)
                     }} label={t("issue_token.token_name")} variant="outlined"/>
 
-                    <TextField fullWidth id="token_precision" value={tokenPrecision} onChange={(v:any) => {
+                    <TextField fullWidth id="token_precision" value={tokenPrecision} onChange={(v: any) => {
                         setTokenPrecision(v.target.value)
                     }} label={t("issue_token.token_precision")} variant="outlined"/>
 
-                    <TextField fullWidth id="init_mint" value={initMint} onChange={(v:any) => {
+                    <TextField fullWidth id="init_mint" value={initMint} onChange={(v: any) => {
                         setInitMint(v.target.value)
                     }} label={t("issue_token.init_mint")} variant="outlined"/>
 
@@ -135,14 +142,16 @@ export default function Issue() {
                 <Button variant="contained" fullWidth onClick={handleIssueToken}>{t("issue_token.submit_btn")}</Button>
             </CardActions>
 
-            <Snackbar open={openSuccessTips} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{vertical:'top', horizontal:'center'}}>
-                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+            <Snackbar open={openSuccessTips} autoHideDuration={6000} onClose={handleClose}
+                      anchorOrigin={{vertical: 'top', horizontal: 'center'}}>
+                <Alert onClose={handleClose} severity="success" sx={{width: '100%'}}>
                     {successTips}
                 </Alert>
             </Snackbar>
 
-            <Snackbar open={openErrorTips} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{vertical:'top', horizontal:'center'}}>
-                <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+            <Snackbar open={openErrorTips} autoHideDuration={6000} onClose={handleClose}
+                      anchorOrigin={{vertical: 'top', horizontal: 'center'}}>
+                <Alert onClose={handleClose} severity="error" sx={{width: '100%'}}>
                     {errorTips}
                 </Alert>
             </Snackbar>
