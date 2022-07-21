@@ -13,13 +13,12 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import {visuallyHidden} from '@mui/utils';
 import Button from "@mui/material/Button";
-
-import {NANO_STC} from "../../../utils/consts";
 import {batchTransfer_v2, getTokenList} from "../../../utils/stcWalletSdk";
 import {useTranslation} from "react-i18next";
-import {useMemo, useState} from "react";
+import {useEffect, useState} from "react";
 import {FormControl, InputLabel, MenuItem, Select, SelectChangeEvent} from "@mui/material";
 import {useAppSelector} from "../../../store/hooks";
+import {getTokenPrecision} from "../../../utils/sdk";
 
 interface Data {
     tokenAmount: number;
@@ -205,13 +204,14 @@ export default function BatchTransfer(props: Props) {
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof Data>('nanoToken');
     const [selected, setSelected] = React.useState<readonly string[]>([]);
+    const [precision,setPrecision] = useState(1000000000)
     const [page] = React.useState(0);
     const [dense] = React.useState(true);
     const [rowsPerPage] = React.useState(5);
     const [token, setToken] = useState("0x00000000000000000000000000000001::STC::STC")
     const [tokenList, setTokenList] = useState<string[]>(["0x00000000000000000000000000000001::STC::STC"])
     const accountAddresses = useAppSelector((state:any) => state.wallet.accountAddress)
-    useMemo(async ()=>{
+    useEffect( ()=>{
         const fetch = async ()=>{
 
             const tokenObj =  await  getTokenList(accountAddresses[0])
@@ -224,12 +224,18 @@ export default function BatchTransfer(props: Props) {
                 tokens = ["0x00000000000000000000000000000001::STC::STC"]
             }
             setTokenList(tokens)
+
+            const tokenPrecision =   await getTokenPrecision(token);
+            if (tokenPrecision){
+                setPrecision(tokenPrecision)
+            }
+
         }
         if (accountAddresses[0]){
-            await fetch()
+            fetch()
         }
 
-    },[accountAddresses])
+    },[accountAddresses,token])
 
 
 
@@ -238,7 +244,7 @@ export default function BatchTransfer(props: Props) {
     const rows: Data[] = [];
     addressArray.forEach((item) => {
         window.console.info(item)
-        rows.push(createData(item.address, parseFloat(item.stc), parseFloat(item.stc) * NANO_STC));
+        rows.push(createData(item.address, parseFloat(item.stc), parseFloat(item.stc) * precision));
     })
 
 
