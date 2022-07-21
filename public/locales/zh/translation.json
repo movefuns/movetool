@@ -18,7 +18,7 @@
     "title": "发行 Starcoin Token",
     "token_address": "Token地址",
     "token_name": "Token名字",
-    "token_name_alert": "只能填英文字符,不能是中文,而且不能是Move语言的关键字",
+    "token_name_alert": "只能填英文字符,需要以大写英文字母 A 到 Z 开头，且只能包含下划线 _、A 到 Z 的字母、a 到 z 的字母、0 到 9 的数字,不能是中文,而且不能是Move语言的关键字",
     "token_precision": "Token精度",
     "submit_btn": "发行Token",
     "init_mint": "初始挖矿",

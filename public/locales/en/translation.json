@@ -18,7 +18,7 @@
     "title": "Issue Starcoin Token",
     "token_address": "Token Address",
     "token_name": "Token Name",
-    "token_name_alert": "The name contains only English characters, and It cannot be a keyword of the MOVE language",
+    "token_name_alert": "The name contains only English characters,The first letter must be capitalized, and It cannot be a keyword of the MOVE language",
     "token_precision": "Token Precision",
     "init_mint": "Init Mint",
     "submit_btn": "Issue Token",
