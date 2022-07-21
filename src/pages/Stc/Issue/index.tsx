@@ -25,7 +25,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 
 export default function Issue() {
     const [tokenName, setTokenName] = useState("MyToken")
-    const [tokenPrecision, setTokenPrecision] = useState("3")
+    const [tokenPrecision, setTokenPrecision] = useState("9")
     const accountAddresses = useAppSelector((state:any) => state.wallet.accountAddress)
     const accountAddress = (accountAddresses)? accountAddresses[0]: ""
     let [initMint, setInitMint] = useState("100000000")
