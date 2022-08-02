@@ -11,7 +11,9 @@
     "games": "Games",
     "showdown": "Showdown",
     "finger_guessing": "FingerGuessing",
-    "donate": "Donate"
+    "donate": "Donate",
+    "reset_auth": "reset auth",
+    "free_bank": "Free Bank"
   },
   
   "issue_token": {

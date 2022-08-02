@@ -13,7 +13,20 @@ const gameMenu = [
         name: "finger_guessing",
         name_i18_key: "menu.finger_guessing",
         icon: VideogameAssetIcon,
-        path: "/game/finger_guessing"
+        path: "/game/finger-guessing"
+    },
+    {
+        name: "free_bank",
+        name_i18_key: "menu.free_bank",
+        icon: VideogameAssetIcon,
+        path: "/game/free-bank"
+    },
+
+    {
+        name: "free_bank",
+        name_i18_key: "menu.reset_auth",
+        icon: VideogameAssetIcon,
+        path: "/game/reset-auth"
     },
 ]
 
