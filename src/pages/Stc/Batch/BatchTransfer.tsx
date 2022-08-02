@@ -231,7 +231,7 @@ export default function BatchTransfer(props: Props) {
             }
 
         }
-        if (accountAddresses[0]){
+        if (accountAddresses && accountAddresses[0]){
             fetch()
         }
 
