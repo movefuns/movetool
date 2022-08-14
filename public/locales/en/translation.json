@@ -11,6 +11,7 @@
     "games": "Games",
     "showdown": "Showdown",
     "finger_guessing": "FingerGuessing",
+    "sicbo_friend": "SicBoWithFriend",
     "donate": "Donate"
   },
   
@@ -32,7 +33,7 @@
   },
 
   "batch_token": {
-    "send":"Send"
+    "send": "Send"
   },
 
   "batch_balance": {
@@ -48,13 +49,13 @@
   },
   "chain_record": {
     "query_record": "query record on ",
-    "desc" :"Decentralized, Unchangeable, Permanent record No programming skills required",
-    "content" :"Content",
-    "receive_address" :"Receive Address",
-    "stc_amount" :"Send Number STC",
-    "record_on" :"Record On Chain",
-    "record_tx" :"Record Transaction Hash",
-    "record_time" :"Record Time"
+    "desc": "Decentralized, Unchangeable, Permanent record No programming skills required",
+    "content": "Content",
+    "receive_address": "Receive Address",
+    "stc_amount": "Send Number STC",
+    "record_on": "Record On Chain",
+    "record_tx": "Record Transaction Hash",
+    "record_time": "Record Time"
   },
 
   "showdown": {
@@ -70,5 +71,13 @@
     "scissors": "Scissors",
     "rock": "Rock",
     "paper": "Paper"
+  },
+
+  "sio_bo": {
+    "amount": "Select a number from 1 ~ 9",
+    "start_new_game": "StartNewGame",
+    "friend_addr": "The Friend's Address",
+    "join_the_game": "JoinTheGame",
+    "decrypt_game": "DecryptGame"
   }
 }

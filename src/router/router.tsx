@@ -17,6 +17,7 @@ import Issue from "../pages/Stc/Issue/index";
 import GameShowdown from "../pages/Game/Showdown";
 import GameShowdownAdmin from "../pages/Game/Showdown/ShowdownAdmin";
 import FingerGuessingAdmin from "../pages/Game/FingerGuessing/FingerGuessingAdmin";
+import SicBoWithFriend from "../pages/Game/SicBoFriend";
 
 import GameFingerGuessing from "../pages/Game/FingerGuessing";
 import Donate from "../pages/Donate";
@@ -41,6 +42,7 @@ export default function Router() {
         <Route path="/game/showdown/admin" element={<GameShowdownAdmin/>}/>
         <Route path="/game/finger_guessing" element={<GameFingerGuessing/>}/>
         <Route path="/game/finger_guessing/admin" element={<FingerGuessingAdmin/>}/>
+        <Route path="/game/sicbo_friend" element={<SicBoWithFriend />} />
 
         <Route path="/donate" element={<Donate/>}/>
         <Route path="/donate/:address/:amount" element={<Donate/>}/>

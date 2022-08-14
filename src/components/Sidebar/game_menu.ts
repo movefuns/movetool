@@ -15,6 +15,12 @@ const gameMenu = [
         icon: VideogameAssetIcon,
         path: "/game/finger_guessing"
     },
+    {
+        name: "bicbo_with_friend",
+        name_i18_key: "menu.sicbo_friend",
+        icon: VideogameAssetIcon,
+        path: "/game/sicbo_friend"
+    },
 ]
 
 export  default  gameMenu
