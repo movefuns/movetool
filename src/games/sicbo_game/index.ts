@@ -1,9 +1,8 @@
 import { bcs, utils } from "@starcoin/starcoin";
-import { arrayify, hexlify } from "@ethersproject/bytes";
+import { hexlify } from "@ethersproject/bytes";
 import { sha3_256 } from "js-sha3";
 import { getProvder } from "../../utils/stcWalletSdk";
 import { NANO_STC, nodeUrlMap } from "../../utils/consts";
-import { StringMap } from "i18next";
 import { Buffer } from 'buffer'
 
 const token = "0x00000000000000000000000000000001::STC::STC";

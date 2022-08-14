@@ -2,24 +2,12 @@ import * as React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import {
-  Alert,
-  Backdrop,
-  CircularProgress,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
   FormControl,
   InputLabel,
   MenuItem,
   Select,
-  SelectChangeEvent,
   Stack,
   TextField,
-  ToggleButton,
-  ToggleButtonGroup,
-  useTheme,
   Box,
   CardActions,
   Button,
@@ -35,8 +23,6 @@ const TokenList = [Token];
 export default function SicBoWithFriend() {
   const { t } = useTranslation();
   const [startNum, setStartNum] = useState("1");
-  const [startAmount, setStartAmount] = useState("0.1");
-  const [joinAmount, setJoinAmount] = useState("0.1");
   const [joinNum, setJoinNum] = useState("1");
   const [friendAddr, setFriendAddr] = useState("");
   const [account, setAccount] = useState<string>();
