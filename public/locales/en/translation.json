@@ -12,7 +12,7 @@
     "showdown": "Showdown",
     "finger_guessing": "FingerGuessing",
     "donate": "Donate",
-    "constract_deploy": "Constract Deploy"
+    "constract_deploy": "Deploy Constract"
   },
   
   "issue_token": {
@@ -74,6 +74,9 @@
   },
 
   "constract_deploy": {
-    "please_upload_file": "Please upload file"
+    "title": "Deploy constract with blob file",
+    "deploy_btn": "Deploy",
+    "drop_zone_label": "Drop blob file here",
+    "please_upload_file": "Please upload constract blob file"
   }
 }

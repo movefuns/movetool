@@ -12,7 +12,7 @@
     "showdown": "猜大小",
     "finger_guessing": "剪刀石头布",
     "donate": "捐赠",
-    "constract_deploy": "合约部署"
+    "constract_deploy": "部署合约"
   },
   
   "issue_token": {
@@ -74,6 +74,9 @@
   },
 
   "constract_deploy": {
-    "please_upload_file": "请上传文件"
+    "title": "部署blob合约文件",
+    "deploy_btn": "部署",
+    "drop_zone_label": "拖拽blob文件到此处",
+    "please_upload_file": "请上传合约的blob文件"
   }
 }
