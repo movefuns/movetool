@@ -71,5 +71,9 @@
     "scissors": "剪刀",
     "rock": "石头",
     "paper": "布"
+  },
+
+  "constract_deploy": {
+    "please_upload_file": "请上传文件"
   }
 }

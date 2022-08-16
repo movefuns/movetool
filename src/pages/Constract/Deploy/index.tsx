@@ -4,21 +4,34 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import { Dropzone, FileItem, FileValidated } from "@dropzone-ui/react";
-import {Alert, Stack, TextField} from "@mui/material";
+import { Alert, Stack, TextField, AlertColor } from "@mui/material";
 import Snackbar from '@mui/material/Snackbar';
-import {useState} from "react";
-import {transfer} from "../../../utils/stcWalletSdk";
-import {useParams} from "react-router-dom";
-import {useTranslation} from "react-i18next";
-import {useAppSelector} from "../../../store/hooks";
+import { useState } from "react";
+import { transfer } from "../../../utils/stcWalletSdk";
+import { useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { useAppSelector } from "../../../store/hooks";
+import { fileToBuffer } from '../../../utils/file';
+import { deployContract } from '../../../utils/stcWalletSdk';
 
 export default function Donate() {
-    let {address, amount} = useParams();
-    const accountAddresses = useAppSelector((state: any) => state.wallet.accountAddress)
-    const {t} = useTranslation();
+    const { t } = useTranslation();
 
+    const [tipsType, setTipsType] = useState<AlertColor>("error")
     const [errorTips, setErrorTips] = useState("")
     const [openErrorTips, setOpenErrorTips] = useState(false);
+
+    const showSuccess = function (msg: string) {
+        setTipsType("success")
+        setErrorTips(msg)
+        setOpenErrorTips(true)
+    }
+
+    const showError = function (msg: string) {
+        setTipsType("error")
+        setErrorTips(msg)
+        setOpenErrorTips(true)
+    }
 
     const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
         if (reason === 'clickaway') {
@@ -34,33 +47,31 @@ export default function Donate() {
     };
 
     const handleDeploy = async () => {
-         if (files.length === 0) {
-             setErrorTips(t("chain_record.please_upload_file"))
-             setOpenErrorTips(true)
-             return
-         }
+        if (files.length === 0) {
+            showError(t("constract_deploy.please_upload_file"))
+            return
+        }
 
-        const file = files[0]
-        const fileReader = new FileReader();
-        fileReader.onload = async (e) => {
-            const result = fileReader.result as string
-            const data = JSON.parse(result)
-            const {address, amount} = data
-            await transfer(address, amount);
+        try {
+            const file = files[0]
+            const blobBuf = await fileToBuffer(file.file);
+            const transactionHash = await deployContract(blobBuf)
+
+            showSuccess(`Deploy constract success, please wait for the transaction to be confirmed, the transaction hash: ${transactionHash}`);
+        } catch (err: any) {
+            showError(t(err.message))
         }
     };
 
     return (
-        <Card sx={{minWidth: 275}}>
+        <Card sx={{ minWidth: 275 }}>
             <CardContent>
                 <Stack spacing={2}>
-
                     <Dropzone onChange={updateFiles} value={files}>
                         {files.map((file) => (
                             <FileItem {...file} preview />
                         ))}
                     </Dropzone>
-
                 </Stack>
             </CardContent>
             <CardActions>
@@ -68,8 +79,8 @@ export default function Donate() {
             </CardActions>
 
             <Snackbar open={openErrorTips} autoHideDuration={6000} onClose={handleClose}
-                      anchorOrigin={{vertical: 'top', horizontal: 'center'}}>
-                <Alert onClose={handleClose} severity="error" sx={{width: '100%'}}>
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+                <Alert onClose={handleClose} severity={tipsType} sx={{ width: '100%' }}>
                     {errorTips}
                 </Alert>
             </Snackbar>

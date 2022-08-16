@@ -71,5 +71,9 @@
     "scissors": "Scissors",
     "rock": "Rock",
     "paper": "Paper"
+  },
+
+  "constract_deploy": {
+    "please_upload_file": "Please upload file"
   }
 }
