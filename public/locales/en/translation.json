@@ -12,7 +12,8 @@
     "showdown": "Showdown",
     "finger_guessing": "FingerGuessing",
     "sicbo_friend": "SicBoWithFriend",
-    "donate": "Donate"
+    "donate": "Donate",
+    "constract_deploy": "Deploy Constract"
   },
   
   "issue_token": {
@@ -82,5 +83,12 @@
     "decrypt_game": "DecryptGame",
     "create_game_success": "Create Game Success",
     "join_game_success": "Join Game Success"
+  },
+
+  "constract_deploy": {
+    "title": "Deploy constract with blob file",
+    "deploy_btn": "Deploy",
+    "drop_zone_label": "Drop blob file here",
+    "please_upload_file": "Please upload constract blob file"
   }
 }

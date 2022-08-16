@@ -22,6 +22,8 @@ import SicBoWithFriend from "../pages/Game/SicBoFriend";
 import GameFingerGuessing from "../pages/Game/FingerGuessing";
 import Donate from "../pages/Donate";
 
+import ConstractDeploy from "../pages/Constract/Deploy/index";
+
 export default function Router() {
     return (<Routes>
         <Route path="/" element={<Index/>}/>
@@ -46,5 +48,8 @@ export default function Router() {
 
         <Route path="/donate" element={<Donate/>}/>
         <Route path="/donate/:address/:amount" element={<Donate/>}/>
+
+        <Route path="/constract/deploy" element={<ConstractDeploy/>}/>
+
     </Routes>);
 }

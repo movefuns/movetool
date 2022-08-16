@@ -12,7 +12,8 @@
     "showdown": "猜大小",
     "finger_guessing": "剪刀石头布",
     "sicbo_friend": "和朋友比大小",
-    "donate": "捐赠"
+    "donate": "捐赠",
+    "constract_deploy": "部署合约"
   },
   
   "issue_token": {
@@ -82,5 +83,12 @@
     "decrypt_game": "解密游戏",
     "create_game_success": "创建游戏成功",
     "join_game_success": "加入游戏成功"
+  },
+
+  "constract_deploy": {
+    "title": "部署blob合约文件",
+    "deploy_btn": "部署",
+    "drop_zone_label": "拖拽blob文件到此处",
+    "please_upload_file": "请上传合约的blob文件"
   }
 }
