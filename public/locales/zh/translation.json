@@ -74,10 +74,13 @@
   },
 
   "sio_bo": {
-    "amount": "在 1 ~ 9 选择一个数字",
+    "amount": "金额",
+    "number": "在 1 ~ 9 选择一个数字",
     "start_new_game": "创建游戏",
     "friend_addr": "朋友地址",
     "join_the_game": "加入游戏",
-    "decrypt_game": "解密游戏"
+    "decrypt_game": "解密游戏",
+    "create_game_success": "创建游戏成功",
+    "join_game_success": "加入游戏成功"
   }
 }

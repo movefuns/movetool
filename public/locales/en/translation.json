@@ -74,10 +74,13 @@
   },
 
   "sio_bo": {
-    "amount": "Select a number from 1 ~ 9",
+    "amount": "amount",
+    "number": "Select a number from 1 ~ 9",
     "start_new_game": "StartNewGame",
     "friend_addr": "The Friend's Address",
     "join_the_game": "JoinTheGame",
-    "decrypt_game": "DecryptGame"
+    "decrypt_game": "DecryptGame",
+    "create_game_success": "Create Game Success",
+    "join_game_success": "Join Game Success"
   }
 }
