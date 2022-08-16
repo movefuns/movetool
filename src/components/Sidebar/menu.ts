@@ -4,6 +4,7 @@ import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import NetworkPingIcon from '@mui/icons-material/NetworkPing';
 import ReduceCapacityIcon from '@mui/icons-material/ReduceCapacity';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
+import PublishIcon from '@mui/icons-material/Publish';
 import GraphicEqIcon from '@mui/icons-material/GraphicEq';
 import game_menu from  "./game_menu"
 
@@ -15,6 +16,14 @@ const common_menu = [
         icon: TokenIcon,
         path: "/stc/issue/token"
     },
+
+    {
+        name: "constract_deploy",
+        name_i18_key: "menu.constract_deploy",
+        icon: PublishIcon,
+        path: "/constract/deploy"
+    },
+
     {
         name: "1",
         name_i18_key: "menu.batch_token",
@@ -60,7 +69,7 @@ const common_menu = [
         name_i18_key: "menu.donate",
         icon: ReduceCapacityIcon,
         path: "/donate"
-    },
+    }
 ]
 
 const menu = [

@@ -70,8 +70,10 @@
     ]
   },
   "devDependencies": {
+    "@dropzone-ui/react": "^6.7.5",
     "@yubing744/move-js": "^0.5.0",
     "add": "^2.0.6",
+    "axios": "^0.27.2",
     "gh-pages": "^4.0.0",
     "yarn": "^1.22.18"
   }
