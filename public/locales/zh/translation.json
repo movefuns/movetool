@@ -11,7 +11,8 @@
     "games": "游戏",
     "showdown": "猜大小",
     "finger_guessing": "剪刀石头布",
-    "donate": "捐赠"
+    "donate": "捐赠",
+    "constract_deploy": "合约部署"
   },
   
   "issue_token": {

@@ -61,6 +61,13 @@ const common_menu = [
         icon: ReduceCapacityIcon,
         path: "/donate"
     },
+
+    {
+        name: "constract_deploy",
+        name_i18_key: "menu.constract_deploy",
+        icon: ReduceCapacityIcon,
+        path: "/constract/deploy"
+    },
 ]
 
 const menu = [

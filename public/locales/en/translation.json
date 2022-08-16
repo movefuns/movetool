@@ -11,7 +11,8 @@
     "games": "Games",
     "showdown": "Showdown",
     "finger_guessing": "FingerGuessing",
-    "donate": "Donate"
+    "donate": "Donate",
+    "constract_deploy": "Constract Deploy"
   },
   
   "issue_token": {
