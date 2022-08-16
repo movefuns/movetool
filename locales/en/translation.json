@@ -11,7 +11,8 @@
     "games": "Games",
     "showdown": "Showdown",
     "finger_guessing": "FingerGuessing",
-    "donate": "Donate"
+    "donate": "Donate",
+    "constract_deploy": "Deploy Constract"
   },
   
   "issue_token": {
@@ -70,5 +71,12 @@
     "scissors": "Scissors",
     "rock": "Rock",
     "paper": "Paper"
+  },
+
+  "constract_deploy": {
+    "title": "Deploy constract with blob file",
+    "deploy_btn": "Deploy",
+    "drop_zone_label": "Drop blob file here",
+    "please_upload_file": "Please upload constract blob file"
   }
 }
