@@ -74,7 +74,7 @@ export default function Donate() {
 
                     <Dropzone onChange={updateFiles} value={files} maxFiles={1} accept=".blob" label={t("constract_deploy.drop_zone_label")}>
                         {files.map((file) => (
-                            <FileItem {...file} preview />
+                            <FileItem key={file.file.name} {...file} preview />
                         ))}
                     </Dropzone>
                 </Stack>
