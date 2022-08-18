@@ -11,7 +11,7 @@
     "games": "Games",
     "showdown": "Showdown",
     "finger_guessing": "FingerGuessing",
-    "sicbo_friend": "SicBoWithFriend",
+    "sicbo_friend": "FingerGuessingWithFriend",
     "donate": "Donate",
     "constract_deploy": "Deploy Constract"
   },
@@ -76,7 +76,8 @@
 
   "sio_bo": {
     "amount": "amount",
-    "number": "Select a number from 1 ~ 9",
+    "number": "Select a number from 1 ~ 100",
+    "bob_num": "Select a number from 0 ~ 2",
     "start_new_game": "StartNewGame",
     "friend_addr": "The Friend's Address",
     "join_the_game": "JoinTheGame",

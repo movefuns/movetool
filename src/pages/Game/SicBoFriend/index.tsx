@@ -64,7 +64,7 @@ export default function SicBoWithFriend() {
       }
       for(const event of txData) {
         if (
-            event.type_tag === `${GameModule}::GameEvent`
+            event.type_tag === `${GameModule}::CheckEvent`
         ) {
             const checkEvent = decodeCheckEvent(event.data);
             window.console.log('create',checkEvent)
@@ -89,7 +89,7 @@ export default function SicBoWithFriend() {
       }
       for(const event of txData) {
         if (
-            event.type_tag === `${GameModule}::GameEvent`
+            event.type_tag === `${GameModule}::CheckEvent`
         ) {
             const checkEvent = decodeCheckEvent(event.data);
             window.console.log('joinGame',checkEvent)
@@ -114,7 +114,7 @@ export default function SicBoWithFriend() {
       }
       for(const event of txData) {
         if (
-            event.type_tag === `${GameModule}::GameEvent`
+            event.type_tag === `${GameModule}::CheckEvent`
         ) {
             const checkEvent = decodeCheckEvent(event.data);
             window.console.log('decryptGame',checkEvent)
@@ -125,6 +125,9 @@ export default function SicBoWithFriend() {
 
   return (
     <div>
+      0: shitou（rock）
+      1: jiandao（scissors）
+      2: bu（paper）
       <div>
         <h3>{t("sio_bo.start_new_game")}</h3>
         <Card>
@@ -213,7 +216,7 @@ export default function SicBoWithFriend() {
                 fullWidth
                 aria-readonly
                 id="outlined-multiline-static"
-                label={t("sio_bo.number")}
+                label={t("sio_bo.bob_num")}
                 value={joinNum}
                 onChange={(v) => {
                   setJoinNum(v.target.value);

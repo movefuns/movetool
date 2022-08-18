@@ -6,7 +6,7 @@ import { NANO_STC, nodeUrlMap } from "../../utils/consts";
 import { Buffer } from 'buffer'
 
 const token = "0x00000000000000000000000000000001::STC::STC";
-export const GameModule = "0xb80660f71e0d5ac2b5d5c43f2246403f::SicBoV2";
+export const GameModule = "0xb80660f71e0d5ac2b5d5c43f2246403f::SicBoV4";
 
 const sendTx = async (functionId: string, tyArgs: any[], args: any[]) => {
   const nodeUrl = nodeUrlMap[window.starcoin.networkVersion];
@@ -76,13 +76,13 @@ export async function aliceNum(num: number) {
 
 export function decodeCheckEvent(data: string) {
   const de = new bcs.BcsDeserializer(arrayify(data));
-  const aliceAmount = de.deserializeU128();
-  const bobAmount = de.deserializeU128();
+  const aliceNum = de.deserializeU8();
+  const bobNum = de.deserializeU8();
   const aliceWin = de.deserializeBool();
   const bobWin = de.deserializeBool();
   return {
-    aliceAmount,
-    bobAmount,
+    aliceNum,
+    bobNum,
     aliceWin,
     bobWin
   };

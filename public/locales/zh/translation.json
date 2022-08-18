@@ -11,7 +11,7 @@
     "games": "游戏",
     "showdown": "猜大小",
     "finger_guessing": "剪刀石头布",
-    "sicbo_friend": "和朋友比大小",
+    "sicbo_friend": "和朋友剪刀石头布",
     "donate": "捐赠",
     "constract_deploy": "部署合约"
   },
@@ -76,7 +76,8 @@
 
   "sio_bo": {
     "amount": "金额",
-    "number": "在 1 ~ 9 选择一个数字",
+    "number": "在 1 ~ 100 选择一个数字",
+    "bob_num": "在 0 ~ 2 选择一个数字",
     "start_new_game": "创建游戏",
     "friend_addr": "朋友地址",
     "join_the_game": "加入游戏",
