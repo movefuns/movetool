@@ -1,12 +1,14 @@
-import { bcs, utils } from "@starcoin/starcoin";
+import { bcs, utils , starcoin_types} from "@starcoin/starcoin";
+
 import { arrayify, hexlify } from "@ethersproject/bytes";
 import { sha3_256 } from "js-sha3";
 import { getProvder } from "../../utils/stcWalletSdk";
 import { NANO_STC, nodeUrlMap } from "../../utils/consts";
 import { Buffer } from 'buffer'
 
+const { AccountAddress } =starcoin_types;
 const token = "0x00000000000000000000000000000001::STC::STC";
-export const GameModule = "0xb80660f71e0d5ac2b5d5c43f2246403f::SicBoV6";
+export const GameModule = "0xb80660f71e0d5ac2b5d5c43f2246403f::SicBoV9";
 
 const sendTx = async (functionId: string, tyArgs: any[], args: any[]) => {
   const nodeUrl = nodeUrlMap[window.starcoin.networkVersion];
@@ -33,14 +35,13 @@ const sendTx = async (functionId: string, tyArgs: any[], args: any[]) => {
   return tx;
 };
 
-export async function aliceStartNewGameWithNum(
-  aliceAcoountAddress: string,
-  aliceNum: number,
+export async function startNewGameWithNum(
+  accountAddress: string,
+  num: number,
   amountNum: number
 ) {
-  window.console.log({ aliceNum })
   const secretBuf = Buffer.concat(
-    [Buffer.from(aliceAcoountAddress.slice(2), "hex"), Buffer.from([aliceNum])],
+    [Buffer.from(accountAddress.slice(2), "hex"), Buffer.from([num])],
     17
   );
 
@@ -54,18 +55,15 @@ export async function aliceStartNewGameWithNum(
   return tx;
 }
 
-export async function bobNum(aliceAcoountAddress: String, num: number, amountNum: number) {
-  window.console.log({ bobNum: num })
-  const amount = amountNum * NANO_STC;
+export async function joinGame(accountAddress: String, num: number) {
   const functionId = `${GameModule}::join_game`;
   const tyArgs: any[] = [token];
-  const args: any = [aliceAcoountAddress, num, amount];
+  const args: any = [accountAddress, num];
   const tx = await sendTx(functionId, tyArgs, args);
   return tx;
 }
 
-export async function aliceNum(num: number) {
-  window.console.log({ aliceDecryptNum: num })
+export async function endGame(num: number) {
   const functionId = `${GameModule}::end_game`;
   const tyArgs: any[] = [token];
   const args: any = [num];
@@ -74,16 +72,10 @@ export async function aliceNum(num: number) {
   return tx;
 }
 
-export function decodeCheckEvent(data: string) {
+export function decodeGameEvent(data: string) {
   const de = new bcs.BcsDeserializer(arrayify(data));
-  const aliceNum = de.deserializeU8();
-  const bobNum = de.deserializeU8();
-  const aliceWin = de.deserializeBool();
-  const bobWin = de.deserializeBool();
+  const addr = AccountAddress.deserialize(de);
   return {
-    aliceNum,
-    bobNum,
-    aliceWin,
-    bobWin
+    addr: "0x" + Buffer.from(addr.value.map((item) => item[0])).toString("hex"),
   };
 }

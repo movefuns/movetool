@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
-import { aliceStartNewGameWithNum, bobNum, aliceNum, GameModule, decodeCheckEvent } from "../../../games/sicbo_game";
+import { GameModule, startNewGameWithNum, joinGame, endGame, decodeGameEvent } from "../../../games/sicbo_game";
 import {getProvder} from "../../../utils/stcWalletSdk";
 import { getEventsByTxnHash, getTxnData } from "../../../utils/sdk";
 import { sleep } from "../../../utils/common";
@@ -27,7 +27,6 @@ export default function SicBoWithFriend() {
   const { t } = useTranslation();
   const [startAmount, setStartAmount] = useState('0.1')
   const [startNum, setStartNum] = useState("1");
-  const [joinAmount, setJoinAmount] = useState('0.1')
   const [joinNum, setJoinNum] = useState("1");
   const [friendAddr, setFriendAddr] = useState("");
   const [account, setAccount] = useState<string>();
@@ -53,7 +52,7 @@ export default function SicBoWithFriend() {
     if (!account) {
       return;
     }
-    const rs = await aliceStartNewGameWithNum(account, Number( startNum) || 1, Number(startAmount))
+    const rs = await startNewGameWithNum(account, Number(startNum) || 1, Number(startAmount))
     if (rs) {
       let txData = await getTxnData(rs);
       let times = 0;
@@ -64,21 +63,21 @@ export default function SicBoWithFriend() {
       }
       for(const event of txData) {
         if (
-            event.type_tag === `${GameModule}::CheckEvent`
+            event.type_tag === `${GameModule}::GameStartEvent`
         ) {
-            const checkEvent = decodeCheckEvent(event.data);
-            window.console.log('create',checkEvent)
+            const gameStartEvent = decodeGameEvent(event.data);
+            window.console.log({gameStartEvent})
             toastMsg(t('sio_bo.create_game_success'))
         }
       }
     }
   }, [account, startNum, startAmount, t]);
 
-  const joinGame = React.useCallback(async ()=> {
+  const joinGameHandler = React.useCallback(async ()=> {
     if (!account) {
       return;
     }
-    const rs = await bobNum(friendAddr, Number(joinNum) || 1, Number(joinAmount))
+    const rs = await joinGame(friendAddr, Number(joinNum) || 1)
     if (rs) {
       let txData = await getTxnData(rs);
       let times = 0;
@@ -89,21 +88,21 @@ export default function SicBoWithFriend() {
       }
       for(const event of txData) {
         if (
-            event.type_tag === `${GameModule}::CheckEvent`
+            event.type_tag === `${GameModule}::GameJoinEvent`
         ) {
-            const checkEvent = decodeCheckEvent(event.data);
-            window.console.log('joinGame',checkEvent)
+            const gameJoinEvent = decodeGameEvent(event.data);
+            window.console.log({gameJoinEvent})
             toastMsg(t('sio_bo.join_game_success'))
         }
       }
     }
-  }, [account, friendAddr, joinNum, joinAmount, t])
+  }, [account, friendAddr, joinNum, t])
 
   const decryptGame = React.useCallback(async () => {
     if (!account) {
       return;
     }
-    const rs = await aliceNum(Number(startNum) || 1)
+    const rs = await endGame(Number(startNum) || 1)
     if (rs) {
       let txData = await getTxnData(rs);
       let times = 0;
@@ -114,10 +113,10 @@ export default function SicBoWithFriend() {
       }
       for(const event of txData) {
         if (
-            event.type_tag === `${GameModule}::CheckEvent`
+            event.type_tag === `${GameModule}::GameEndEvent`
         ) {
-            const checkEvent = decodeCheckEvent(event.data);
-            window.console.log('decryptGame',checkEvent)
+            const gameEndEvent = decodeGameEvent(event.data);
+            window.console.log({gameEndEvent})
         }
       }
     }
@@ -224,22 +223,10 @@ export default function SicBoWithFriend() {
                 multiline
                 rows={1}
               />
-              <TextField
-                fullWidth
-                aria-readonly
-                id="outlined-multiline-static"
-                label={t("sio_bo.amount")}
-                value={joinAmount}
-                onChange={(v) => {
-                  setJoinAmount(v.target.value);
-                }}
-                multiline
-                rows={1}
-              />
             </Stack>
           </CardContent>
           <CardActions>
-            <Button variant="contained" fullWidth onClick={joinGame}>
+            <Button variant="contained" fullWidth onClick={joinGameHandler}>
               {t("sio_bo.join_the_game")}
             </Button>
           </CardActions>
