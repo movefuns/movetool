@@ -6,7 +6,7 @@ import { NANO_STC, nodeUrlMap } from "../../utils/consts";
 import { Buffer } from 'buffer'
 
 const token = "0x00000000000000000000000000000001::STC::STC";
-export const GameModule = "0xb80660f71e0d5ac2b5d5c43f2246403f::SicBoV4";
+export const GameModule = "0xb80660f71e0d5ac2b5d5c43f2246403f::SicBoV6";
 
 const sendTx = async (functionId: string, tyArgs: any[], args: any[]) => {
   const nodeUrl = nodeUrlMap[window.starcoin.networkVersion];
@@ -47,7 +47,7 @@ export async function aliceStartNewGameWithNum(
   const secret = Buffer.from(sha3_256(secretBuf), "hex");
 
   const amount = amountNum * NANO_STC;
-  const functionId = `${GameModule}::init_game`;
+  const functionId = `${GameModule}::start_game`;
   const tyArgs: any[] = [token];
   const args: any = [secret, amount];
   const tx = await sendTx(functionId, tyArgs, args);
@@ -57,7 +57,7 @@ export async function aliceStartNewGameWithNum(
 export async function bobNum(aliceAcoountAddress: String, num: number, amountNum: number) {
   window.console.log({ bobNum: num })
   const amount = amountNum * NANO_STC;
-  const functionId = `${GameModule}::bob_what`;
+  const functionId = `${GameModule}::join_game`;
   const tyArgs: any[] = [token];
   const args: any = [aliceAcoountAddress, num, amount];
   const tx = await sendTx(functionId, tyArgs, args);
@@ -66,7 +66,7 @@ export async function bobNum(aliceAcoountAddress: String, num: number, amountNum
 
 export async function aliceNum(num: number) {
   window.console.log({ aliceDecryptNum: num })
-  const functionId = `${GameModule}::alice_what`;
+  const functionId = `${GameModule}::end_game`;
   const tyArgs: any[] = [token];
   const args: any = [num];
 

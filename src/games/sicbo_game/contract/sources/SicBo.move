@@ -1,5 +1,5 @@
 address admin {
-module SicBoV4 {
+module SicBoV6 {
     use StarcoinFramework::Signer;
     use StarcoinFramework::Timestamp;
     use StarcoinFramework::Account;
@@ -58,7 +58,7 @@ module SicBoV4 {
         });
     }
 
-    public(script) fun init_game<TokenType: store>(alice: signer, alice_secret: vector<u8>, amount: u128) acquires Bank, BankEvent {
+    public(script) fun start_game<TokenType: store>(alice: signer, alice_secret: vector<u8>, amount: u128) acquires Bank, BankEvent {
         let account = &alice;
 
         let token = Account::withdraw<TokenType>(account, amount);
@@ -91,7 +91,7 @@ module SicBoV4 {
         });
     }
 
-    public(script) fun bob_what<TokenType: store>(bob: signer, alice: address, bob_num: u8, amount: u128) acquires Game, Bank, BankEvent {
+    public(script) fun join_game<TokenType: store>(bob: signer, alice: address, bob_num: u8, amount: u128) acquires Game, Bank, BankEvent {
         let account = &bob;
 
         assert!(bob_num < 3, 10001);
@@ -105,7 +105,7 @@ module SicBoV4 {
         game.bob_amount = amount;
         game.bob_addr = Signer::address_of(account);
 
-        assert!(game.bob_num == game.alice_num, 10002);
+        assert!(game.bob_amount == game.alice_amount, 10002);
 
         let bank_event = borrow_global_mut<BankEvent<TokenType>>(@admin);
         Event::emit_event(&mut bank_event.check_event, CheckEvent{
@@ -117,7 +117,7 @@ module SicBoV4 {
         });
     }
 
-    public(script) fun alice_what<TokenType: store>(alice: signer, alice_num: u8) acquires Game, Bank, BankEvent {
+    public(script) fun end_game<TokenType: store>(alice: signer, alice_num: u8) acquires Game, Bank, BankEvent {
         let account = &alice;
 
         // check valid
