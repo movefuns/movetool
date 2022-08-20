@@ -5,10 +5,11 @@ import { sha3_256 } from "js-sha3";
 import { getProvder } from "../../utils/stcWalletSdk";
 import { NANO_STC, nodeUrlMap } from "../../utils/consts";
 import { Buffer } from 'buffer'
+import {ADMIN_ADDRESS} from "../index";
 
 const { AccountAddress } =starcoin_types;
 const token = "0x00000000000000000000000000000001::STC::STC";
-export const GameModule = "0xb80660f71e0d5ac2b5d5c43f2246403f::SicBoV9";
+export const GameModule = `${ADMIN_ADDRESS}::SicBoV9`;
 
 const sendTx = async (functionId: string, tyArgs: any[], args: any[]) => {
   const nodeUrl = nodeUrlMap[window.starcoin.networkVersion];
