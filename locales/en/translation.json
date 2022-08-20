@@ -11,6 +11,7 @@
     "games": "Games",
     "showdown": "Showdown",
     "finger_guessing": "FingerGuessing",
+    "sicbo_friend": "FingerGuessingWithFriend",
     "donate": "Donate",
     "constract_deploy": "Deploy Constract"
   },
@@ -33,7 +34,7 @@
   },
 
   "batch_token": {
-    "send":"Send"
+    "send": "Send"
   },
 
   "batch_balance": {
@@ -49,13 +50,13 @@
   },
   "chain_record": {
     "query_record": "query record on ",
-    "desc" :"Decentralized, Unchangeable, Permanent record No programming skills required",
-    "content" :"Content",
-    "receive_address" :"Receive Address",
-    "stc_amount" :"Send Number STC",
-    "record_on" :"Record On Chain",
-    "record_tx" :"Record Transaction Hash",
-    "record_time" :"Record Time"
+    "desc": "Decentralized, Unchangeable, Permanent record No programming skills required",
+    "content": "Content",
+    "receive_address": "Receive Address",
+    "stc_amount": "Send Number STC",
+    "record_on": "Record On Chain",
+    "record_tx": "Record Transaction Hash",
+    "record_time": "Record Time"
   },
 
   "showdown": {
@@ -71,6 +72,19 @@
     "scissors": "Scissors",
     "rock": "Rock",
     "paper": "Paper"
+  },
+
+  "sio_bo": {
+    "amount": "amount",
+    "number": "Select a number from 1 ~ 100",
+    "bob_num": "Select a number from 0 ~ 2",
+    "start_new_game": "StartNewGame",
+    "friend_addr": "The Friend's Address",
+    "join_the_game": "JoinTheGame",
+    "decrypt_game": "DecryptGame",
+    "create_game_success": "Create Game Success",
+    "join_game_success": "Join Game Success",
+    "end_game_success": "End Game Success"
   },
 
   "constract_deploy": {
