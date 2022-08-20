@@ -83,7 +83,8 @@
     "join_the_game": "JoinTheGame",
     "decrypt_game": "DecryptGame",
     "create_game_success": "Create Game Success",
-    "join_game_success": "Join Game Success"
+    "join_game_success": "Join Game Success",
+    "end_game_success": "End Game Success"
   },
 
   "constract_deploy": {

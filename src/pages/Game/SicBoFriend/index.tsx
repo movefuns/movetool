@@ -12,6 +12,8 @@ import {
   CardActions,
   Button,
   Snackbar,
+  CircularProgress,
+  Backdrop,
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
@@ -33,6 +35,8 @@ export default function SicBoWithFriend() {
   const [open, setOpen] = useState(false);
   const [msg, setMsg] = useState('')
 
+  const [loading, setLoading] = React.useState(false);
+
   React.useEffect(() => {
     getProvder().then(provider => {
       return provider.send("stc_requestAccounts", [])
@@ -52,6 +56,7 @@ export default function SicBoWithFriend() {
     if (!account) {
       return;
     }
+    setLoading(true)
     const rs = await startNewGameWithNum(account, Number(startNum) || 1, Number(startAmount))
     if (rs) {
       let txData = await getTxnData(rs);
@@ -71,13 +76,18 @@ export default function SicBoWithFriend() {
         }
       }
     }
+    setLoading(false)
   }, [account, startNum, startAmount, t]);
 
   const joinGameHandler = React.useCallback(async ()=> {
     if (!account) {
       return;
     }
-    const rs = await joinGame(friendAddr, Number(joinNum) || 1)
+    if (Math.abs(Number(joinNum)) > 2) {
+      return
+    }
+    setLoading(true)
+    const rs = await joinGame(friendAddr, Math.abs(Number(joinNum)))
     if (rs) {
       let txData = await getTxnData(rs);
       let times = 0;
@@ -96,12 +106,14 @@ export default function SicBoWithFriend() {
         }
       }
     }
+    setLoading(false)
   }, [account, friendAddr, joinNum, t])
 
   const decryptGame = React.useCallback(async () => {
     if (!account) {
       return;
     }
+    setLoading(true)
     const rs = await endGame(Number(startNum) || 1)
     if (rs) {
       let txData = await getTxnData(rs);
@@ -117,10 +129,12 @@ export default function SicBoWithFriend() {
         ) {
             const gameEndEvent = decodeGameEvent(event.data);
             window.console.log({gameEndEvent})
+            toastMsg(t('sio_bo.end_game_success'))
         }
       }
     }
-  }, [account, startNum])
+    setLoading(false)
+  }, [account, startNum, t])
 
   return (
     <div>
@@ -232,6 +246,13 @@ export default function SicBoWithFriend() {
           </CardActions>
         </Card>
       </div>
+
+      <Backdrop
+            sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
+            open={loading}
+        >
+            <CircularProgress color="inherit" size={160}/>
+        </Backdrop>
 
       <Snackbar 
         open={open} 

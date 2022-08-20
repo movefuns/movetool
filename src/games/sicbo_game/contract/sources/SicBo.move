@@ -11,6 +11,8 @@ module SicBoV9 {
     use StarcoinFramework::Option;
     // use SFC::PseudoRandom;
 
+    const GameValidTime: u64 = 10 * 60; // 10 min
+
     struct Bank<phantom T: store> has store, key {
         bank: Token::Token<T>
     }
@@ -109,11 +111,12 @@ module SicBoV9 {
         let account = &participant;
         let game = borrow_global_mut<Game>(opener_addr);
 
+        assert!(Option::is_none<address>(&game.participant_addr), 10007); // only one participant allowed
+
         let token = Account::withdraw<TokenType>(account, game.amount);
         let bank = borrow_global_mut<Bank<TokenType>>(@admin);
         Token::deposit<TokenType>(&mut bank.bank, token);
 
-        
         game.participant_num = participant_num;
         game.amount = game.amount + game.amount;
         game.participant_addr = Option::some(Signer::address_of(account));
@@ -132,8 +135,7 @@ module SicBoV9 {
         game.opener_num = opener_num % 3;
 
         let now = Timestamp::now_seconds();
-        assert!((now - game.timestamp) < 10 * 3600, 10007); // could end in 10 min
-        // assert!(addr == game.opener_addr, 10008); // only opener allowed
+        assert!((now - game.timestamp) <= GameValidTime, 10008); // could end in 10 min
 
         // check valid
         let temp_camp = Vector::empty();
@@ -161,7 +163,7 @@ module SicBoV9 {
             }
         } else {
             game.opener_win = 2; // lose
-            win_token<TokenType>(game.opener_addr, game.amount);
+            win_token<TokenType>(Option::extract<address>(&mut game.participant_addr), game.amount);
         };
 
         let game_event = borrow_global_mut<GameEvent<TokenType>>(@admin);
@@ -180,7 +182,7 @@ module SicBoV9 {
         let game = borrow_global_mut<Game>(opener_addr);
         let now = Timestamp::now_seconds();
         
-        assert!((now - game.timestamp) > 10 * 3600, 10010); // could close after 10 min
+        assert!((now - game.timestamp) > GameValidTime, 10010); // could close after 10 min
 
         if (Option::is_none<address>(&game.participant_addr)) {
             win_token<TokenType>(Signer::address_of(&everyone), game.amount);
