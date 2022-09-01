@@ -1,6 +1,6 @@
 # DApps
 
-A collection of Move echosystem DApp tools. These tools provide a user-friendly interface to execute Move SmartContracts on the Move chains: starcoin, 0l, aptos, sui.
+A collection of Move ecosystem DApp tools. These tools provide a user-friendly interface to execute Move SmartContracts on the Move chains: starcoin, 0l, aptos, sui.
 
 
 ## How to develop
