@@ -22,7 +22,7 @@ import {getEventsByTxnHash, getTxnData} from "../../../utils/sdk";
 import {sleep} from "../../../utils/common";
 import Typography from "@mui/material/Typography";
 import {getLocalNetwork} from "../../../utils/localHelper";
-
+import { BigNumber } from "bignumber.js";
 
 export default function Showdown() {
     const {t} = useTranslation();
@@ -156,7 +156,7 @@ export default function Showdown() {
                     </Box>
 
                     <Alert severity="info">This Banker Amount: {bankAmount} , max input
-                        amount {bankAmount / 10}  </Alert>
+                        amount {new BigNumber(bankAmount).div(10).toString()}  </Alert>
 
 
                     <TextField
