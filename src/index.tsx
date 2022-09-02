@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {ColorModeContext} from './utils/context';
 import "./@types/global.d.ts"
-import {HashRouter} from "react-router-dom";
+import {BrowserRouter} from "react-router-dom";
 import {store} from './store';
 import {Provider} from 'react-redux';
 import {getLocalTheme, setLocalTheme} from "./utils/localHelper";
@@ -50,9 +50,9 @@ function Index() {
         <ColorModeContext.Provider value={colorMode}>
             <ThemeProvider theme={theme}>
                 <Provider store={store}>
-                    <HashRouter>
+                    <BrowserRouter>
                         <App/>
-                    </HashRouter>
+                    </BrowserRouter>
                 </Provider>
             </ThemeProvider>
         </ColorModeContext.Provider>

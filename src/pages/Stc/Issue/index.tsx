@@ -78,7 +78,7 @@ export default function Issue() {
             const git = new Git(wasmfs)
             const tokenPackage = new TokenPackage(wasmfs, accountAddress, tokenName, parseInt(tokenPrecision), parseInt(initMint))
 
-            const starcoinFrameworkURL = process.env.NODE_ENV === "production" ? "/dapps/data/starcoin-framework.zip" : "/data/starcoin-framework.zip"
+            const starcoinFrameworkURL =  "/data/starcoin-framework.zip"
             await git.download(starcoinFrameworkURL, "/workspace/starcoin-framework")
             tokenPackage.export("/workspace/my-token")
 
