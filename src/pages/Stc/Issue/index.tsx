@@ -16,6 +16,9 @@ import { TokenPackage } from './TokenPackage'
 import { useAppSelector } from '../../../store/hooks'
 import {firstToUpper, isTokenName} from "../../../utils/common";
 
+const numReg = /^\d{1,}$/;
+const numPattern = new RegExp(numReg);
+
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
     props,
     ref,
@@ -69,6 +72,14 @@ export default function Issue() {
             return
         }
 
+        if (!numPattern.test(initMint)) {
+            setErrorTips(t("issue_token.error_tips.token_mint_amount_invalid"))
+            setOpenErrorTips(true)
+            return
+        }
+
+        initMint = initMint.replace(/\b(0+)/gi,"");
+
         if (initMint === "" || isNaN(parseInt(initMint))) {
             initMint = "0"
         }
@@ -76,7 +87,7 @@ export default function Issue() {
         try {
             const wasmfs = new WasmFs()
             const git = new Git(wasmfs)
-            const tokenPackage = new TokenPackage(wasmfs, accountAddress, tokenName, parseInt(tokenPrecision), parseInt(initMint))
+            const tokenPackage = new TokenPackage(wasmfs, accountAddress, tokenName, parseInt(tokenPrecision), initMint)
 
             const starcoinFrameworkURL =  "/data/starcoin-framework.zip"
             await git.download(starcoinFrameworkURL, "/workspace/starcoin-framework")

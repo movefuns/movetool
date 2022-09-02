@@ -29,7 +29,8 @@
       "token_address_required": "请先连接Starmask",
       "token_precision_required": "Token精度不能为空",
       "token_precision_invalid": "Token精度必须是整数",
-      "token_precision_range": "Token精度必须在0-38之间"
+      "token_precision_range": "Token精度必须在0-38之间",
+      "token_mint_amount_invalid": "Token初始数量值必须是正整数"
     }
   },
 
