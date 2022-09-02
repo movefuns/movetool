@@ -49,7 +49,7 @@ export default function Donate() {
             <br/>
             {accountAddress ? <div>
                 my received donate url <Alert
-                severity="info">{window.location.origin}/{process.env.NODE_ENV === "production" ? "dapps/" : ""}#/donate/{accountAddress}/{donateAmount}</Alert>
+                severity="info">{window.location.origin}/donate/{accountAddress}/{donateAmount}</Alert>
             </div> : ""}
 
             <br/>
