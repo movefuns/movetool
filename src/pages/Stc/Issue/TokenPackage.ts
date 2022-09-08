@@ -8,9 +8,9 @@ class TokenPackage {
     private tokenAddress: string
     private tokenName: string
     private tokenPrecision: number
-    private initMint: number
+    private initMint: string
 
-    public constructor(wasmfs: WasmFs, address: string, name:string,  precision: number, initMint: number) {
+    public constructor(wasmfs: WasmFs, address: string, name:string,  precision: number, initMint: string) {
         this.wasmfs = wasmfs;
         this.tokenAddress = address;
         this.tokenName = name;

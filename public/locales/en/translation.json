@@ -29,7 +29,8 @@
       "token_address_required": "Please connect to starmask first",
       "token_precision_required": "Token precision is required",
       "token_precision_invalid": "Token precision is invalid",
-      "token_precision_range": "Token precision must be between 0 and 38"
+      "token_precision_range": "Token precision must be between 0 and 38",
+      "token_mint_amount_invalid": "Token amount is invalid"
     }
   },
 

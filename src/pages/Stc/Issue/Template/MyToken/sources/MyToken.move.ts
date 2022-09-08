@@ -1,4 +1,4 @@
-const MyTokenSourceTpl = (tokenName:string, tokenPrecision:number, initMint:number) => {
+const MyTokenSourceTpl = (tokenName:string, tokenPrecision:number, initMint:string) => {
     return `
 module ${tokenName}::${tokenName} {
     use StarcoinFramework::Token;
