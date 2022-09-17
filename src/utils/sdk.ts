@@ -1,14 +1,14 @@
 // https://www.npmjs.com/package/@starcoin/starcoin
-import {providers} from '@starcoin/starcoin';
-import {NETWORK} from "./consts";
-import {getLocalNetwork} from "./localHelper";
+import { providers } from '@starcoin/starcoin';
+import { NETWORK } from "./consts";
+import { getLocalNetwork } from "./localHelper";
 
 
 function getNetwork() {
-  return  getLocalNetwork() || "main"
+    return getLocalNetwork() || "main"
 }
 
-const networks: string[] =  NETWORK;
+const networks: string[] = NETWORK;
 const providerMap: Record<string, any> = {};
 networks.forEach((n) => {
     providerMap[n] = new providers.JsonRpcProvider(
@@ -27,7 +27,7 @@ export async function getTxnData(txnHash: string) {
 }
 
 
-export async function getEventsByTxnHash(txnHash: string){
+export async function getEventsByTxnHash(txnHash: string) {
     try {
         const provider = providerMap[getNetwork()];
         const result = await provider.send("chain.get_events_by_txn_hash", [txnHash]);
@@ -35,12 +35,10 @@ export async function getEventsByTxnHash(txnHash: string){
     } catch (error: any) {
         return false;
     }
-
 }
 
 
-
-export  async function callV2(function_id:string,type_args:any[],args:any[]){
+export async function callV2(function_id: string, type_args: any[], args: any[]) {
     try {
         const provider = providerMap[getNetwork()];
         const result = await provider.callV2({
@@ -191,3 +189,40 @@ export async function getGasPrice() {
     return result;
 }
 
+
+export async function getAddressStateCode(address: string) {
+    try {
+        const provider = providerMap[getNetwork()];
+        const result = await provider.send('state.list_code', [address]);
+        return result;
+    } catch (error: any) {
+        return false;
+    }
+}
+
+export async function getAddressCode(address: string) {
+
+    const { codes } = await getAddressStateCode(address);
+
+    let codeList: any = [];
+    for (const value of Object.keys(codes)) {
+        codeList.push(getResolveModule(`${address}::${value}`));
+    }
+
+    const all = await Promise.all(codeList);
+    return Object.keys(codes).map((value, index) => {
+        return { 'name': value, code: all[index] };
+    });
+}
+
+export async function getResolveModule(moduleId: string) {
+
+    try {
+        const provider = providerMap[getNetwork()];
+        const result = await provider.send('contract.resolve_module', [moduleId]);
+        return result;
+    } catch (error: any) {
+        window.console.log(error)
+        return false;
+    }
+}

@@ -13,9 +13,9 @@
     "finger_guessing": "FingerGuessing",
     "sicbo_friend": "FingerGuessingWithFriend",
     "donate": "Donate",
-    "constract_deploy": "Deploy Constract"
+    "constract_deploy": "Deploy Constract",
+    "contract_call": "Call Contract"
   },
-  
   "issue_token": {
     "title": "Issue Starcoin Token",
     "token_address": "Token Address",
@@ -33,11 +33,9 @@
       "token_mint_amount_invalid": "Token amount is invalid"
     }
   },
-
   "batch_token": {
     "send": "Send"
   },
-
   "batch_balance": {
     "query": "Query"
   },
@@ -59,14 +57,12 @@
     "record_tx": "Record Transaction Hash",
     "record_time": "Record Time"
   },
-
   "showdown": {
     "amount": "amount",
     "check": "check",
     "true": "T",
     "false": "F"
   },
-
   "finger_guessing": {
     "amount": "amount",
     "check": "check",
@@ -74,7 +70,6 @@
     "rock": "Rock",
     "paper": "Paper"
   },
-
   "sio_bo": {
     "amount": "amount",
     "number": "Select a number from 1 ~ 100",
@@ -87,11 +82,19 @@
     "join_game_success": "Join Game Success",
     "end_game_success": "End Game Success"
   },
-
   "constract_deploy": {
     "title": "Deploy constract with blob file",
     "deploy_btn": "Deploy",
     "drop_zone_label": "Drop blob file here",
     "please_upload_file": "Please upload constract blob file"
+  },
+  "contract_call": {
+    "title": "Call Contract",
+    "script_function": "Script Function",
+    "module": "module",
+    "address": "address",
+    "resolve": "resolve",
+    "parameter": "parameter",
+    "no_code": "There does not appear to be a contract under the current address or network"
   }
 }

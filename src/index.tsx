@@ -3,19 +3,19 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {ColorModeContext} from './utils/context';
+import { ColorModeContext } from './utils/context';
 import "./@types/global.d.ts"
-import {BrowserRouter} from "react-router-dom";
-import {store} from './store';
-import {Provider} from 'react-redux';
-import {getLocalTheme, setLocalTheme} from "./utils/localHelper";
-import {createTheme, ThemeProvider} from "@mui/material";
+import { BrowserRouter } from "react-router-dom";
+import { store } from './store';
+import { Provider } from 'react-redux';
+import { getLocalTheme, setLocalTheme } from "./utils/localHelper";
+import { createTheme, ThemeProvider } from "@mui/material";
 import './utils/i18n';
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
-root.render(<Index/>);
+root.render(<Index />);
 
 
 function Index() {
@@ -45,13 +45,12 @@ function Index() {
         [mode],
     );
 
-
     return <React.StrictMode>
         <ColorModeContext.Provider value={colorMode}>
             <ThemeProvider theme={theme}>
                 <Provider store={store}>
                     <BrowserRouter>
-                        <App/>
+                        <App />
                     </BrowserRouter>
                 </Provider>
             </ThemeProvider>

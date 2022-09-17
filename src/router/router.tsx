@@ -2,7 +2,7 @@ import * as React from "react";
 
 import Batch from "../pages/Stc/Batch";
 import AddressInfo from "../pages/Address/Info";
-import {Route, Routes} from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Index from "../pages/Index";
 import Gas from "../pages/Stc/Rpc/gas";
 import Ping from "../pages/Stc/Rpc/ping";
@@ -23,33 +23,35 @@ import GameFingerGuessing from "../pages/Game/FingerGuessing";
 import Donate from "../pages/Donate";
 
 import ConstractDeploy from "../pages/Constract/Deploy/index";
+import ContractCall from "../pages/Constract/Call/index";
 
 export default function Router() {
     return (<Routes>
-        <Route path="/" element={<Index/>}/>
-        <Route path="/address/info" element={<AddressInfo/>}/>
-        <Route path="/stc/batch" element={<Batch/>}/>
-        <Route path="/stc/batch/transfer" element={<Transfer/>}/>
-        <Route path="/stc/batch/transfer-convert" element={<TransferConvert/>}/>
-        <Route path="/stc/batch/balance" element={<Balance/>}/>
-        <Route path="/stc/unit/convert" element={<UnitConverter/>}/>
-        <Route path="/stc/issue/token" element={<Issue/>}/>
-        <Route path="/node/ping" element={<Ping/>}/>
-        <Route path="/node/gas" element={<Gas/>}/>
-        <Route path="/chain/record" element={<ChainRecord/>}/>
-        <Route path="/chain/record/detail" element={<ChainRecordInfo/>}/>
-        <Route path="/chain/record/detail/:hash" element={<ChainRecordInfo/>}/>
+        <Route path="/" element={<Index />} />
+        <Route path="/address/info" element={<AddressInfo />} />
+        <Route path="/stc/batch" element={<Batch />} />
+        <Route path="/stc/batch/transfer" element={<Transfer />} />
+        <Route path="/stc/batch/transfer-convert" element={<TransferConvert />} />
+        <Route path="/stc/batch/balance" element={<Balance />} />
+        <Route path="/stc/unit/convert" element={<UnitConverter />} />
+        <Route path="/stc/issue/token" element={<Issue />} />
+        <Route path="/node/ping" element={<Ping />} />
+        <Route path="/node/gas" element={<Gas />} />
+        <Route path="/chain/record" element={<ChainRecord />} />
+        <Route path="/chain/record/detail" element={<ChainRecordInfo />} />
+        <Route path="/chain/record/detail/:hash" element={<ChainRecordInfo />} />
 
-        <Route path="/game/showdown" element={<GameShowdown/>}/>
-        <Route path="/game/showdown/admin" element={<GameShowdownAdmin/>}/>
-        <Route path="/game/finger_guessing" element={<GameFingerGuessing/>}/>
-        <Route path="/game/finger_guessing/admin" element={<FingerGuessingAdmin/>}/>
+        <Route path="/game/showdown" element={<GameShowdown />} />
+        <Route path="/game/showdown/admin" element={<GameShowdownAdmin />} />
+        <Route path="/game/finger_guessing" element={<GameFingerGuessing />} />
+        <Route path="/game/finger_guessing/admin" element={<FingerGuessingAdmin />} />
         <Route path="/game/sicbo_friend" element={<SicBoWithFriend />} />
 
-        <Route path="/donate" element={<Donate/>}/>
-        <Route path="/donate/:address/:amount" element={<Donate/>}/>
+        <Route path="/donate" element={<Donate />} />
+        <Route path="/donate/:address/:amount" element={<Donate />} />
 
-        <Route path="/constract/deploy" element={<ConstractDeploy/>}/>
+        <Route path="/constract/deploy" element={<ConstractDeploy />} />
+        <Route path="/contract/call" element={<ContractCall />} />
 
     </Routes>);
 }

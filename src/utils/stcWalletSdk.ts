@@ -1,9 +1,10 @@
-import {providers, utils, bcs, encoding} from "@starcoin/starcoin"
-import {hexlify} from '@ethersproject/bytes'
-import {BigNumber} from "bignumber.js"
-import {getLocalNetwork} from "./localHelper";
-import {nodeUrlMap} from "./consts";
-import {sliceIntoChunks} from "./common";
+import { providers, utils, bcs, encoding } from "@starcoin/starcoin"
+import { hexlify } from '@ethersproject/bytes'
+import { BigNumber } from "bignumber.js"
+import { getLocalNetwork } from "./localHelper";
+import { nodeUrlMap } from "./consts";
+import { sliceIntoChunks } from "./common";
+import { FunctionId } from "@starcoin/starcoin/dist/src/types";
 
 
 export async function requestAccounts() {
@@ -22,7 +23,7 @@ export async function getAccounts() {
 
 export async function getProvder() {
 
-    const network =  getLocalNetwork() || "main"
+    const network = getLocalNetwork() || "main"
     const provider = new providers.Web3Provider(window.starcoin, network)
     return provider;
 }
@@ -48,36 +49,36 @@ export async function transfer(account: string, stcAmount: number) {
     const sendAmountSTC = new BigNumber(sendAmount)
     const sendAmountNanoSTC = sendAmountSTC.times(BIG_NUMBER_NANO_STC_MULTIPLIER)
     const sendAmountHex = `0x${sendAmountNanoSTC.toString(16)}`
-    window.console.log({sendAmountHex, sendAmountNanoSTC: sendAmountNanoSTC.toString(10)})
+    window.console.log({ sendAmountHex, sendAmountNanoSTC: sendAmountNanoSTC.toString(10) })
 
     const txParams = {
         to: toAccount,
         value: sendAmountHex,
         expiredSecs: 10,
-        gasLimit:1000000,
+        gasLimit: 1000000,
     }
 
     const expiredSecs = 10
-    window.console.log({expiredSecs})
+    window.console.log({ expiredSecs })
     if (expiredSecs > 0) {
         txParams.expiredSecs = expiredSecs
     }
 
-    window.console.log({txParams})
+    window.console.log({ txParams })
     const starcoinProvider = await getProvder();
     const transactionHash = await starcoinProvider.getSigner().sendUncheckedTransaction(txParams)
     window.console.log(transactionHash)
 }
 
 
-export async function batchTransfer_v2(input: BatchTransferInput[],token:string,batchSize= 32){
-  const chunks =  sliceIntoChunks(input,batchSize)
-    chunks.forEach((item)=>{
-        _batchTransfer_v2(item,token)
+export async function batchTransfer_v2(input: BatchTransferInput[], token: string, batchSize = 32) {
+    const chunks = sliceIntoChunks(input, batchSize)
+    chunks.forEach((item) => {
+        _batchTransfer_v2(item, token)
     })
 }
 
-export async function _batchTransfer_v2(input: BatchTransferInput[],token:string) {
+export async function _batchTransfer_v2(input: BatchTransferInput[], token: string) {
     const toAddress: string[] = []
     const toAmount: any = []
     input.forEach((item) => {
@@ -105,7 +106,7 @@ export async function _batchTransfer_v2(input: BatchTransferInput[],token:string
         }
         const starcoinProvider = await getProvder();
         const transactionHash = await starcoinProvider.getSigner().sendUncheckedTransaction(txParams)
-        window.console.log({transactionHash})
+        window.console.log({ transactionHash })
     } catch (error) {
         throw error
     }
@@ -114,9 +115,9 @@ export async function _batchTransfer_v2(input: BatchTransferInput[],token:string
 }
 
 
-export async function getTokenList(address:string){
+export async function getTokenList(address: string) {
     const starcoinProvider = await getProvder();
-    return  await starcoinProvider.getBalances(address)
+    return await starcoinProvider.getBalances(address)
 }
 
 
@@ -173,9 +174,9 @@ function amount(sendAmount: number) {
 }
 
 
-export async function deployContract(code:Buffer):Promise<string> {
+export async function deployContract(code: Buffer): Promise<string> {
     let transactionHash
- 
+
     const packageHex = hexlify(code)
     if (!packageHex.length) {
         alert('Contract blob hex is empty')
@@ -183,7 +184,39 @@ export async function deployContract(code:Buffer):Promise<string> {
 
     const transactionPayloadHex = encoding.packageHexToTransactionPayloadHex(packageHex)
     const starcoinProvider = await getProvder();
-    transactionHash = await starcoinProvider.getSigner().sendUncheckedTransaction({data: transactionPayloadHex})
+    transactionHash = await starcoinProvider.getSigner().sendUncheckedTransaction({ data: transactionPayloadHex })
 
     return transactionHash
 }
+
+export async function callContractWithSigner(functionId: FunctionId, typeArgs: any, args: any): Promise<string | undefined> {
+
+    try {
+
+        const nodeUrl = nodeUrlMap[window.starcoin.networkVersion]
+
+        const scriptFunction = await utils.tx.encodeScriptFunctionByResolve(functionId, [], args, nodeUrl)
+        // Multiple BcsSerializers should be used in different closures, otherwise, the latter will be contaminated by the former.
+        const payloadInHex = (function () {
+            const se = new bcs.BcsSerializer()
+            scriptFunction.serialize(se)
+            return hexlify(se.getBytes())
+        })()
+        const txParams = {
+            data: payloadInHex,
+            expiredSecs: 10
+        }
+
+        const starcoinProvider = await getProvder();
+
+        const transactionHash = starcoinProvider.getSigner().sendUncheckedTransaction(txParams)
+
+        window.console.log(transactionHash)
+
+        return transactionHash
+    } catch (error) {
+
+        throw error
+    }
+}
+
