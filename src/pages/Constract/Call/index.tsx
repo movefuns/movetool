@@ -76,7 +76,8 @@ export default function Donate() {
 
             setLoading(false)
 
-            if (v.length == 0) {
+            if (v.length === 0) {
+                setCodes(v)
                 showSuccess(t('contract_call.no_code'))
                 return
             }
@@ -114,7 +115,7 @@ export default function Donate() {
                             selectOnFocus
                             value={address}
                             onChange={(e, v) => {
-                                if (v && v != address) {
+                                if (v && v !== address) {
                                     setAddress(v)
                                     setCodes([])
                                 }
@@ -158,7 +159,7 @@ export default function Donate() {
                     }
 
                     {loading ?
-                        <Box>< CircularProgress color="inherit" size={30} /></Box> : <CodeContent codes={codes.filter((v: any) => v.name == modlueId || modlueId == 'all')} />}
+                        <Box>< CircularProgress color="inherit" size={30} /></Box> : <CodeContent codes={codes.filter((v: any) => v.name === modlueId || modlueId === 'all')} />}
                 </Stack>
                 <Snackbar open={openTips} autoHideDuration={6000} onClose={handleClose}
                     anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>

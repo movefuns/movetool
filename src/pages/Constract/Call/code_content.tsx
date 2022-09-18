@@ -77,17 +77,17 @@ function FunctionItem(props: Props) {
         }
 
         let id = `${item.module_name.address}::${item.module_name.name}::${item.name}`
-        let si = item.args[0].type_tag == "Signer"
+        let si = item.args[0].type_tag === "Signer"
 
-        if (id != functionId) {
+        if (id !== functionId) {
             setFunctionId(id)
             setSigner(si)
             clearAgrsValue()
         }
 
-        if (item.args.length > 1 || item.args[0].type_tag != "Signer" || item.ty_args.length > 0) {
+        if (item.args.length > 1 || item.args[0].type_tag !== "Signer" || item.ty_args.length > 0) {
             setOpen(true)
-            setArgs(item.args.filter((v: any) => v.type_tag != 'Signer'))
+            setArgs(item.args.filter((v: any) => v.type_tag !== 'Signer'))
             setTyArgs(item.ty_args)
             return
         }
