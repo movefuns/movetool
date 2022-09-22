@@ -40,7 +40,7 @@ function FunctionItem(props: Props) {
 
     const { codes } = props;
 
-    const [open, setOpen] = useState(false)
+    const [argsInputDialog, setArgsInputDialog] = useState(false)
 
     const [args, setArgs] = useState([])
     const [tyArgs, setTyArgs] = useState([])
@@ -65,34 +65,38 @@ function FunctionItem(props: Props) {
     }
 
     const handleArgsRun = () => {
-        setOpen(false)
+        setArgsInputDialog(false)
         call(signer, functionId)
+    }
+
+    const openArgsInputDialog = (item: any) => {
+        setArgsInputDialog(true)
+        setArgs(item.args.filter((v: any) => v.type_tag !== 'Signer'))
+        setTyArgs(item.ty_args)
     }
 
     const handleTryRun = (item: any) => {
 
         if (!window.starcoin.selectedAddress) {
-            showError(t('issue_token.error_tips.token_address_required'))
+            showError(t('contract_call.token_address_required'))
             return
         }
 
         let id = `${item.module_name.address}::${item.module_name.name}::${item.name}`
-        let si = item.args[0].type_tag === "Signer"
+        let needSigner = item.args.length > 0 && item.args[0].type_tag === "Signer"
 
         if (id !== functionId) {
             setFunctionId(id)
-            setSigner(si)
+            setSigner(needSigner)
             clearAgrsValue()
         }
 
-        if (item.args.length > 1 || item.args[0].type_tag !== "Signer" || item.ty_args.length > 0) {
-            setOpen(true)
-            setArgs(item.args.filter((v: any) => v.type_tag !== 'Signer'))
-            setTyArgs(item.ty_args)
+        if (item.args.length > 0 && needSigner === false || item.ty_args.length > 0) {
+            openArgsInputDialog(item)
             return
         }
 
-        call(si, id)
+        call(needSigner, id)
     }
 
     const call = async (signer: boolean, id: string) => {
@@ -127,7 +131,7 @@ function FunctionItem(props: Props) {
         </Snackbar>
 
         <Dialog
-            open={open}
+            open={argsInputDialog}
             keepMounted
             // onClose={handleCloseDialog}
             aria-describedby="alert-dialog-slide-description"
@@ -136,6 +140,11 @@ function FunctionItem(props: Props) {
             <DialogTitle> {t('contract_call.parameter')} </DialogTitle>
             <DialogContent>
                 <Stack spacing={2}>
+                    <div>{tyArgs.length > 0 ? 'TyArgs' : ''}</div>
+                    {
+                        tyArgs.map((e: any, i: any) => <TextField key={e.name + functionId} label={e.name} onChange={(e) => onChange(true, e.target.value, i)}></TextField>)
+                    }
+
                     <div>{args.length > 0 ? 'Args' : ''}</div>
                     {
                         args.map((e: any, i: any) => {
@@ -143,17 +152,13 @@ function FunctionItem(props: Props) {
                             return <TextField key={e.name + functionId} label={e.name} onChange={(e) => onChange(false, e.target.value, i)}></TextField>
                         })
                     }
-                    <div>{tyArgs.length > 0 ? 'TyArgs' : ''}</div>
-                    {
-                        tyArgs.map((e: any, i: any) => <TextField key={e.name + functionId} label={e.name} onChange={(e) => onChange(true, e.target.value, i)}></TextField>)
-                    }
                 </Stack>
 
                 {/* </DialogContentText> */}
             </DialogContent>
             <DialogActions>
                 <Button onClick={() => {
-                    setOpen(false)
+                    setArgsInputDialog(false)
                     clearAgrsValue()
 
                 }}> Close </Button>
@@ -216,21 +221,11 @@ export default function CodeContent(props: Props) {
         <Box sx={{ height: '100%', flexGrow: 1, maxWidth: '100%', overflowY: 'auto' }}>
 
             <List sx={{ width: '100%' }}
-            // subheader={<ListSubheader sx={{ background: 'transparent' }}>{t("contract_call.script_function")}</ListSubheader>}
             >
                 {
                     codes[0].code.script_functions.length > 0 ? <FunctionItem codes={codes[0].code.script_functions} /> : <p>no function</p>
                 }
             </List>
-
-            {/* <List sx={{ width: '100%' }}
-                subheader={<ListSubheader sx={{ background: 'transparent' }}>Struct</ListSubheader>}>
-                {
-                    codes[0].code.structs.length > 0 ? <StructItem codes={codes[0].code.structs} /> : <div>no function</div>
-                }
-            </List> */}
-
-
         </Box >
     );
 }

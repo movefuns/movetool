@@ -6,7 +6,7 @@ import { Stack, Autocomplete, TextField, CircularProgress, Box, AlertColor, Snac
 import { useTranslation } from "react-i18next";
 import { getAddressCode } from '../../../utils/sdk';
 import { useEffect, useState } from "react";
-import CodeContent from './code_content';
+import ConstractCall from './ConstractCall';
 
 export default function Donate() {
 
@@ -46,25 +46,23 @@ export default function Donate() {
     const [codes, setCodes] = useState<any>([])
     const [loading, setLoading] = useState(false)
 
-    // const accountAddresses = useAppSelector((state: any) => state.wallet.accountAddress)
-    // const accountAddress = (accountAddresses) ? accountAddresses[0] : ""
-
+    window.console.log(window.starcoin)
     useEffect(() => {
 
         if (window.starcoin.selectedAddress) {
             setAddress(window.starcoin.selectedAddress)
             setAddressOptions([window.starcoin.selectedAddress, '0x1'])
-            // getCode(window.starcoin.selectedAddress)
-        } else {
-            window.console.log("sad")
-            // getCode(address)
         }
 
-        window.starcoin.on("accountsChanged", (accounts: any) => {
+        window.starcoin.once("accountsChanged", (accounts: any) => {
             setCodes([])
             setAddress(window.starcoin.selectedAddress)
         })
-        window.starcoin.on("chainChanged", (chainId: any) => setAddress(window.starcoin.selectedAddress))
+
+        window.starcoin.once("chainChanged", (chainId: any) => {
+            setCodes([])
+            setAddress(window.starcoin.selectedAddress)
+        })
 
     }, [])
 
@@ -159,7 +157,7 @@ export default function Donate() {
                     }
 
                     {loading ?
-                        <Box>< CircularProgress color="inherit" size={30} /></Box> : <CodeContent codes={codes.filter((v: any) => v.name === modlueId || modlueId === 'all')} />}
+                        <Box>< CircularProgress color="inherit" size={30} /></Box> : <ConstractCall codes={codes.filter((v: any) => v.name === modlueId || modlueId === 'all')} />}
                 </Stack>
                 <Snackbar open={openTips} autoHideDuration={6000} onClose={handleClose}
                     anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>

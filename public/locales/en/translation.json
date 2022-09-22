@@ -95,6 +95,7 @@
     "address": "address",
     "resolve": "resolve",
     "parameter": "parameter",
-    "no_code": "There does not appear to be a contract under the current address or network"
+    "no_code": "There does not appear to be a contract under the current address or network",
+    "token_address_required": "Please connect to starmask first"
   }
 }
