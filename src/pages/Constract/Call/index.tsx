@@ -47,6 +47,17 @@ export default function Donate() {
     const [loading, setLoading] = useState(false)
 
     window.console.log(window.starcoin)
+
+    const accountsChanged = (accounts: any) => {
+        setCodes([])
+        setAddress(window.starcoin.selectedAddress)
+    }
+
+    const chainChanged = (chainId: any) => {
+        setCodes([])
+        setAddress(window.starcoin.selectedAddress)
+    }
+
     useEffect(() => {
 
         if (window.starcoin.selectedAddress) {
@@ -54,15 +65,13 @@ export default function Donate() {
             setAddressOptions([window.starcoin.selectedAddress, '0x1'])
         }
 
-        window.starcoin.once("accountsChanged", (accounts: any) => {
-            setCodes([])
-            setAddress(window.starcoin.selectedAddress)
-        })
+        window.starcoin.on("accountsChanged", accountsChanged)
+        window.starcoin.on("chainChanged", chainChanged)
 
-        window.starcoin.once("chainChanged", (chainId: any) => {
-            setCodes([])
-            setAddress(window.starcoin.selectedAddress)
-        })
+        return () => {
+            window.starcoin.removeListener("accountsChanged", accountsChanged)
+            window.starcoin.removeListener("chainChanged", chainChanged)
+        }
 
     }, [])
 
