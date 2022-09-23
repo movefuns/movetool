@@ -91,7 +91,10 @@ function FunctionItem(props: Props) {
             clearAgrsValue()
         }
 
-        if (item.args.length > 0 && !needSigner || item.ty_args.length > 0) {
+        // first args is not signer ||
+        // args length > 1          ||
+        // tyArgs length > 0
+        if ((item.args.length > 0 && !needSigner) || item.agrs.length > 1 || item.ty_args.length > 0) {
             openArgsInputDialog(item)
             return
         }
