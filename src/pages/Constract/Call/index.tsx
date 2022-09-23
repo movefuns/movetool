@@ -6,9 +6,9 @@ import { Stack, Autocomplete, TextField, CircularProgress, Box, AlertColor, Snac
 import { useTranslation } from "react-i18next";
 import { getAddressCode } from '../../../utils/sdk';
 import { useEffect, useState } from "react";
-import ConstractCall from './ConstractCall';
+import CodeContent from './CodeContent';
 
-export default function Donate() {
+export default function ConstractCall() {
 
     const { t } = useTranslation();
 
@@ -45,8 +45,6 @@ export default function Donate() {
 
     const [codes, setCodes] = useState<any>([])
     const [loading, setLoading] = useState(false)
-
-    window.console.log(window.starcoin)
 
     const accountsChanged = (accounts: any) => {
         setCodes([])
@@ -166,7 +164,7 @@ export default function Donate() {
                     }
 
                     {loading ?
-                        <Box>< CircularProgress color="inherit" size={30} /></Box> : <ConstractCall codes={codes.filter((v: any) => v.name === modlueId || modlueId === 'all')} />}
+                        <Box>< CircularProgress color="inherit" size={30} /></Box> : <CodeContent codes={codes.filter((v: any) => v.name === modlueId || modlueId === 'all')} />}
                 </Stack>
                 <Snackbar open={openTips} autoHideDuration={6000} onClose={handleClose}
                     anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
