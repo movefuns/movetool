@@ -94,7 +94,7 @@ function FunctionItem(props: Props) {
         // first args is not signer ||
         // args length > 1          ||
         // tyArgs length > 0
-        if ((item.args.length > 0 && !needSigner) || item.agrs.length > 1 || item.ty_args.length > 0) {
+        if ((item.args.length > 0 && !needSigner) || item.args.length > 1 || item.ty_args.length > 0) {
             openArgsInputDialog(item)
             return
         }
@@ -201,7 +201,7 @@ function FunctionItem(props: Props) {
                     }>
                     <ListItemIcon>
 
-                        <ListItemText sx={{ dense: 'false' }} primary={`${item.name} ( ${arg} ${tyArg.length > 0 ? ',' : ''}  ${tyArg} ) `} />
+                        <ListItemText sx={{ dense: 'false' }} primary={`${item.name} ${tyArg.length > 0 ? '<' : ''}${tyArg}${tyArg.length > 0 ? '>' : ''} ( ${arg} ) `} />
 
                     </ListItemIcon>
                     {/* <Divider /> */}

@@ -30,7 +30,6 @@ export default function NetworkChange() {
                 value={network}
                 onChange={handleChange}
                 label="Network"
-                inputProps={{ disabled: true }}
             >
                 {NETWORK.map((net) => {
                     return <MenuItem key={net} value={net}>{net}</MenuItem>
