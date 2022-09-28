@@ -7,7 +7,7 @@ import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import PublishIcon from '@mui/icons-material/Publish';
 import GraphicEqIcon from '@mui/icons-material/GraphicEq';
 import game_menu from "./game_menu"
-
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 
 const common_menu = [
     {
@@ -28,7 +28,7 @@ const common_menu = [
     {
         name: "contract_call",
         name_i18_key: "menu.contract_call",
-        icon: PublishIcon,
+        icon: PlayArrowIcon,
         path: "/contract/call"
     },
 
