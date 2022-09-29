@@ -6,8 +6,8 @@ import ReduceCapacityIcon from '@mui/icons-material/ReduceCapacity';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import PublishIcon from '@mui/icons-material/Publish';
 import GraphicEqIcon from '@mui/icons-material/GraphicEq';
-import game_menu from  "./game_menu"
-
+import game_menu from "./game_menu"
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 
 const common_menu = [
     {
@@ -22,6 +22,14 @@ const common_menu = [
         name_i18_key: "menu.constract_deploy",
         icon: PublishIcon,
         path: "/constract/deploy"
+    },
+
+
+    {
+        name: "contract_call",
+        name_i18_key: "menu.contract_call",
+        icon: PlayArrowIcon,
+        path: "/contract/call"
     },
 
     {
@@ -73,8 +81,8 @@ const common_menu = [
 ]
 
 const menu = [
-    {name:"",menu:common_menu},
-    {name:"menu.games",menu:game_menu},
+    { name: "", menu: common_menu },
+    { name: "menu.games", menu: game_menu },
 ]
 
 export default menu

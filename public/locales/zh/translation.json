@@ -13,9 +13,9 @@
     "finger_guessing": "剪刀石头布",
     "sicbo_friend": "和朋友剪刀石头布",
     "donate": "捐赠",
-    "constract_deploy": "部署合约"
+    "constract_deploy": "部署合约",
+    "contract_call": "调用合约"
   },
-  
   "issue_token": {
     "title": "发行 Starcoin Token",
     "token_address": "Token地址",
@@ -33,13 +33,11 @@
       "token_mint_amount_invalid": "Token初始数量值必须是正整数"
     }
   },
-
   "batch_token": {
-      "send":"发送"
+    "send": "发送"
   },
-
   "batch_balance": {
-      "query": "查询"
+    "query": "查询"
   },
   "rpc_speed": {
     "url": "地址",
@@ -50,23 +48,21 @@
     "ms": "毫秒"
   },
   "chain_record": {
-      "query_record": "查询已有记录",
-      "desc" :"去中心化，不可改变，永久记录不需要编程技能",
-      "content" :"记录内容",
-      "receive_address" :"接收地址",
-      "stc_amount" :"发送STC个数",
-      "record_on" :"记录到链上",
-      "record_tx" :"链上交易哈希",
-      "record_time" :"记录时间"
+    "query_record": "查询已有记录",
+    "desc": "去中心化，不可改变，永久记录不需要编程技能",
+    "content": "记录内容",
+    "receive_address": "接收地址",
+    "stc_amount": "发送STC个数",
+    "record_on": "记录到链上",
+    "record_tx": "链上交易哈希",
+    "record_time": "记录时间"
   },
-
   "showdown": {
     "amount": "金额",
     "check": "猜一猜",
     "true": "大",
     "false": "小"
   },
-
   "finger_guessing": {
     "amount": "金额",
     "check": "来一局",
@@ -74,7 +70,6 @@
     "rock": "石头",
     "paper": "布"
   },
-
   "sio_bo": {
     "amount": "金额",
     "number": "在 1 ~ 100 选择一个数字",
@@ -87,11 +82,20 @@
     "join_game_success": "加入游戏成功",
     "end_game_success": "结束游戏成功"
   },
-
   "constract_deploy": {
     "title": "部署blob合约文件",
     "deploy_btn": "部署",
     "drop_zone_label": "拖拽blob文件到此处",
     "please_upload_file": "请上传合约的blob文件"
+  },
+  "contract_call": {
+    "title": "调用合约",
+    "script_function": "函数",
+    "module": "模块",
+    "address": "地址",
+    "resolve": "解析",
+    "parameter": "参数",
+    "no_code": "当前地址或网络下似乎没有合约",
+    "token_address_required": "请先连接Starmask"
   }
 }
