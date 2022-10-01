@@ -195,7 +195,7 @@ export async function callContractWithSigner(functionId: FunctionId, typeArgs: a
 
         const nodeUrl = nodeUrlMap[window.starcoin.networkVersion]
 
-        const scriptFunction = await utils.tx.encodeScriptFunctionByResolve(functionId, [], args, nodeUrl)
+        const scriptFunction = await utils.tx.encodeScriptFunctionByResolve(functionId, typeArgs, args, nodeUrl)
         // Multiple BcsSerializers should be used in different closures, otherwise, the latter will be contaminated by the former.
         const payloadInHex = (function () {
             const se = new bcs.BcsSerializer()
