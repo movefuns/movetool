@@ -25,6 +25,8 @@ import Donate from "../pages/Donate";
 import ConstractDeploy from "../pages/Constract/Deploy/index";
 import ContractCall from "../pages/Constract/Call/index";
 
+import ABIParser from "../pages/Aptos/ABIParser";
+
 export default function Router() {
     return (<Routes>
         <Route path="/" element={<Index />} />
@@ -52,6 +54,8 @@ export default function Router() {
 
         <Route path="/constract/deploy" element={<ConstractDeploy />} />
         <Route path="/contract/call" element={<ContractCall />} />
+
+        <Route path="/aptos/abi_parser" element={<ABIParser />} />
 
     </Routes>);
 }

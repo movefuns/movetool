@@ -14,7 +14,10 @@
     "sicbo_friend": "和朋友剪刀石头布",
     "donate": "捐赠",
     "constract_deploy": "部署合约",
-    "contract_call": "调用合约"
+    "contract_call": "调用合约",
+
+    "aptos": "Aptos 小工具",
+    "abi_parser": "ABI 解析"
   },
   "issue_token": {
     "title": "发行 Starcoin Token",

@@ -14,7 +14,10 @@
     "sicbo_friend": "FingerGuessingWithFriend",
     "donate": "Donate",
     "constract_deploy": "Deploy Constract",
-    "contract_call": "Call Contract"
+    "contract_call": "Call Contract",
+
+    "aptos": "Aptos Tools",
+    "abi_parser": "ABI Parser"
   },
   "issue_token": {
     "title": "Issue Starcoin Token",
