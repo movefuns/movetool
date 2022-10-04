@@ -24,13 +24,7 @@ function AbiInfo(props:any){
             let abistr = "";
             abistr += efunc.name;
             abistr += "(";
-            efunc.params.forEach((param:string,index:any) =>{
-                abistr+= param;
-                if(index +1<efunc.params.length){
-                    abistr+= ",";
-                }
-                
-            })
+            abistr+=efunc.params.join(",");
             abistr += ")";
             if(efunc.return.length>0){
                 abistr +=" ::";
@@ -40,27 +34,26 @@ function AbiInfo(props:any){
             newvector.push(abistr);
         })
         const items = newvector.map((line:any) =>
-        <Box>
-             <ListItem key={`item-${line}`}>
-             <ListItemText primary={line}>
-             </ListItemText>
-             </ListItem>
+            <Box>
+                <ListItem key={`item-${line}`}>
+                    <ListItemText primary={line}/>
+                </ListItem>
             </Box>
         )
-        return (<>
-            <Box sx={{ height: '100%', flexGrow: 1, maxWidth: '100%', overflowY: 'auto' }}>
-            <Typography
-                sx={{flex: '1 1 100%'}}
-                color="inherit"
-                variant="subtitle1"
-                component="div"
-            >address:{props.abi.address} name:{props.abi.name}
-                </Typography>
-
-                <List sx={{ width: '100%' }}>
-                    {items}
-                </List>
-            </Box>
+        return (
+            <>
+                <Box sx={{ height: '100%', flexGrow: 1, maxWidth: '100%', overflowY: 'auto' }}>
+                    <Typography
+                        sx={{flex: '1 1 100%'}}
+                        color="inherit"
+                        variant="subtitle1"
+                        component="div">
+                            address:{props.abi.address} name:{props.abi.name}
+                    </Typography>
+                    <List sx={{ width: '100%' }}>
+                        {items}
+                    </List>
+                </Box>
             </>);
     }else{
         return (<></>)
@@ -87,7 +80,6 @@ export default function ABIParser() {
     };
 
     return (
-
         <>
             <Backdrop
                 sx={{color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1}}
@@ -120,14 +112,14 @@ export default function ABIParser() {
                     </Button>
                 </CardActions>
             </Card>
+            
             <Card>
                 <CardContent>
-                <Stack spacing={2}>
-                <AbiInfo abi = {abiobj}></AbiInfo>
-                </Stack>
+                    <Stack spacing={2}>
+                        <AbiInfo abi = {abiobj}></AbiInfo>
+                    </Stack>
                 </CardContent>
-                </Card>
-                    
+            </Card>
         </>
     );
 }
