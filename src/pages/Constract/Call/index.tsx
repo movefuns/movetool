@@ -58,18 +58,20 @@ export default function ConstractCall() {
 
     useEffect(() => {
 
-        if (window.starcoin.selectedAddress) {
-            setAddress(window.starcoin.selectedAddress)
-            setAddressOptions([window.starcoin.selectedAddress, '0x1'])
-        }
         if(window.starcoin) {
+            if (window.starcoin.selectedAddress) {
+                setAddress(window.starcoin.selectedAddress)
+                setAddressOptions([window.starcoin.selectedAddress, '0x1'])
+            }
+            
             window.starcoin.on("accountsChanged", accountsChanged)
             window.starcoin.on("chainChanged", chainChanged)
-        }
-    
-        return () => {
-            window.starcoin.removeListener("accountsChanged", accountsChanged)
-            window.starcoin.removeListener("chainChanged", chainChanged)
+            
+        
+            return () => {
+                window.starcoin.removeListener("accountsChanged", accountsChanged)
+                window.starcoin.removeListener("chainChanged", chainChanged)
+            }
         }
 
     }, [])
