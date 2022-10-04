@@ -24,17 +24,21 @@ export default function LoginWallet() {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        window.starcoin.on("accountsChanged", (accounts: any) => {
-            setButtonText(accounts)
-            dispatch(set(accounts))
-        });
+        if(window.starcoin) {
+            window.starcoin.on("accountsChanged", (accounts: any) => {
+                setButtonText(accounts)
+                dispatch(set(accounts))
+            });
+        }
     }, [dispatch])
 
     useMemo(async () => {
-        const res = await getAccounts()
-        if (res && res[0]) {
-            setButtonText(res[0])
-            dispatch(set(res))
+        if(window.starcoin) {
+            const res = await getAccounts()
+            if (res && res[0]) {
+                setButtonText(res[0])
+                dispatch(set(res))
+            }
         }
     }, [dispatch])
 

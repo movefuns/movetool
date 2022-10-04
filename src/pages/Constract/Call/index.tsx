@@ -62,10 +62,11 @@ export default function ConstractCall() {
             setAddress(window.starcoin.selectedAddress)
             setAddressOptions([window.starcoin.selectedAddress, '0x1'])
         }
-
-        window.starcoin.on("accountsChanged", accountsChanged)
-        window.starcoin.on("chainChanged", chainChanged)
-
+        if(window.starcoin) {
+            window.starcoin.on("accountsChanged", accountsChanged)
+            window.starcoin.on("chainChanged", chainChanged)
+        }
+    
         return () => {
             window.starcoin.removeListener("accountsChanged", accountsChanged)
             window.starcoin.removeListener("chainChanged", chainChanged)

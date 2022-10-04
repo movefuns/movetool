@@ -14,11 +14,13 @@ export default function NetworkChange() {
     }
 
     useEffect(() => {
-        window.starcoin.on("chainChanged", (chainId: any) => {
-            const net = NETWORK_CHAIN_IDS[chainId] || "main"
-            setNetwork(net)
-            setLocalNetwork(net)
-        });
+        if(window.starcoin) {
+            window.starcoin.on("chainChanged", (chainId: any) => {
+                const net = NETWORK_CHAIN_IDS[chainId] || "main"
+                setNetwork(net)
+                setLocalNetwork(net)
+            });
+        }
     }, [])
 
     return <>
