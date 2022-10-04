@@ -98,6 +98,7 @@ export default function ABIParser() {
 
             <Card>
                 <CardContent>
+                    Author: <a href="https://github.com/daog1" target="_blank" rel="noreferrer">daog1</a> @ <a href="https://noncegeek.com" target="_blank" rel="noreferrer">NonceGeek</a>
                     <Stack spacing={2}>
                         <TextField
                             fullWidth
