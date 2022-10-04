@@ -100,5 +100,9 @@
     "parameter": "参数",
     "no_code": "当前地址或网络下似乎没有合约",
     "token_address_required": "请先连接Starmask"
+  },
+  "aptos":{
+    "title": "aptos abi 数据",
+    "resolve": "解析"
   }
 }

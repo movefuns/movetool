@@ -100,5 +100,9 @@
     "parameter": "parameter",
     "no_code": "There does not appear to be a contract under the current address or network",
     "token_address_required": "Please connect to starmask first"
+  },
+  "aptos":{
+    "title": "aptos abi",
+    "resolve": "resolve"
   }
 }
