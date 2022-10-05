@@ -6,7 +6,8 @@ import ReduceCapacityIcon from '@mui/icons-material/ReduceCapacity';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import PublishIcon from '@mui/icons-material/Publish';
 import GraphicEqIcon from '@mui/icons-material/GraphicEq';
-import game_menu from "./game_menu"
+import game_menu from "./game_menu";
+import aptos_menu from "./aptos_menu";
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 
 const common_menu = [
@@ -82,6 +83,7 @@ const common_menu = [
 
 const menu = [
     { name: "", menu: common_menu },
+    { name: "menu.aptos", menu: aptos_menu },
     { name: "menu.games", menu: game_menu },
 ]
 
