@@ -15,9 +15,9 @@
     "donate": "捐赠",
     "constract_deploy": "部署合约",
     "contract_call": "调用合约",
-
     "aptos": "Aptos 小工具",
-    "abi_parser": "ABI 解析"
+    "abi_parser": "ABI 解析",
+    "debug_string": "U8数组到String"
   },
   "issue_token": {
     "title": "发行 Starcoin Token",
@@ -103,6 +103,10 @@
   },
   "aptos":{
     "title": "aptos abi 数据",
-    "resolve": "解析"
+    "u8input": "复制move输出到这里",
+    "switch_hex": "Hex 展示",
+    "resolve": "解析",
+    "resolve_ok": "解析成功",
+    "resolve_fail": "解析失败"
   }
 }

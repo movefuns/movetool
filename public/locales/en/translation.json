@@ -17,7 +17,8 @@
     "contract_call": "Call Contract",
 
     "aptos": "Aptos Tools",
-    "abi_parser": "ABI Parser"
+    "abi_parser": "ABI Parser",
+    "debug_string": "move vector<U8> to string"
   },
   "issue_token": {
     "title": "Issue Starcoin Token",
@@ -103,6 +104,10 @@
   },
   "aptos":{
     "title": "aptos abi",
-    "resolve": "resolve"
+    "u8input": "Copy the move output here",
+    "switch_hex": "Hex show",
+    "resolve": "resolve",
+    "resolve_ok": "resolve ok",
+    "resolve_fail": "resolve fail"
   }
 }
