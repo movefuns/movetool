@@ -4,7 +4,10 @@ import CardContent from "@mui/material/CardContent";
 import {
     Backdrop,
     CircularProgress,
+    FormControlLabel,
+    FormGroup,
     Stack,
+    Switch,
     TextField,
 } from "@mui/material";
 
@@ -18,7 +21,9 @@ export default function MoveU8toString() {
     const regex = new RegExp(/\[(\d+(,\s)?)*\]/g);
 
     const [loading, setLoading] = React.useState(false);
+    const [isHex, setIsHex] = React.useState(false);
     const buttonstr = t("aptos.resolve");
+    const switchButtonStr = t("aptos.switch_hex");
     const [convertButton, setconvertButton] = React.useState(buttonstr);
     const [input, setInput] = useState("");
 
@@ -33,7 +38,12 @@ export default function MoveU8toString() {
                     const matcheds = str.match(regex)
                     matcheds?.forEach((matched:any) =>{
                         const arr = JSON.parse(matched);
-                        const parsed = arr.map((c:any) => String.fromCharCode(c)).join("");
+                        let parsed = "";
+                        if(isHex){
+                            parsed = "0x"+arr.map((c:any) => c.toString(16).padStart(2, "0")).join("");
+                        }else{
+                            parsed = arr.map((c:any) => String.fromCharCode(c)).join("");
+                        }
                         str = str.replace(matched, parsed);
                     })
                     setInput(str);
@@ -77,8 +87,18 @@ export default function MoveU8toString() {
                         />
                     </Stack>
                 </CardContent>
+
                 <CardActions>
-                    <Button variant="contained" fullWidth onClick={handleCheck}>
+                    <FormGroup>
+                        <FormControlLabel control={<Switch checked={isHex}
+                                    name="isHex"
+                                    color="primary"
+                                    onChange={(v) => {
+                                        setIsHex(!isHex);
+                                    }}
+                                />} label={switchButtonStr} />
+                    </FormGroup>
+                    <Button variant="contained"  onClick={handleCheck}>
                         {convertButton}
                     </Button>
                 </CardActions>

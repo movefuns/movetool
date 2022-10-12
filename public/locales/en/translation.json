@@ -105,6 +105,7 @@
   "aptos":{
     "title": "aptos abi",
     "u8input": "Copy the move output here",
+    "switch_hex": "Hex show",
     "resolve": "resolve",
     "resolve_ok": "resolve ok",
     "resolve_fail": "resolve fail"
