@@ -81,6 +81,8 @@ export default function MoveU8toString() {
                             value={input}
                             onChange={(v) => {
                                 setInput(v.target.value);
+                                const buttonstr = t("aptos.resolve");
+                                setconvertButton(buttonstr);
                             }}
                             multiline
                             rows={10}
@@ -95,6 +97,8 @@ export default function MoveU8toString() {
                                     color="primary"
                                     onChange={(v) => {
                                         setIsHex(!isHex);
+                                        const buttonstr = t("aptos.resolve");
+                                        setconvertButton(buttonstr);
                                     }}
                                 />} label={switchButtonStr} />
                     </FormGroup>
