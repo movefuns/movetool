@@ -2,6 +2,11 @@
 
 A collection of Move ecosystem DApp tools. These tools provide a user-friendly interface to execute Move SmartContracts on the Move chains: starcoin, 0l, aptos, sui.
 
+## Move Contract
+
+* sicbo_game: https://github.com/movefuns/movetool/tree/main/src/games/sicbo_game/contract
+* showdown: https://github.com/movefuns/movetool/tree/main/src/games/showdown
+* finger_guessing: https://github.com/movefuns/movetool/tree/main/src/games/finger_guessing
 
 ## How to develop
 
