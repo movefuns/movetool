@@ -1,33 +1,36 @@
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { Stack, Autocomplete, TextField, CircularProgress, Box, AlertColor, Snackbar, Alert } from "@mui/material";
-import { useTranslation } from "react-i18next";
-import { useEffect, useState } from "react";
- 
+import { useWallet } from "@mysten/wallet-adapter-react";
+
 export default function SuiConstractCall() {
-    const { t } = useTranslation();
+    const { connected, getAccounts, signAndExecuteTransaction } = useWallet();
 
-    const [tipsType, setTipsType] = useState<AlertColor>("error")
-    const [tips, setTips] = useState("")
-    const [openTips, setOpenTips] = useState(false);
+    const handleClick = async () => {
+        const hash = await signAndExecuteTransaction({
+            kind: "moveCall",
+            data: {
+                packageObjectId: "0x2",
+                module: "devnet_nft",
+                function: "mint",
+                typeArguments: [],
+                arguments: [
+                    "name",
+                    "capy",
+                    "https://cdn.britannica.com/94/194294-138-B2CF7780/overview-capybara.jpg?w=800&h=450&c=crop",
+                ],
+                gasBudget: 10000,
+            },
+        });
 
-    const showSuccess = function (msg: string) {
-        setTipsType("success")
-        setTips(msg)
-        setOpenTips(true)
-    }
-
-    const showError = function (msg: string) {
-        setTipsType("error")
-        setTips(msg)
-        setOpenTips(true)
-    }
+        alert("signAndExecuteTransaction:" + hash)
+    };
 
     return (
         <Card sx={{ minWidth: 275 }}>
-            Hello World
+            测试执行交易：
+            <Button onClick={handleClick} disabled={!connected}>
+                Send Transaction
+            </Button>
         </Card >
     );
 }
