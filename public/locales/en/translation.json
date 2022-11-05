@@ -18,7 +18,10 @@
 
     "aptos": "Aptos Tools",
     "abi_parser": "ABI Parser",
-    "debug_string": "move vector<U8> to string"
+    "debug_string": "move vector<U8> to string",
+
+    "sui": "Sui Tools",
+    "sui_constract_call": "Call Contract"
   },
   "issue_token": {
     "title": "Issue Starcoin Token",

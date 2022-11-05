@@ -28,6 +28,8 @@ import ContractCall from "../pages/Constract/Call/index";
 import ABIParser from "../pages/Aptos/ABIParser";
 import MoveU8toString from "../pages/Aptos/MoveU8toString";
 
+import SuiConstractCall from "../pages/Sui/ConstractCall"
+
 export default function Router() {
     return (<Routes>
         <Route path="/" element={<Index />} />
@@ -58,6 +60,8 @@ export default function Router() {
 
         <Route path="/aptos/abi_parser" element={<ABIParser />} />
         <Route path="/aptos/debug_string" element={<MoveU8toString />} />
+
+        <Route path="/sui/contract_call" element={<SuiConstractCall />} />
 
     </Routes>);
 }
