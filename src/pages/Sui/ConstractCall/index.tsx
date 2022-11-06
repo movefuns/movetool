@@ -9,15 +9,11 @@ export default function SuiConstractCall() {
         const hash = await signAndExecuteTransaction({
             kind: "moveCall",
             data: {
-                packageObjectId: "0x2",
-                module: "devnet_nft",
-                function: "mint",
+                packageObjectId: "0xf065ec8e358979c9a8687a4fd3f8453bc6b172c4",
+                module: "checkin",
+                function: "get_flag",
                 typeArguments: [],
-                arguments: [
-                    "name",
-                    "capy",
-                    "https://cdn.britannica.com/94/194294-138-B2CF7780/overview-capybara.jpg?w=800&h=450&c=crop",
-                ],
+                arguments: [],
                 gasBudget: 10000,
             },
         });
