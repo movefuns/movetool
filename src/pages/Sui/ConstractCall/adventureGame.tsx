@@ -7,6 +7,7 @@ import Box from '@mui/material/Box';
 import { useWallet } from "@mysten/wallet-adapter-react";
 import { HeroStat } from "./heroStat";
 import { Inventory } from "./inventory";
+import { AutoFight } from "./autoFight";
 
 export function AdventureGame() {
     const { connected, signAndExecuteTransaction } = useWallet();
@@ -84,6 +85,10 @@ export function AdventureGame() {
       alert("signAndExecuteTransaction:" + hash.certificate.transactionDigest)
     };
 
+    const onRobotFightSuccess = async (hash: string) => {
+      setHash(hash);
+    };
+
     return (
         <Card sx={{ minWidth: 275 }}>
             <Typography gutterBottom variant="h2" component="div">
@@ -95,9 +100,19 @@ export function AdventureGame() {
                 <Grid item xs>
                   <HeroStat heroObjectID={heroObjectID} hash={hash}/>
                 </Grid>
+                
                 <Grid item xs={6}>
-                  <Inventory/>
+                  <Inventory heroObjectID={heroObjectID} hash={hash}/>
                 </Grid>
+
+                <Grid item xs={6}>
+                  <AutoFight gameObjectID={gameObjectID} heroObjectID={heroObjectID} monsterName="boar" onFightSuccess={onRobotFightSuccess}/>
+                </Grid>
+
+                <Grid item xs={6}>
+                  <AutoFight gameObjectID={gameObjectID} heroObjectID={heroObjectID} monsterName="boar_king" onFightSuccess={onRobotFightSuccess}/>
+                </Grid>
+
               </Grid>
             </Box>
 

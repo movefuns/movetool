@@ -7,24 +7,13 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useWallet } from "@mysten/wallet-adapter-react";
 
-export function Inventory() {
-    const { connected, getAccounts, signAndExecuteTransaction } = useWallet();
 
-    const handleClick = async () => {
-        const hash = await signAndExecuteTransaction({
-            kind: "moveCall",
-            data: {
-                packageObjectId: "0xf065ec8e358979c9a8687a4fd3f8453bc6b172c4",
-                module: "checkin",
-                function: "get_flag",
-                typeArguments: [],
-                arguments: [],
-                gasBudget: 10000,
-            },
-        });
+type Props = {
+  heroObjectID: string;
+  hash: string;
+}
 
-        alert("signAndExecuteTransaction:" + hash)
-    };
+export function Inventory(props: Props) {
 
     return (
         <Card sx={{ minWidth: 275 }}>
