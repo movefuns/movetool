@@ -98,13 +98,22 @@ export function AutoFight(props: Props) {
           props.onFightSuccess(moveCallTxn.EffectsCert.certificate.transactionDigest)
         }
 
+        setFightLogs(new Array<string>())
         setFighting(true)
         setMonsterName("boar_king")
         setFightHash(new Date().getTime().toString())
       } catch(e:any) {
         setFighting(false)
+        setFightLogs(new Array<string>())
         logFight('Hero level up fail, err:' + e.message);
-        setFightHash(new Date().getTime().toString())
+
+        // 5s后重试
+        setTimeout(function() {
+          setFightLogs(new Array<string>())
+          setFighting(true)
+          setMonsterName("boar_king")
+          setFightHash(new Date().getTime().toString())
+        }, 5000)
       }
     };
 
@@ -127,16 +136,16 @@ export function AutoFight(props: Props) {
           gasBudget: 10000,
         }) as any;
   
-        logFight('Get flag success, hash:' + moveCallTxn.EffectsCert.certificate.transactionDigest);
+        logFight('Call get flag success, hash:' + moveCallTxn.EffectsCert.certificate.transactionDigest);
       
         if (props.onFightSuccess) {
           props.onFightSuccess(moveCallTxn.EffectsCert.certificate.transactionDigest)
         }
 
         setFightHash(new Date().getTime().toString())
-        alert('Get flag success, hash:' + moveCallTxn.EffectsCert.certificate.transactionDigest)
+        alert('Call get flag success, hash:' + moveCallTxn.EffectsCert.certificate.transactionDigest)
       } catch(e:any) {
-        logFight('Get flag fail, err:' + e.message);
+        logFight('Call get flag fail, err:' + e.message);
         setFightHash(new Date().getTime().toString())
       }
     };
@@ -176,6 +185,11 @@ export function AutoFight(props: Props) {
           logFight("Has 100 experience, stop fighting")
           await onLevelUp()
         }
+
+        if (fields.stamina === 0) {
+          setFighting(false)
+          logFight("stamina empty, stop fighting")
+        }
       }
 
       queryHeroStat();
@@ -192,7 +206,7 @@ export function AutoFight(props: Props) {
           if (obj.type.includes('TreasuryBox')) {
             setTreasuryBoxObjectID(obj.objectId)
             setFighting(false)
-            logFight("found TreasuryBox:")
+            logFight("found TreasuryBox")
             await onGetFlag()
             break
           }

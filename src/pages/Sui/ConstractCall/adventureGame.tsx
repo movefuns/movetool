@@ -15,12 +15,11 @@ const provider = new JsonRpcProvider('https://fullnode.devnet.sui.io', {
     });
 
 export function AdventureGame() {
-    const { connected, wallet, getAccounts, signAndExecuteTransaction } = useWallet();
+    const { connected, signAndExecuteTransaction } = useWallet();
     const [ hash, setHash] = useState<string>("")
-    const [treasuryBoxObjectID, setTreasuryBoxObjectID] = useState<string>("")
 
-    const gameObjectID = "0xc332401043f96c875fad94da189f7be21cdeea4f";
-    const heroObjectID = "0xc1095028c4a01e092f16698c5d4a3cf201e72226";
+    const gameObjectID = "0xf7d4f740147c7fd39f3715918c4e7f97d367f92d";
+    const heroObjectID = "0x7ad3e649bd81b4278e7f67ca0c48bad83d0b5250";
 
     const onSlayBoar = async () => {
       const hash = await signAndExecuteTransaction({
@@ -73,45 +72,9 @@ export function AdventureGame() {
       alert("signAndExecuteTransaction:" + hash.certificate.transactionDigest)
     };
 
-    const onGetFlag = async () => {
-      const hash = await signAndExecuteTransaction({
-          kind: "moveCall",
-          data: {
-              packageObjectId: gameObjectID,
-              module: "inventory",
-              function: "get_flag",
-              typeArguments: [],
-              arguments: [treasuryBoxObjectID],
-              gasBudget: 10000,
-          },
-      });
-
-      setHash(hash.certificate.transactionDigest);
-      alert("signAndExecuteTransaction:" + hash.certificate.transactionDigest)
-    };
-
     const onRobotFightSuccess = async (hash: string) => {
       setHash(hash);
     };
-
-    useEffect(() => {
-      async function queryTreasuryBox() {
-        const address = getAccounts()[0]
-        const objects = await provider.getObjectsOwnedByAddress(
-          address
-        ) as any;
-
-        for (let i = 0; i < objects.length; i++) {
-          const obj = objects[i]
-          if (obj.type.includes('TreasuryBox')) {
-            setTreasuryBoxObjectID(obj.objectId)
-            break
-          }
-        }
-      }
-
-      queryTreasuryBox();
-    }, [hash])
 
     return (
         <Card sx={{ minWidth: 275 }}>
@@ -123,9 +86,6 @@ export function AdventureGame() {
               <Grid container spacing={3}>
                 <Grid item xs={12}>
                   <HeroStat heroObjectID={heroObjectID} hash={hash}/>
-                  <Typography gutterBottom variant="h5" component="div">
-                      TreasuryBox: { treasuryBoxObjectID }
-                  </Typography>
                 </Grid>
                 <Grid item xs={12}>
                   <Card sx={{ minWidth: 275 }}>
@@ -139,10 +99,6 @@ export function AdventureGame() {
 
                     <Button onClick={onLevelUp} disabled={!connected}>
                       level up
-                    </Button>
-
-                    <Button onClick={onGetFlag} disabled={!connected}>
-                      get flag
                     </Button>
                   </Card>
                 </Grid>
