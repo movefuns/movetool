@@ -8,8 +8,6 @@ import ListItem from '@mui/material/ListItem';
 import Typography from '@mui/material/Typography';
 import { Ed25519Keypair, JsonRpcProvider, RawSigner } from '@mysten/sui.js';
 
-
-
 type Props = {
   mnemonics: string;
   gameObjectID: string;
@@ -20,6 +18,7 @@ type Props = {
 
 export function AutoFight(props: Props) {
     const [address, setAddress] = useState<string>("")
+    const [treasuryBoxObjectID, setTreasuryBoxObjectID] = useState<string>("")
     const [ fightHash, setFightHash] = useState<string>("")
     const [ fighting, setFighting] = useState<boolean>(false)
     const [ fightLogs, setFightLogs] = useState<Array<string>>(new Array<string>())
@@ -72,6 +71,37 @@ export function AutoFight(props: Props) {
       }
     }
 
+    const onGetFlag = async () => {
+      logFight("Get Flag...")
+
+      const gameObjectId = props.gameObjectID;
+
+      try {
+        const moveCallTxn = await signer.executeMoveCallWithRequestType({
+          packageObjectId: gameObjectId,
+          module: 'inventory',
+          function: 'get_flag',
+          typeArguments: [],
+          arguments: [
+            treasuryBoxObjectID,
+          ],
+          gasBudget: 10000,
+        }) as any;
+  
+        logFight('Get flag success, hash:' + moveCallTxn.EffectsCert.certificate.transactionDigest);
+      
+        if (props.onFightSuccess) {
+          props.onFightSuccess(moveCallTxn.EffectsCert.certificate.transactionDigest)
+        }
+
+        setFightHash(new Date().getTime().toString())
+        alert('Get flag success, hash:' + moveCallTxn.EffectsCert.certificate.transactionDigest)
+      } catch(e:any) {
+        logFight('Get flag fail, err:' + e.message);
+        setFightHash(new Date().getTime().toString())
+      }
+    };
+
     useEffect(() => {
       async function initRobot() {
         logFight("init robot...")
@@ -95,6 +125,23 @@ export function AutoFight(props: Props) {
     }, [props, fightHash])
 
     useEffect(() => {
+      async function queryHeroStat() {
+        const txn = await provider.getObject(
+          props.heroObjectID
+        ) as any;
+
+        const fields = txn.details.data.fields as any
+
+        if (fields.level === 1 && fields.experience >=100) {
+          setFighting(false)
+          logFight("Has 100 experience, stop fighting")
+        }
+      }
+
+      queryHeroStat();
+    }, [props, fightHash])
+
+    useEffect(() => {
       async function queryTreasuryBox() {
         const objects = await provider.getObjectsOwnedByAddress(
           address
@@ -103,16 +150,18 @@ export function AutoFight(props: Props) {
         for (let i = 0; i < objects.length; i++) {
           const obj = objects[i]
           if (obj.type.includes('TreasuryBox')) {
-            logFight("found TreasuryBox:")
-            alert("found TreasuryBox:" + obj.objectId)
+            setTreasuryBoxObjectID(obj.objectId)
             setFighting(false)
+            logFight("found TreasuryBox:")
             break
           }
         }
       }
 
-      queryTreasuryBox();
-    }, [props, fightHash])
+      if (address !== "") {
+        queryTreasuryBox();
+      }
+    }, [props, address, fightHash])
 
 
     return (
@@ -121,9 +170,13 @@ export function AutoFight(props: Props) {
             <Typography gutterBottom variant="h6" component="div">
               Fight {props.monsterName} robot: {address}
             </Typography>
+            <Typography gutterBottom variant="h6" component="div">
+              treasuryBoxObjectID: {treasuryBoxObjectID}
+            </Typography>
             <CardActions>
               <Button size="small" onClick={onStartFight}>Start Fight</Button>
               <Button size="small" onClick={onStopFight}>Stop Fight</Button>
+              <Button size="small" onClick={onGetFlag}>Get Flag</Button>
             </CardActions>
 
             <List>
@@ -150,6 +203,7 @@ export function AutoFight(props: Props) {
           <CardActions>
             <Button size="small" onClick={onStartFight}>Start Fight</Button>
             <Button size="small" onClick={onStopFight}>Stop Fight</Button>
+            <Button size="small" onClick={onGetFlag}>Get Flag</Button>
           </CardActions>
         </Card>
       );

@@ -13,8 +13,8 @@ export function AdventureGame() {
     const { connected, signAndExecuteTransaction } = useWallet();
     const [ hash, setHash] = useState<string>("")
 
-    const gameObjectID = "0x0626e78a89a53701cc58907a1d68911e07ec4cfb";
-    const heroObjectID = "0xc2dffc02669a42434fc592dcc39fce75d5116d17";
+    const gameObjectID = "0x083225fc8874a76dfb738cb50bf7b7fd94313989";
+    const heroObjectID = "0x63b40e614f2e8b3696e408121fa06430e997d65b";
     const treasuryBoxObjectID = "xxx";
 
     const onSlayBoar = async () => {
@@ -103,7 +103,7 @@ export function AdventureGame() {
 
                 <Grid item xs={6}>
                   <AutoFight
-                    mnemonics="satoshi border lady photo income play mom lawn alter solar habit butter"
+                    mnemonics="mammal safe economy collect enemy solar outdoor lemon apart fame program kit"
                     gameObjectID={gameObjectID} 
                     heroObjectID={heroObjectID} 
                     monsterName="boar_king" 
@@ -113,7 +113,7 @@ export function AdventureGame() {
 
                 <Grid item xs={6}>
                   <AutoFight
-                      mnemonics="lecture claim inquiry flee tortoise shine frost until stairs swallow random major"
+                      mnemonics="layer assist team plate city connect high harsh call tray sweet erupt"
                       gameObjectID={gameObjectID} 
                       heroObjectID={heroObjectID} 
                       monsterName="boar" 
@@ -123,7 +123,7 @@ export function AdventureGame() {
 
                 <Grid item xs={6}>
                   <AutoFight
-                      mnemonics="satoshi border lady photo income play mom lawn alter solar habit butter"
+                      mnemonics="mammal safe economy collect enemy solar outdoor lemon apart fame program kit"
                       gameObjectID={gameObjectID} 
                       heroObjectID={heroObjectID} 
                       monsterName="boar" 
