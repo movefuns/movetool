@@ -47,8 +47,8 @@ export function HeroStat(props: Props) {
                 experience: fields.experience,
                 strength: fields.strength,
                 defense: fields.defense,
-                sword: fields.sword?1:0,
-                armor: fields.armor?1:0,
+                sword: fields.sword?fields.sword.fields.rarity*fields.sword.fields.strength:0,
+                armor: fields.armor?fields.armor.fields.defense*fields.armor.fields.rarity:0,
             });
         }
 

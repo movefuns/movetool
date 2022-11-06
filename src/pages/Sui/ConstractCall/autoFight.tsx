@@ -8,12 +8,11 @@ import ListItem from '@mui/material/ListItem';
 import Typography from '@mui/material/Typography';
 import { Ed25519Keypair, JsonRpcProvider, RawSigner } from '@mysten/sui.js';
 
-const keypair = Ed25519Keypair.deriveKeypair("satoshi border lady photo income play mom lawn alter solar habit butter")
-const provider = new JsonRpcProvider();
-const signer = new RawSigner(keypair, provider);
+
 
 type Props = {
-  gameObjectID: string
+  mnemonics: string;
+  gameObjectID: string;
   heroObjectID: string;
   monsterName: string;
   onFightSuccess: (hash: string) => void;
@@ -24,6 +23,10 @@ export function AutoFight(props: Props) {
     const [ fightHash, setFightHash] = useState<string>("")
     const [ fighting, setFighting] = useState<boolean>(false)
     const [ fightLogs, setFightLogs] = useState<Array<string>>(new Array<string>())
+
+    const keypair = Ed25519Keypair.deriveKeypair(props.mnemonics)
+    const provider = new JsonRpcProvider();
+    const signer = new RawSigner(keypair, provider);
 
     const onStartFight = async () => {
       setFightLogs(new Array<string>())
@@ -116,7 +119,7 @@ export function AutoFight(props: Props) {
         <Card sx={{ minWidth: 275 }}>
           <CardContent>
             <Typography gutterBottom variant="h6" component="div">
-              Fight robot: {address}
+              Fight {props.monsterName} robot: {address}
             </Typography>
             <CardActions>
               <Button size="small" onClick={onStartFight}>Start Fight</Button>

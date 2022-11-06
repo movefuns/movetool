@@ -13,8 +13,8 @@ export function AdventureGame() {
     const { connected, signAndExecuteTransaction } = useWallet();
     const [ hash, setHash] = useState<string>("")
 
-    const gameObjectID = "9e83dd785622350d75c6005aadf5f5ce666be3a2";
-    const heroObjectID = "0x4c94f53d21752aca749de8813c152d4940832a37";
+    const gameObjectID = "0x0626e78a89a53701cc58907a1d68911e07ec4cfb";
+    const heroObjectID = "0xc2dffc02669a42434fc592dcc39fce75d5116d17";
     const treasuryBoxObjectID = "xxx";
 
     const onSlayBoar = async () => {
@@ -100,19 +100,36 @@ export function AdventureGame() {
                 <Grid item xs>
                   <HeroStat heroObjectID={heroObjectID} hash={hash}/>
                 </Grid>
-                
+
                 <Grid item xs={6}>
-                  <Inventory heroObjectID={heroObjectID} hash={hash}/>
+                  <AutoFight
+                    mnemonics="satoshi border lady photo income play mom lawn alter solar habit butter"
+                    gameObjectID={gameObjectID} 
+                    heroObjectID={heroObjectID} 
+                    monsterName="boar_king" 
+                    onFightSuccess={onRobotFightSuccess}
+                    />
                 </Grid>
 
                 <Grid item xs={6}>
-                  <AutoFight gameObjectID={gameObjectID} heroObjectID={heroObjectID} monsterName="boar" onFightSuccess={onRobotFightSuccess}/>
+                  <AutoFight
+                      mnemonics="lecture claim inquiry flee tortoise shine frost until stairs swallow random major"
+                      gameObjectID={gameObjectID} 
+                      heroObjectID={heroObjectID} 
+                      monsterName="boar" 
+                      onFightSuccess={onRobotFightSuccess}
+                      />
                 </Grid>
 
                 <Grid item xs={6}>
-                  <AutoFight gameObjectID={gameObjectID} heroObjectID={heroObjectID} monsterName="boar_king" onFightSuccess={onRobotFightSuccess}/>
+                  <AutoFight
+                      mnemonics="satoshi border lady photo income play mom lawn alter solar habit butter"
+                      gameObjectID={gameObjectID} 
+                      heroObjectID={heroObjectID} 
+                      monsterName="boar" 
+                      onFightSuccess={onRobotFightSuccess}
+                      />
                 </Grid>
-
               </Grid>
             </Box>
 
