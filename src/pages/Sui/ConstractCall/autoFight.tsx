@@ -12,13 +12,14 @@ type Props = {
   mnemonics: string;
   gameObjectID: string;
   heroObjectID: string;
-  monsterName: string;
   onFightSuccess: (hash: string) => void;
 }
 
 export function AutoFight(props: Props) {
     const [address, setAddress] = useState<string>("")
     const [treasuryBoxObjectID, setTreasuryBoxObjectID] = useState<string>("")
+    const [monsterName, setMonsterName] = useState<string>("boar")
+
     const [ fightHash, setFightHash] = useState<string>("")
     const [ fighting, setFighting] = useState<boolean>(false)
     const [ fightLogs, setFightLogs] = useState<Array<string>>(new Array<string>())
@@ -71,12 +72,50 @@ export function AutoFight(props: Props) {
       }
     }
 
+    const onLevelUp = async () => {
+      logFight("Get Flag...")
+
+      const gameObjectId = props.gameObjectID;
+      const heroObjectID = props.heroObjectID;
+
+      try {
+        setFighting(false)
+ 
+        const moveCallTxn = await signer.executeMoveCallWithRequestType({
+          packageObjectId: gameObjectId,
+          module: 'hero',
+          function: 'level_up',
+          typeArguments: [],
+          arguments: [
+            heroObjectID,
+          ],
+          gasBudget: 10000,
+        }) as any;
+  
+        logFight('Hero level up success, hash:' + moveCallTxn.EffectsCert.certificate.transactionDigest);
+      
+        if (props.onFightSuccess) {
+          props.onFightSuccess(moveCallTxn.EffectsCert.certificate.transactionDigest)
+        }
+
+        setFighting(true)
+        setMonsterName("boar_king")
+        setFightHash(new Date().getTime().toString())
+      } catch(e:any) {
+        setFighting(false)
+        logFight('Hero level up fail, err:' + e.message);
+        setFightHash(new Date().getTime().toString())
+      }
+    };
+
     const onGetFlag = async () => {
       logFight("Get Flag...")
 
       const gameObjectId = props.gameObjectID;
 
       try {
+        setFighting(false)
+
         const moveCallTxn = await signer.executeMoveCallWithRequestType({
           packageObjectId: gameObjectId,
           module: 'inventory',
@@ -114,7 +153,7 @@ export function AutoFight(props: Props) {
 
     useEffect(() => {
       async function fight() {
-        await slayMonster(props.gameObjectID, props.heroObjectID, props.monsterName)
+        await slayMonster(props.gameObjectID, props.heroObjectID, monsterName)
       }
 
       if (props.gameObjectID && props.heroObjectID && fighting) {
@@ -135,6 +174,7 @@ export function AutoFight(props: Props) {
         if (fields.level === 1 && fields.experience >=100) {
           setFighting(false)
           logFight("Has 100 experience, stop fighting")
+          await onLevelUp()
         }
       }
 
@@ -153,6 +193,7 @@ export function AutoFight(props: Props) {
             setTreasuryBoxObjectID(obj.objectId)
             setFighting(false)
             logFight("found TreasuryBox:")
+            await onGetFlag()
             break
           }
         }
@@ -168,7 +209,7 @@ export function AutoFight(props: Props) {
         <Card sx={{ minWidth: 275 }}>
           <CardContent>
             <Typography gutterBottom variant="h6" component="div">
-              Fight {props.monsterName} robot: {address}
+              Fight {monsterName} robot: {address}
             </Typography>
             <Typography gutterBottom variant="h6" component="div">
               treasuryBoxObjectID: {treasuryBoxObjectID}
@@ -176,6 +217,7 @@ export function AutoFight(props: Props) {
             <CardActions>
               <Button size="small" onClick={onStartFight}>Start Fight</Button>
               <Button size="small" onClick={onStopFight}>Stop Fight</Button>
+              <Button size="small" onClick={onLevelUp}>Level up</Button>
               <Button size="small" onClick={onGetFlag}>Get Flag</Button>
             </CardActions>
 
@@ -203,6 +245,7 @@ export function AutoFight(props: Props) {
           <CardActions>
             <Button size="small" onClick={onStartFight}>Start Fight</Button>
             <Button size="small" onClick={onStopFight}>Stop Fight</Button>
+            <Button size="small" onClick={onLevelUp}>Level up</Button>
             <Button size="small" onClick={onGetFlag}>Get Flag</Button>
           </CardActions>
         </Card>

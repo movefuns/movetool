@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -6,16 +6,21 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { useWallet } from "@mysten/wallet-adapter-react";
 import { HeroStat } from "./heroStat";
-import { Inventory } from "./inventory";
 import { AutoFight } from "./autoFight";
+import { JsonRpcProvider } from '@mysten/sui.js';
+
+const provider = new JsonRpcProvider('https://fullnode.devnet.sui.io', {
+        // you can also skip providing this field if you don't plan to interact with the faucet
+        faucetURL: 'https://faucet.devnet.sui.io',
+    });
 
 export function AdventureGame() {
-    const { connected, signAndExecuteTransaction } = useWallet();
+    const { connected, wallet, getAccounts, signAndExecuteTransaction } = useWallet();
     const [ hash, setHash] = useState<string>("")
+    const [treasuryBoxObjectID, setTreasuryBoxObjectID] = useState<string>("")
 
-    const gameObjectID = "0x083225fc8874a76dfb738cb50bf7b7fd94313989";
-    const heroObjectID = "0x63b40e614f2e8b3696e408121fa06430e997d65b";
-    const treasuryBoxObjectID = "xxx";
+    const gameObjectID = "0xc332401043f96c875fad94da189f7be21cdeea4f";
+    const heroObjectID = "0xc1095028c4a01e092f16698c5d4a3cf201e72226";
 
     const onSlayBoar = async () => {
       const hash = await signAndExecuteTransaction({
@@ -89,6 +94,25 @@ export function AdventureGame() {
       setHash(hash);
     };
 
+    useEffect(() => {
+      async function queryTreasuryBox() {
+        const address = getAccounts()[0]
+        const objects = await provider.getObjectsOwnedByAddress(
+          address
+        ) as any;
+
+        for (let i = 0; i < objects.length; i++) {
+          const obj = objects[i]
+          if (obj.type.includes('TreasuryBox')) {
+            setTreasuryBoxObjectID(obj.objectId)
+            break
+          }
+        }
+      }
+
+      queryTreasuryBox();
+    }, [hash])
+
     return (
         <Card sx={{ minWidth: 275 }}>
             <Typography gutterBottom variant="h2" component="div">
@@ -97,57 +121,60 @@ export function AdventureGame() {
 
             <Box sx={{ flexGrow: 1 }}>
               <Grid container spacing={3}>
-                <Grid item xs>
+                <Grid item xs={12}>
                   <HeroStat heroObjectID={heroObjectID} hash={hash}/>
+                  <Typography gutterBottom variant="h5" component="div">
+                      TreasuryBox: { treasuryBoxObjectID }
+                  </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                  <Card sx={{ minWidth: 275 }}>
+                    <Button onClick={onSlayBoar} disabled={!connected}>
+                      slay boar
+                    </Button>
+
+                    <Button onClick={onSlayBoarKing} disabled={!connected}>
+                      slay boar king
+                    </Button>
+
+                    <Button onClick={onLevelUp} disabled={!connected}>
+                      level up
+                    </Button>
+
+                    <Button onClick={onGetFlag} disabled={!connected}>
+                      get flag
+                    </Button>
+                  </Card>
                 </Grid>
 
-                <Grid item xs={6}>
+                <Grid item xs={4}>
                   <AutoFight
                     mnemonics="mammal safe economy collect enemy solar outdoor lemon apart fame program kit"
                     gameObjectID={gameObjectID} 
                     heroObjectID={heroObjectID} 
-                    monsterName="boar_king" 
                     onFightSuccess={onRobotFightSuccess}
                     />
                 </Grid>
 
-                <Grid item xs={6}>
+                <Grid item xs={4}>
                   <AutoFight
                       mnemonics="layer assist team plate city connect high harsh call tray sweet erupt"
                       gameObjectID={gameObjectID} 
                       heroObjectID={heroObjectID} 
-                      monsterName="boar" 
                       onFightSuccess={onRobotFightSuccess}
                       />
                 </Grid>
 
-                <Grid item xs={6}>
+                <Grid item xs={4}>
                   <AutoFight
-                      mnemonics="mammal safe economy collect enemy solar outdoor lemon apart fame program kit"
+                      mnemonics="snake ticket acoustic paper wrap crane trophy scheme gentle large depth actress"
                       gameObjectID={gameObjectID} 
                       heroObjectID={heroObjectID} 
-                      monsterName="boar" 
                       onFightSuccess={onRobotFightSuccess}
                       />
                 </Grid>
               </Grid>
             </Box>
-
-            <Button onClick={onSlayBoar} disabled={!connected}>
-                slay boar
-              </Button>
-
-              <Button onClick={onSlayBoarKing} disabled={!connected}>
-                slay boar king
-              </Button>
-
-              <Button onClick={onLevelUp} disabled={!connected}>
-                level up
-              </Button>
-
-              <Button onClick={onGetFlag} disabled={!connected}>
-                get flag
-              </Button>
         </Card >
     );
 }
