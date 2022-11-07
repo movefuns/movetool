@@ -8,6 +8,7 @@ import PublishIcon from '@mui/icons-material/Publish';
 import GraphicEqIcon from '@mui/icons-material/GraphicEq';
 import game_menu from "./game_menu";
 import aptos_menu from "./aptos_menu";
+import sui_menu from "./sui_menu";
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 
 const common_menu = [
@@ -84,7 +85,8 @@ const common_menu = [
 const menu = [
     { name: "", menu: common_menu },
     { name: "menu.aptos", menu: aptos_menu },
-    { name: "menu.games", menu: game_menu },
+    { name: "menu.sui", menu: sui_menu },
+    { name: "menu.games", menu: game_menu }
 ]
 
 export default menu

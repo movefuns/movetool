@@ -17,7 +17,11 @@
     "contract_call": "调用合约",
     "aptos": "Aptos 小工具",
     "abi_parser": "ABI 解析",
-    "debug_string": "U8数组到String"
+    "debug_string": "U8数组到String",
+
+    "sui": "Sui 小程序",
+    "sui_constract_call": "调用合约",
+    "sui_adventure_game": "冒险游戏"
   },
   "issue_token": {
     "title": "发行 Starcoin Token",
@@ -108,5 +112,15 @@
     "resolve": "解析",
     "resolve_ok": "解析成功",
     "resolve_fail": "解析失败"
+  },
+  "sui_adventure_game": {
+    "title": "冒险游戏",
+    "game_entry_tips": "到 http://8.218.7.246:10005/ 按照指引，部署游戏，获取gamePackageID和heroGameID.",
+    "start_new_game": "开始游戏",
+    "slay_boar": "杀死野猪",
+    "slay_boar_king": "杀死野猪王",
+    "level_up": "升级",
+    "open_treasure_box": "开宝箱",
+    "exit_game": "退出游戏"
   }
 }

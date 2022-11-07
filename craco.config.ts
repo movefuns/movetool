@@ -1,13 +1,21 @@
 import NodePolyfillPlugin from "node-polyfill-webpack-plugin"
 
-export default {
-    webpack: {
-        configure: (config: any) => {
-            return  config;
-        },
-        plugins: [
-            new NodePolyfillPlugin(),
-        ]
+module.exports = {
+  webpack: {
+    configure: {
+      module: {
+        rules: [
+          {
+            test: /\.m?js$/,
+            resolve: {
+              fullySpecified: false, // disable the behaviour
+            },
+          },
+        ],
+      },
     },
-
-}
+    plugins: [
+        new NodePolyfillPlugin(),
+    ]
+  },
+};
