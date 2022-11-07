@@ -21,7 +21,8 @@
     "debug_string": "move vector<U8> to string",
 
     "sui": "Sui Tools",
-    "sui_constract_call": "Call Contract"
+    "sui_constract_call": "Call Contract",
+    "sui_adventure_game": "Adventure Game"
   },
   "issue_token": {
     "title": "Issue Starcoin Token",

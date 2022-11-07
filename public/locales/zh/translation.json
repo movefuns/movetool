@@ -20,7 +20,8 @@
     "debug_string": "U8数组到String",
 
     "sui": "Sui 小工具",
-    "sui_constract_call": "调用合约"
+    "sui_constract_call": "调用合约",
+    "sui_adventure_game": "冒险游戏"
   },
   "issue_token": {
     "title": "发行 Starcoin Token",
