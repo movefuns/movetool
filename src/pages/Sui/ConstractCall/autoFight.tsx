@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Typography from '@mui/material/Typography';
-import { Ed25519Keypair, JsonRpcProvider, RawSigner } from '@mysten/sui.js';
+import { Ed25519Keypair, JsonRpcProvider, RawSigner, SuiEvents } from '@mysten/sui.js';
 
 type Props = {
   mnemonics: string;
@@ -117,6 +117,20 @@ export function AutoFight(props: Props) {
       }
     };
 
+    const hasFlagEvent = (events: SuiEvents): boolean => {
+      if (events && events.length > 0) {
+        for (let i = 0; i < events.length; i++) {
+          const event = events[i].event as any;
+
+          if (event.moveEvent) {
+            return true;
+          }
+        }
+      }
+
+      return false
+    }
+
     const onGetFlag = async () => {
       logFight("Get Flag...")
 
@@ -142,11 +156,15 @@ export function AutoFight(props: Props) {
           props.onFightSuccess(moveCallTxn.EffectsCert.certificate.transactionDigest)
         }
 
-        setFightHash(new Date().getTime().toString())
-        alert('Call get flag success, hash:' + moveCallTxn.EffectsCert.certificate.transactionDigest)
+        const events = await provider.getEventsByTransaction(moveCallTxn.EffectsCert.certificate.transactionDigest);
+
+        if (hasFlagEvent(events)) {
+          alert('Get flag success, hash:' + moveCallTxn.EffectsCert.certificate.transactionDigest)
+        } else {
+          alert('Not Get flag, hash:' + moveCallTxn.EffectsCert.certificate.transactionDigest)
+        }
       } catch(e:any) {
-        logFight('Call get flag fail, err:' + e.message);
-        setFightHash(new Date().getTime().toString())
+        alert('Call get flag fail, err:' + e.message);
       }
     };
 
@@ -186,7 +204,7 @@ export function AutoFight(props: Props) {
           await onLevelUp()
         }
 
-        if (fields.stamina === 0) {
+        if (fields.stamina <= 1) {
           setFighting(false)
           logFight("stamina empty, stop fighting")
         }
