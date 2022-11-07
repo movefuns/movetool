@@ -116,6 +116,7 @@
   },
   "sui_adventure_game": {
     "title": "Adventure Game",
+    "tips": "Go to http://8.218.7.246:10005/ and follow the instructions to deploy the game and get the gamePackageID and heroGameID.",
     "start_new_game": "Start Game",
     "slay_boar": "slay boar",
     "slay_boar_king": "slay boar king",

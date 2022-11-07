@@ -115,6 +115,7 @@
   },
   "sui_adventure_game": {
     "title": "冒险游戏",
+    "game_entry_tips": "到 http://8.218.7.246:10005/ 按照指引，部署游戏，获取gamePackageID和heroGameID.",
     "start_new_game": "开始游戏",
     "slay_boar": "杀死野猪",
     "slay_boar_king": "杀死野猪王",

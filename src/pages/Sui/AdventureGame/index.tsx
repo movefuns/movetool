@@ -3,6 +3,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import Alert from '@mui/material/Alert';
 import { Stack, TextField } from "@mui/material";
 import { useState } from 'react';
 import { useTranslation } from "react-i18next";
@@ -35,11 +36,11 @@ export default function SuiAdventureGame() {
   }
 
   return (
-    <>
+    <Stack sx={{ width: '100%' }} spacing={2}>
       <Typography gutterBottom variant="h2" component="div">
         {t("sui_adventure_game.title")}
       </Typography>
-
+      <Alert severity="info">{t("sui_adventure_game.game_entry_tips")}</Alert>
       {gaming ? (
         <AdventureGame gameObjectID={gameObjectID} heroObjectID={heroObjectID} onGameExit={onGameExit} />
       ) : (
@@ -60,6 +61,6 @@ export default function SuiAdventureGame() {
           </CardActions>
         </Card>
       )}
-    </>
+    </Stack>
   );
 }
