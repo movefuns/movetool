@@ -5,9 +5,11 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Stack, TextField } from "@mui/material";
 import { useState } from 'react';
+import { useTranslation } from "react-i18next";
 import { AdventureGame } from "./adventureGame";
 
 export default function SuiAdventureGame() {
+  const {t} = useTranslation();
   const [gaming, setGaming] = useState<boolean>(false)
   const [gameObjectID, setGameObjectID] = useState<string>("")
   const [heroObjectID, setHeroObjectID] = useState<string>("")
@@ -35,7 +37,7 @@ export default function SuiAdventureGame() {
   return (
     <>
       <Typography gutterBottom variant="h2" component="div">
-        Adventure Game
+        {t("sui_adventure_game.title")}
       </Typography>
 
       {gaming ? (
@@ -46,7 +48,7 @@ export default function SuiAdventureGame() {
             <Stack spacing={2}>
               <TextField fullWidth id="gameObjectID" value={gameObjectID} autoFocus={true} onChange={(v) => {
                 setGameObjectID(v.target.value)
-              }} label="gameObjectID:" variant="outlined" />
+              }} label="gamePackageID:" variant="outlined" />
 
               <TextField fullWidth id="heroObjectID" value={heroObjectID} onChange={(v) => {
                 setHeroObjectID(v.target.value)
@@ -54,7 +56,7 @@ export default function SuiAdventureGame() {
             </Stack>
           </CardContent>
           <CardActions>
-            <Button variant="contained" fullWidth onClick={onNewGame}>New Game</Button>
+            <Button variant="contained" fullWidth onClick={onNewGame}>{t("sui_adventure_game.start_new_game")}</Button>
           </CardActions>
         </Card>
       )}

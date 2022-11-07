@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import { useTranslation } from "react-i18next";
 import { useWallet } from "@mysten/wallet-adapter-react";
 import { HeroStat } from "./heroStat";
 import { AutoFight } from "./autoFight";
@@ -15,6 +16,7 @@ type Props = {
 }
 
 export function AdventureGame(props: Props) {
+  const {t} = useTranslation();
   const { connected, signAndExecuteTransaction } = useWallet();
   const [hash, setHash] = useState<string>("")
 
@@ -92,19 +94,19 @@ export function AdventureGame(props: Props) {
           <Grid item xs={12}>
             <Card sx={{ minWidth: 275 }}>
               <Button onClick={onSlayBoar} disabled={!connected}>
-                slay boar
+                {t("sui_adventure_game.slay_boar")}
               </Button>
 
               <Button onClick={onSlayBoarKing} disabled={!connected}>
-                slay boar king
+                {t("sui_adventure_game.slay_boar_king")}
               </Button>
 
               <Button onClick={onLevelUp} disabled={!connected}>
-                level up
+                {t("sui_adventure_game.level_up")}
               </Button>
 
               <Button onClick={onExitGame} disabled={!connected}>
-                Exit Game
+                {t("sui_adventure_game.exit_game")}
               </Button>
             </Card>
           </Grid>

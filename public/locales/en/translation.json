@@ -20,7 +20,7 @@
     "abi_parser": "ABI Parser",
     "debug_string": "move vector<U8> to string",
 
-    "sui": "Sui Tools",
+    "sui": "Sui DApps",
     "sui_constract_call": "Call Contract",
     "sui_adventure_game": "Adventure Game"
   },
@@ -113,5 +113,14 @@
     "resolve": "resolve",
     "resolve_ok": "resolve ok",
     "resolve_fail": "resolve fail"
+  },
+  "sui_adventure_game": {
+    "title": "Adventure Game",
+    "start_new_game": "Start Game",
+    "slay_boar": "slay boar",
+    "slay_boar_king": "slay boar king",
+    "level_up": "level up",
+    "open_treasure_box": "Open treasure box",
+    "exit_game": "Exit Game"
   }
 }
